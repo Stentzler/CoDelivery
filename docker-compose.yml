@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  api:
+    container_name: api
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - DB_HOST=db_capstonem4
+      - DB_PASSWORD=1234
+      - POSTGRES_DB=capstone_m4
+      - DB_USER=postgres
+      - SECRET_KEY=maykel06
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+
+  db:
+    container_name: db_capstonem4
+    image: postgres:latest
+    ports:
+      - 5431:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=capstone_m4
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d capstone_m4']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
