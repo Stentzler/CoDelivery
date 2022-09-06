@@ -1,6 +1,6 @@
 import * as yup from "yup"
 
-const userLoginSchema= yup.object().shape({
+const sessionLoginSchema= yup.object().shape({
    
 
     email:yup.string().required().email(),
@@ -8,4 +8,4 @@ const userLoginSchema= yup.object().shape({
   
 })
 
-export {userLoginSchema}
+export {sessionLoginSchema}
