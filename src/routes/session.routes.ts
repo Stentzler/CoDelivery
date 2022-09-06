@@ -8,5 +8,5 @@ import { sessionLoginSchema } from '../schemas/session/sessionLoginSchema';
 const sessionRoutes = Router();
 
 sessionRoutes.post('/users',schemaValidatedMiddleware(sessionLoginSchema),userLoginController);
-sessionRoutes.post('/restaurant',schemaValidatedMiddleware(sessionLoginSchema),restaurantLoginController)
+sessionRoutes.post('/restaurants',schemaValidatedMiddleware(sessionLoginSchema),restaurantLoginController)
 export default sessionRoutes;
