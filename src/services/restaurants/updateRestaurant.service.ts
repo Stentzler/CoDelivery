@@ -15,7 +15,18 @@ const updateRestaurantService = async (id: string, data: any) => {
     throw new AppError("Request format is not an object", 400);
   }
 
+  if (
+    data.id ||
+    data.created_at ||
+    data.updated_at ||
+    data.isRestaurant ||
+    data.isActive
+  ) {
+    throw new AppError("Those changes are not allowed", 403);
+  }
+
   try {
+    // data.updated_at = new Date();
     await restaurantRepo.update(restaurant.id, { ...restaurant, ...data });
 
     return true;
