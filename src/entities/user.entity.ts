@@ -39,7 +39,7 @@ class Users {
 	@CreateDateColumn()
 	createdAt: Date;
 
-	@UpdateDateColumn({nullable: true, default: null})
+	@UpdateDateColumn()
 	updatedAt: Date;
 
 	@OneToOne(type => AddressInfo, {eager: true})
