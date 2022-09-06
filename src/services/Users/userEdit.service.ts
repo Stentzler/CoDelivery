@@ -3,6 +3,7 @@ import { Users } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 
 const userEditService = async (id: string, data: any) => {
+   
   const userRepository = AppDataSource.getRepository(Users);
 
   const user = await userRepository.findOne({ where: { id } });
@@ -14,25 +15,29 @@ const userEditService = async (id: string, data: any) => {
   if (typeof data !== "object") {
     throw new AppError("Request format is not an object", 400);
   }
+
   if (
     data.id ||
     data.created_at ||
     data.updated_at ||
     data.isRestaurant ||
     data.isActive||
-    data.address_info.id||
-    data.cart.id||
-    data.payment_info.id||
-    data.cart.price
+    data.address_info?.id||
+    data.cart?.id||
+    data.payment_info?.id||
+    data.cart?.price
   ) {
     throw new AppError("Those changes are not allowed", 403);
   }
+
   try {
-    data.updated_at = new Date();
+    
+    data.updatedAt = new Date() ;
     await userRepository.update(user.id, { ...user, ...data });
 
     return true;
   } catch (error) {
+    console.log(error)
     throw new AppError("Request has invalid properties", 422);
   }
 };

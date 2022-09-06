@@ -5,6 +5,7 @@ const userEditController = async (req: Request, res: Response) => {
     
     const { id } = req.params;
     const data = req.body;
+   
   
     const update = await  userEditService(id, data);
   

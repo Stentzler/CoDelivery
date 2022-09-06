@@ -4,23 +4,40 @@ import { deleteRestaurantController } from "../controllers/restaurants/deleteRes
 import { listRestaurantController } from "../controllers/restaurants/listRestaurant.controller";
 import { listTargetRestaurantController } from "../controllers/restaurants/listTargetRestaurant.controller";
 import { updateRestaurantController } from "../controllers/restaurants/updateRestaurant.controller";
-import { restaurantValidationMiddleware } from "../middlewares/restaurantValidation.middleware";
+import { authenticationMiddleware } from "../middlewares/authentication.middleware";
+import { idVerifierMiddleware } from "../middlewares/idVerifier.middleware";
+import { schemaValidatedMiddleware } from "../middlewares/schemaValidated.middleware";
 import { restaurantSchema } from "../schemas/restaurants/restaurants.schemas";
 
 const restaurantRoutes = Router();
 
 restaurantRoutes.post(
   "",
-  restaurantValidationMiddleware(restaurantSchema),
+  schemaValidatedMiddleware(restaurantSchema),
   createRestaurantController
 );
 
 restaurantRoutes.get("", listRestaurantController);
 
-restaurantRoutes.get("/:id", listTargetRestaurantController);
+restaurantRoutes.get(
+  "/:id",
+  authenticationMiddleware,
+  idVerifierMiddleware,
+  listTargetRestaurantController
+);
 
-restaurantRoutes.patch("/:id", updateRestaurantController);
+restaurantRoutes.patch(
+  "/:id",
+  authenticationMiddleware,
+  idVerifierMiddleware,
+  updateRestaurantController
+);
 
-restaurantRoutes.delete("/:id", deleteRestaurantController);
+restaurantRoutes.delete(
+  "/:id",
+  authenticationMiddleware,
+  idVerifierMiddleware,
+  deleteRestaurantController
+);
 
 export default restaurantRoutes;
