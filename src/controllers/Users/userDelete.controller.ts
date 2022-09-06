@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { userDeleteService } from "../../services/user/userDelete.service";
+import { userDeleteService } from "../../services/Users/userDelete.service";
 
 const userDeleteController = async (req: Request, res: Response) => {
 
@@ -7,7 +7,7 @@ const userDeleteController = async (req: Request, res: Response) => {
 
     await userDeleteService(id)
 
-    return res.status(204).json({message: "User updated successfully"})    
+    return res.status(204).json({message: "User deleted successfully"})    
     
 }
 
