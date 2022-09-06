@@ -42,7 +42,7 @@ class Restaurant {
 	@CreateDateColumn()
 	createdAt: Date;
 
-	@UpdateDateColumn({nullable: true, default: null})
+	@UpdateDateColumn()
 	updatedAt: Date;
 
 	@OneToOne(type => RestaurantAddress, {eager: true})
