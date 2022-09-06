@@ -5,7 +5,7 @@ import { listRestaurantController } from "../controllers/restaurants/listRestaur
 import { listTargetRestaurantController } from "../controllers/restaurants/listTargetRestaurant.controller";
 import { updateRestaurantController } from "../controllers/restaurants/updateRestaurant.controller";
 import { restaurantValidationMiddleware } from "../middlewares/restaurantValidation.middleware";
-import { restaurantSchema } from "../schemas/restaurants.schemas";
+import { restaurantSchema } from "../schemas/restaurants/restaurants.schemas";
 
 const restaurantRoutes = Router();
 

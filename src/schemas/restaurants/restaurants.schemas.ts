@@ -1,6 +1,7 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IRestaurantCreate } from "../interfaces/restaurants";
+import { IRestaurantCreate } from "../../interfaces/restaurants";
+import { restaurantAddressSchema } from "../restaurantAddress/restaurantAddress.schemas";
 
 const restaurantSchema: SchemaOf<IRestaurantCreate> = yup.object().shape({
   name: yup.string().required(),
@@ -10,15 +11,7 @@ const restaurantSchema: SchemaOf<IRestaurantCreate> = yup.object().shape({
   password: yup.string().required(),
   cnpj: yup.string().required(),
   category: yup.string().required(),
-  restaurant_address: yup.object({
-    address: yup.string().required(),
-    number: yup.string().required(),
-    phoneNumber: yup.string().required(),
-    zipCode: yup.string().required(),
-    city: yup.string().required(),
-    state: yup.string().required(),
-    complement: yup.string(),
-  }),
+  restaurant_address: yup.object(restaurantAddressSchema),
 });
 
 export { restaurantSchema };

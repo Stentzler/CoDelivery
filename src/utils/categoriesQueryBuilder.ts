@@ -24,13 +24,34 @@ const categoriesQueryBuilder = async () => {
     await AppDataSource.createQueryBuilder()
       .insert()
       .into(ProductCategory)
-      .values([{ name: "Hamburgers" }, { name: "Pizzas" }, { name: "Drinks" }])
+      .values([
+        { name: "Drinks" },
+        { name: "Pizzas" },
+        { name: "Hamburgers" },
+        { name: "Sushis" },
+        { name: "Massas" },
+        { name: "Ice Cream" },
+        { name: "Vegan" },
+        { name: "Vegetarian" },
+        { name: "Fit" },
+      ])
       .execute();
 
     await AppDataSource.createQueryBuilder()
       .insert()
       .into(RestaurantCategory)
-      .values([{ name: "Fast Food" }, { name: "Bakery" }, { name: "Pizzeria" }])
+      .values([
+        { name: "Fast Food" },
+        { name: "Bakery" },
+        { name: "Pizzeria" },
+        { name: "Barbecue" },
+        { name: "Japanese" },
+        { name: "Mediterranean" },
+        { name: "Arabian" },
+        { name: "Korean" },
+        { name: "Mexican" },
+        { name: "Thai" },
+      ])
       .execute();
   }
 };
