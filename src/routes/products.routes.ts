@@ -27,4 +27,7 @@ productsRoutes.delete(
   deleteProductController
 );
 // Desabilitar produto (SoftDelete)
-productsRoutes.patch("/restaurant/product/:id", disableProductController);
+productsRoutes.patch(
+  "/restaurant/product/disable/:id",
+  disableProductController
+);
