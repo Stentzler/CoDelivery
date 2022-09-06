@@ -35,7 +35,7 @@ const userCreateService = async ({
   newAddress.zipCode = address_info.zipCode;
   newAddress.city = address_info.city;
   newAddress.state = address_info.state;
-  newAddress.complement != address_info.complement;
+  newAddress.complement = address_info.complement|| "Not specified";
 
   addresRepository.create(newAddress);
 

@@ -5,7 +5,7 @@ import { listRestaurantController } from "../controllers/restaurants/listRestaur
 import { listTargetRestaurantController } from "../controllers/restaurants/listTargetRestaurant.controller";
 import { updateRestaurantController } from "../controllers/restaurants/updateRestaurant.controller";
 import { authenticationMiddleware } from "../middlewares/authentication.middleware";
-import { idVerifierMiddleware } from "../middlewares/idVerifier";
+import { idVerifierMiddleware } from "../middlewares/idVerifier.middleware";
 import { schemaValidatedMiddleware } from "../middlewares/schemaValidated.middleware";
 import { restaurantSchema } from "../schemas/restaurants/restaurants.schemas";
 
