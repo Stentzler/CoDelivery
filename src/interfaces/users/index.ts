@@ -30,7 +30,3 @@ export interface IUserResponse {
   updatedAt: Date;
 }
 
-export interface IUserLogin {
-  email: string;
-  password: string;
-}

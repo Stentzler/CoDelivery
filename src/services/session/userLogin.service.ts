@@ -1,12 +1,12 @@
 import AppDataSource from "../../data-source"
 import { Users } from "../../entities/user.entity"
 import { AppError } from "../../errors/AppError"
-import { IUserLogin } from "../../interfaces/users"
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
+import { ISessionLogin } from "../../interfaces/session";
 
-const userLoginService= async ({ email, password }:IUserLogin) => {
+const userLoginService= async ({ email, password }:ISessionLogin) => {
     const userRepository=AppDataSource.getRepository(Users)
     const usersList= await userRepository.find()
      const user= usersList.find((user)=>user.email===email)

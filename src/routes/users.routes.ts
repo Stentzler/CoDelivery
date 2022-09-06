@@ -1,10 +1,11 @@
 import {Router} from 'express';
 
 import { userCreateController } from '../controllers/users/userCreate.controller';
+import { userDeleteController } from '../controllers/users/userDelete.controller';
+import { useListController } from '../controllers/users/userList.controller';
 import { schemaValidatedMiddleware } from '../middlewares/schemaValidated.middleware';
 import { userSchema } from '../schemas/users/usersSchema';
-import { userDeleteController } from '../controllers/user/userDelete.controller';
-import { useListController } from '../controllers/user/userList.controller';
+
 
 const userRoutes = Router();
 
