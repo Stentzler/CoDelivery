@@ -1,12 +1,12 @@
-import AppDataSource from "../../data-source";
-import { Restaurant } from "../../entities/restaurant.entity";
+import AppDataSource from '../../data-source';
+import {Restaurant} from '../../entities/restaurant.entity';
 
 const listRestaurantService = async (): Promise<Restaurant[]> => {
-  const restaurantRepo = AppDataSource.getRepository(Restaurant);
+	const restaurantRepo = AppDataSource.getRepository(Restaurant);
 
-  const restaurants = await restaurantRepo.find();
+	const restaurants = await restaurantRepo.find();
 
-  return restaurants;
+	return restaurants;
 };
 
-export { listRestaurantService };
+export {listRestaurantService};
