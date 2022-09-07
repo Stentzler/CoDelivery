@@ -8,7 +8,6 @@ const userCreateController = async (req: Request, res: Response) => {
     username,
     email,
     password,
-    isRestaurant,
     address_info,
     payment_info,
   } = req.body;
@@ -17,7 +16,6 @@ const userCreateController = async (req: Request, res: Response) => {
     username,
     email,
     password,
-    isRestaurant,
     address_info,
     payment_info,
   });

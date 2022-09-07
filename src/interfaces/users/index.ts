@@ -12,7 +12,6 @@ export interface IUserRequest {
   username: string;
   email: string;
   password: string;
-  isRestaurant: boolean;
   address_info: IAddressInfoRequest;
   payment_info: IPaymentInfoRequest ;
 }
