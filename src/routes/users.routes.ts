@@ -22,7 +22,12 @@ userRoutes.patch(
   idVerifierMiddleware,
   userEditController
 );
-userRoutes.get("", userListController);
+userRoutes.get(
+  "/:id",
+  authenticationMiddleware,
+  idVerifierMiddleware,
+  userListController
+);
 userRoutes.delete(
   "/:id",
   authenticationMiddleware,
