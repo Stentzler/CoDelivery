@@ -8,7 +8,7 @@ const userDeleteService = async (id: string) => {
     const user = await userRepository.findOne({ where: {id}})
 
     if(!user){
-        throw new AppError("User not found", 400)
+        throw new AppError("User not found", 404)
     }
 
     await userRepository.update(id, {isActive: false})
