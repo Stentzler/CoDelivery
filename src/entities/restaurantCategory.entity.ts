@@ -1,12 +1,12 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('restaurantCategory')
+@Entity("restaurantCategory")
 class RestaurantCategory {
-	@PrimaryGeneratedColumn('uuid')
-	readonly id: string;
+  @PrimaryGeneratedColumn("uuid")
+  readonly id: string;
 
-	@Column({length: 60, unique: true})
-	name: string;
+  @Column({ length: 60, unique: true })
+  name: string;
 }
 
-export {RestaurantCategory};
+export { RestaurantCategory };
