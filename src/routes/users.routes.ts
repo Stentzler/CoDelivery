@@ -1,11 +1,38 @@
-import {Router} from 'express';
-import { userDeleteController } from '../controllers/user/userDelete.controller';
-import { useListController } from '../controllers/user/userList.controller';
+import { Router } from "express";
+
+import { userEditController } from "../controllers/users/userEdit.controller";
+import { authenticationMiddleware } from "../middlewares/authentication.middleware";
+import { userCreateController } from "../controllers/users/userCreate.controller";
+import { userDeleteController } from "../controllers/users/userDelete.controller";
+import { userListController } from "../controllers/users/userList.controller";
+import { schemaValidatedMiddleware } from "../middlewares/schemaValidated.middleware";
+import { userSchema } from "../schemas/users/usersSchema";
+import { idVerifierMiddleware } from "../middlewares/idVerifier.middleware";
 
 const userRoutes = Router();
 
-userRoutes.post('');
-userRoutes.get('/users', useListController)
-userRoutes.patch('/users/:id', userDeleteController)
+userRoutes.post(
+  "",
+  schemaValidatedMiddleware(userSchema),
+  userCreateController
+);
+userRoutes.patch(
+  "/:id",
+  authenticationMiddleware,
+  idVerifierMiddleware,
+  userEditController
+);
+userRoutes.get(
+  "/:id",
+  authenticationMiddleware,
+  idVerifierMiddleware,
+  userListController
+);
+userRoutes.delete(
+  "/:id",
+  authenticationMiddleware,
+  idVerifierMiddleware,
+  userDeleteController
+);
 
 export default userRoutes;
