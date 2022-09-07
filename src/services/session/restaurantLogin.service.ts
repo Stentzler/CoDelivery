@@ -18,7 +18,7 @@ const restaurantLoginService = async ({ email, password }: ISessionLogin) => {
     throw new AppError("Invalid email or password", 403);
   }
   if (restaurant.isActive === false) {
-    throw new AppError("restaurant is not active", 403);
+    throw new AppError("Restaurant is not active", 403);
   }
 
   const passwordMatch = bcrypt.compareSync(password, restaurant.password);
