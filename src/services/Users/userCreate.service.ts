@@ -12,7 +12,6 @@ const userCreateService = async ({
   username,
   email,
   password,
-  isRestaurant,
   address_info,
   payment_info,
 }: IUserRequest) => {
@@ -61,7 +60,6 @@ const userCreateService = async ({
   newUser.userName = username;
   newUser.email = email;
   newUser.password = bcrypt.hashSync(password, 10);
-  newUser.isRestaurant = isRestaurant;
   newUser.addressInfo = newAddress;
   newUser.cart = newCart;
   newUser.paymentInfo = newPayment;

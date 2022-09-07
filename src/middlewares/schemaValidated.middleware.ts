@@ -12,7 +12,7 @@ const schemaValidatedMiddleware =
     catch(error){   
         if(error instanceof Error){
             
-            return response.status(400).json({name:error.name,message:error.message})
+            return response.status(400).json({error:error.name,message:error.message})
         }
     }
   };
