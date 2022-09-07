@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { userEditService } from "../../services/Users/userEdit.service";
+import { userEditService } from "../../services/users/userEdit.service";
 
 const userEditController = async (req: Request, res: Response) => {
   const { id } = req.params;
