@@ -1,4 +1,3 @@
-export interface ICartInfoRequest{
-    subtotal:number
-    
-  }
+export interface ICartInfoRequest {
+  subtotal: number;
+}

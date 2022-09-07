@@ -1,12 +1,18 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('cart')
+@Entity("cart")
 class Cart {
-	@PrimaryGeneratedColumn('uuid')
-	readonly id: string;
+  @PrimaryGeneratedColumn("uuid")
+  readonly id: string;
 
-	@Column({type: 'decimal', precision: 12, scale: 2, default: 0, nullable: false})
-	price: number;
+  @Column({
+    type: "decimal",
+    precision: 12,
+    scale: 2,
+    default: 0,
+    nullable: false,
+  })
+  subtotal: number;
 }
 
-export {Cart};
+export { Cart };
