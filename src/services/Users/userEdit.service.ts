@@ -1,9 +1,13 @@
 import AppDataSource from "../../data-source";
+import { AddressInfo } from "../../entities/addressInfo.entity";
+import { PaymentInfo } from "../../entities/paymentInfo.entity";
 import { Users } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 
 const userEditService = async (id: string, data: any) => {
   const userRepository = AppDataSource.getRepository(Users);
+  const addressRepository = AppDataSource.getRepository(AddressInfo);
+  const paymentRepository=AppDataSource.getRepository(PaymentInfo)
 
   const user = await userRepository.findOne({ where: { id } });
 
@@ -24,12 +28,40 @@ const userEditService = async (id: string, data: any) => {
     data.cart?.id ||
     data.payment_info?.id ||
     data.cart?.price
+
   ) {
     throw new AppError("Those changes are not allowed", 403);
   }
-  console.log(user);
   try {
+
+    if (data.addressInfo) {
+      const address = await addressRepository.find();
+
+      const updatedAddress = address.find(
+        (address) => address.id === user.addressInfo.id
+      );
+      await addressRepository.update(user.addressInfo.id, {
+        ...user.addressInfo,
+        ...data.addressInfo,
+      });
+      delete data.addressInfo;
+    }
+
+    if(data.paymentInfo) {
+      const payment = await paymentRepository.find()
+
+      const updatedPayment = payment.find(
+        (payment) => payment.id === user.paymentInfo.id
+      );
+      await paymentRepository.update(user.paymentInfo.id, {
+        ...user.paymentInfo,
+        ...data.paymentInfo,
+      });
+      delete data.paymentInfo;
+    }
+
     data.updatedAt = new Date();
+
     await userRepository.update(user.id, { ...user, ...data });
 
     return true;
