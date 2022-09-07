@@ -1,6 +1,5 @@
 import { instanceToPlain } from "class-transformer";
 import { Request, Response } from "express";
-import { IRestaurant } from "../../interfaces/restaurants";
 import { createRestaurantService } from "../../services/restaurants/createRestaurant.service";
 
 const createRestaurantController = async (req: Request, res: Response) => {

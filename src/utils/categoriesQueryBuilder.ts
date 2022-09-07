@@ -29,7 +29,7 @@ const categoriesQueryBuilder = async () => {
         { name: "Pizzas" },
         { name: "Hamburgers" },
         { name: "Sushis" },
-        { name: "Massas" },
+        { name: "Pasta" },
         { name: "Ice Cream" },
         { name: "Vegan" },
         { name: "Vegetarian" },

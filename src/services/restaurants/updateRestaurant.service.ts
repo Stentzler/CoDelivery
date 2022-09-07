@@ -19,12 +19,23 @@ const updateRestaurantService = async (id: string, data: any) => {
 
   if (
     data.id ||
-    data.created_at ||
-    data.updated_at ||
+    data.createdAt ||
+    data.updatedAt ||
     data.isRestaurant ||
     data.isActive
   ) {
     throw new AppError("Those changes are not allowed", 403);
+  }
+
+  if (data.cnpj) {
+    const cnpjChecker = await restaurantRepo.findOne({
+      where: { cnpj: data.cnpj },
+    });
+
+    if (cnpjChecker) {
+      console.log(cnpjChecker);
+      throw new AppError("Given CNPJ is already being used", 409);
+    }
   }
 
   try {

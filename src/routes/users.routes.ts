@@ -16,8 +16,18 @@ userRoutes.post(
   schemaValidatedMiddleware(userSchema),
   userCreateController
 );
-userRoutes.patch("/:id" ,authenticationMiddleware,idVerifierMiddleware ,userEditController);
+userRoutes.patch(
+  "/:id",
+  authenticationMiddleware,
+  idVerifierMiddleware,
+  userEditController
+);
 userRoutes.get("", userListController);
-userRoutes.delete("/:id", authenticationMiddleware, userDeleteController);
+userRoutes.delete(
+  "/:id",
+  authenticationMiddleware,
+  idVerifierMiddleware,
+  userDeleteController
+);
 
 export default userRoutes;

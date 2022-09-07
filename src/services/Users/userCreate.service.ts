@@ -26,7 +26,7 @@ const userCreateService = async ({
   const emailExist = usersList.find((user) => user.email === email);
 
   if (emailExist) {
-    throw new AppError("Email alredy exist ", 400);
+    throw new AppError("Email already exists", 400);
   }
 
   const newAddress = new AddressInfo();
@@ -35,7 +35,7 @@ const userCreateService = async ({
   newAddress.zipCode = address_info.zipCode;
   newAddress.city = address_info.city;
   newAddress.state = address_info.state;
-  newAddress.complement = address_info.complement|| "Not specified";
+  newAddress.complement = address_info.complement || "Not specified";
 
   addresRepository.create(newAddress);
 

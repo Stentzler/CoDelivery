@@ -12,13 +12,12 @@ const userEditService = async (id: string, data: any) => {
   const user = await userRepository.findOne({ where: { id } });
 
   if (!user) {
-    throw new AppError("user not found", 404);
+    throw new AppError("User not found", 404);
   }
 
   if (typeof data !== "object") {
     throw new AppError("Request format is not an object", 400);
   }
-
   if (
     data.id ||
     data.created_at ||
@@ -26,13 +25,15 @@ const userEditService = async (id: string, data: any) => {
     data.isRestaurant ||
     data.isActive ||
     data.address_info?.id ||
-    data.cart ||
-    data.payment_info?.id
+    data.cart?.id ||
+    data.payment_info?.id ||
+    data.cart?.price
+
   ) {
     throw new AppError("Those changes are not allowed", 403);
   }
-
   try {
+
     if (data.addressInfo) {
       const address = await addressRepository.find();
 
@@ -43,23 +44,28 @@ const userEditService = async (id: string, data: any) => {
         ...user.addressInfo,
         ...data.addressInfo,
       });
+      delete data.addressInfo;
     }
 
-    if(data.paymentInfo){
-    const payment=await paymentRepository.find()
+    if(data.paymentInfo) {
+      const payment = await paymentRepository.find()
 
-    const updatedPayment=payment.find((payment)=>payment.id===user.paymentInfo.id)
-    await paymentRepository.update(user.paymentInfo.id,{...user.paymentInfo,...data.paymentInfo})
+      const updatedPayment = payment.find(
+        (payment) => payment.id === user.paymentInfo.id
+      );
+      await paymentRepository.update(user.paymentInfo.id, {
+        ...user.paymentInfo,
+        ...data.paymentInfo,
+      });
+      delete data.paymentInfo;
     }
 
     data.updatedAt = new Date();
-    delete data.addressInfo;
-    delete data.paymentInfo;
+
     await userRepository.update(user.id, { ...user, ...data });
 
     return true;
   } catch (error) {
-    console.log(error);
     throw new AppError("Request has invalid properties", 422);
   }
 };
