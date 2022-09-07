@@ -4,10 +4,10 @@ interface IProductRequest {
   name: string;
   description: string;
   price: number;
-  img_url: Url;
-  is_available: boolean;
-  categoryId: string | null;
-  restaurantId: string | null;
+  img_url?: string;
+  isAvailable?: boolean;
+  category: string;
+  restaurant: string;
 }
 
 interface IProductResponse {

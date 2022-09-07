@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { listProductsService } from "../../services/product/listProducts.service";
 
-const listProductsController = async (request: Request, response: Response) => {
-  const listProducts = await listProductsService();
-  return response.status(200).json(listProducts);
+const listProductsController = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
+  const listProducts = await listProductsService(id);
+  return res.status(200).json(listProducts);
 };
 
 export { listProductsController };
