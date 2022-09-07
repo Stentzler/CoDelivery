@@ -15,8 +15,8 @@ const deleteRestaurantService = async (id: string) => {
     throw new AppError("Restaurant is already inactive", 409);
   }
 
-  //   await restaurantRepo.update(restaurant.id, { isActive: false });
-  await restaurantRepo.delete(restaurant.id);
+  await restaurantRepo.update(restaurant.id, { isActive: false });
+  // await restaurantRepo.delete(restaurant.id);
 
   return true;
 };
