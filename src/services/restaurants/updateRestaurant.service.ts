@@ -1,9 +1,11 @@
 import AppDataSource from "../../data-source";
 import { Restaurant } from "../../entities/restaurant.entity";
+import { RestaurantAddress } from "../../entities/restaurantAddress.entity";
 import { AppError } from "../../errors/AppError";
 
 const updateRestaurantService = async (id: string, data: any) => {
   const restaurantRepo = AppDataSource.getRepository(Restaurant);
+  const restaurantAddressRepo = AppDataSource.getRepository(RestaurantAddress);
 
   const restaurant = await restaurantRepo.findOne({ where: { id } });
 
@@ -26,7 +28,20 @@ const updateRestaurantService = async (id: string, data: any) => {
   }
 
   try {
-    // data.updated_at = new Date();
+    data.updatedAt = new Date();
+
+    if (data.restaurant_address) {
+      const targetAddress = await restaurantAddressRepo.findOne({
+        where: { zipCode: restaurant.restaurantAddress.zipCode },
+      });
+
+      await restaurantAddressRepo.update(targetAddress!.id, {
+        ...targetAddress,
+        ...data.restaurant_address,
+      });
+      delete data.restaurant_address;
+    }
+
     await restaurantRepo.update(restaurant.id, { ...restaurant, ...data });
 
     return true;
