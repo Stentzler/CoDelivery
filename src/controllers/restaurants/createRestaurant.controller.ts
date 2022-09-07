@@ -10,6 +10,7 @@ const createRestaurantController = async (req: Request, res: Response) => {
     email,
     password,
     cnpj,
+    img_url,
     category,
     restaurant_address,
   } = req.body;
