@@ -7,7 +7,6 @@ const userSchema= yup.object().shape({
     username:yup.string().required(),
     email:yup.string().required().email(),
     password:yup.string().required(),
-    isRestaurant:yup.boolean().required(),
     address_info:yup.object(addressesSchema),
     payment_info:yup.object(paymentInfoSchema),
 })

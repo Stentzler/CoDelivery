@@ -8,13 +8,14 @@ import {AppError} from '../../errors/AppError';
 import {IUserRequest} from '../../interfaces/users';
 
 const userCreateService = async ({
-	full_name,
-	username,
-	email,
-	password,
-	isRestaurant,
-	address_info,
-	payment_info,
+
+  full_name,
+  username,
+  email,
+  password,
+  address_info,
+  payment_info,
+
 }: IUserRequest) => {
 	const userRepository = AppDataSource.getRepository(Users);
 	const addresRepository = AppDataSource.getRepository(AddressInfo);
@@ -56,15 +57,15 @@ const userCreateService = async ({
 	cartRepository.create(newCart);
 	await cartRepository.save(newCart);
 
-	const newUser = new Users();
-	newUser.fullName = full_name;
-	newUser.userName = username;
-	newUser.email = email;
-	newUser.password = bcrypt.hashSync(password, 10);
-	newUser.isRestaurant = isRestaurant;
-	newUser.addressInfo = newAddress;
-	newUser.cart = newCart;
-	newUser.paymentInfo = newPayment;
+  const newUser = new Users();
+  newUser.fullName = full_name;
+  newUser.userName = username;
+  newUser.email = email;
+  newUser.password = bcrypt.hashSync(password, 10);
+  newUser.addressInfo = newAddress;
+  newUser.cart = newCart;
+  newUser.paymentInfo = newPayment;
+
 
 	userRepository.create(newUser);
 
