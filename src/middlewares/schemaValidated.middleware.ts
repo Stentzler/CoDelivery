@@ -1,7 +1,8 @@
-import { Request, Response, NextFunction } from "express";
-import { AnySchema } from "yup";
+import {Request, Response, NextFunction} from 'express';
+import {AnySchema} from 'yup';
 
 const schemaValidatedMiddleware =
+
   (schema: AnySchema) =>
   async (request: Request, response: Response, next: NextFunction) => {
     try {
@@ -18,4 +19,4 @@ const schemaValidatedMiddleware =
   };
 
 
-export {schemaValidatedMiddleware}
+export {schemaValidatedMiddleware};

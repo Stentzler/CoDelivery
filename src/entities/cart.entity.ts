@@ -5,8 +5,14 @@ class Cart {
 	@PrimaryGeneratedColumn('uuid')
 	readonly id: string;
 
-	@Column({type: 'decimal', precision: 12, scale: 2, default: 0, nullable: false})
-	price: number;
+	@Column({
+		type: 'decimal',
+		precision: 12,
+		scale: 2,
+		default: 0,
+		nullable: false,
+	})
+	subtotal: number;
 }
 
 export {Cart};
