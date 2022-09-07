@@ -6,6 +6,7 @@ import { listTargetRestaurantController } from "../controllers/restaurants/listT
 import { updateRestaurantController } from "../controllers/restaurants/updateRestaurant.controller";
 import { authenticationMiddleware } from "../middlewares/authentication.middleware";
 import { idVerifierMiddleware } from "../middlewares/idVerifier.middleware";
+import { upload } from "../middlewares/multer.middleware";
 import { schemaValidatedMiddleware } from "../middlewares/schemaValidated.middleware";
 import { restaurantSchema } from "../schemas/restaurants/restaurants.schemas";
 
