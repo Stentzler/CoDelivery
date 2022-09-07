@@ -1,7 +1,7 @@
-import AppDataSource from "../../data-source";
-import { Restaurant } from "../../entities/restaurant.entity";
-import { RestaurantAddress } from "../../entities/restaurantAddress.entity";
-import { AppError } from "../../errors/AppError";
+import AppDataSource from '../../data-source';
+import { Restaurant } from '../../entities/restaurant.entity';
+import { RestaurantAddress } from '../../entities/restaurantAddress.entity';
+import { AppError } from '../../errors/AppError';
 
 const updateRestaurantService = async (id: string, data: any) => {
   const restaurantRepo = AppDataSource.getRepository(Restaurant);
@@ -10,11 +10,11 @@ const updateRestaurantService = async (id: string, data: any) => {
   const restaurant = await restaurantRepo.findOne({ where: { id } });
 
   if (!restaurant) {
-    throw new AppError("Restaurant not found", 404);
+    throw new AppError('Restaurant not found', 404);
   }
 
-  if (typeof data !== "object") {
-    throw new AppError("Request format is not an object", 400);
+  if (typeof data !== 'object') {
+    throw new AppError('Request format is not an object', 400);
   }
 
   if (
@@ -22,9 +22,10 @@ const updateRestaurantService = async (id: string, data: any) => {
     data.createdAt ||
     data.updatedAt ||
     data.isRestaurant ||
-    data.isActive
+    data.isActive ||
+    data.category
   ) {
-    throw new AppError("Those changes are not allowed", 403);
+    throw new AppError('Change not allowed', 403);
   }
 
   if (data.cnpj) {
@@ -34,7 +35,7 @@ const updateRestaurantService = async (id: string, data: any) => {
 
     if (cnpjChecker) {
       console.log(cnpjChecker);
-      throw new AppError("Given CNPJ is already being used", 409);
+      throw new AppError('Given CNPJ is already being used', 409);
     }
   }
 
@@ -57,7 +58,7 @@ const updateRestaurantService = async (id: string, data: any) => {
 
     return true;
   } catch (error) {
-    throw new AppError("Request has invalid properties", 422);
+    throw new AppError('Request has invalid properties', 422);
   }
 };
 
