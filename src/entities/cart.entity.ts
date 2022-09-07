@@ -6,7 +6,7 @@ class Cart {
 	readonly id: string;
 
 	@Column({type: 'decimal', precision: 12, scale: 2, default: 0, nullable: false})
-	price: number;
+	subtotal: number;
 }
 
 export {Cart};
