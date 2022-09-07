@@ -20,9 +20,8 @@ restaurantRoutes.post(
 restaurantRoutes.get("", listRestaurantController);
 
 restaurantRoutes.get(
-  "/:id",
+  "/profile",
   authenticationMiddleware,
-  idVerifierMiddleware,
   listTargetRestaurantController
 );
 

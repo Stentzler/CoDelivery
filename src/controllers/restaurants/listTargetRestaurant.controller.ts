@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { listTargetRestaurantService } from "../../services/restaurants/listTargetRestaurant.service";
 
 const listTargetRestaurantController = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const id = req.user.id;
 
   const restaurant = await listTargetRestaurantService(id);
 
