@@ -1,5 +1,4 @@
-import * as yup from "yup";
-import { SchemaOf } from "yup";
+import * as yup from 'yup';
 
 const restaurantAddressSchema = {
   address: yup.string().required(),

@@ -4,8 +4,11 @@ import { deleteRestaurantController } from "../controllers/restaurants/deleteRes
 import { listRestaurantController } from "../controllers/restaurants/listRestaurant.controller";
 import { listTargetRestaurantController } from "../controllers/restaurants/listTargetRestaurant.controller";
 import { updateRestaurantController } from "../controllers/restaurants/updateRestaurant.controller";
+import { uploadImageRestaurantController } from "../controllers/restaurants/uploadImageRestaurant.controller";
+
 import { authenticationMiddleware } from "../middlewares/authentication.middleware";
 import { idVerifierMiddleware } from "../middlewares/idVerifier.middleware";
+import { upload } from "../middlewares/multer.middleware";
 import { schemaValidatedMiddleware } from "../middlewares/schemaValidated.middleware";
 import { restaurantSchema } from "../schemas/restaurants/restaurants.schemas";
 
@@ -15,7 +18,9 @@ restaurantRoutes.post(
   "",
   schemaValidatedMiddleware(restaurantSchema),
   createRestaurantController
-);
+  );
+  
+  restaurantRoutes.post("/uploadImage/:id",authenticationMiddleware,idVerifierMiddleware,upload.single('image'),uploadImageRestaurantController)
 
 restaurantRoutes.get("", listRestaurantController);
 

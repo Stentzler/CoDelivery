@@ -1,6 +1,6 @@
-import { instanceToPlain } from "class-transformer";
-import { Request, Response } from "express";
-import { listRestaurantService } from "../../services/restaurants/listRestaurant.service";
+import { instanceToPlain } from 'class-transformer';
+import { Request, Response } from 'express';
+import { listRestaurantService } from '../../services/restaurants/listRestaurant.service';
 
 const listRestaurantController = async (req: Request, res: Response) => {
   const restaurants = await listRestaurantService();

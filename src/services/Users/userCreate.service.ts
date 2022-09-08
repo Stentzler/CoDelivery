@@ -8,13 +8,13 @@ import {AppError} from '../../errors/AppError';
 import {IUserRequest} from '../../interfaces/users';
 
 const userCreateService = async ({
-	full_name,
-	username,
-	email,
-	password,
-	isRestaurant,
-	address_info,
-	payment_info,
+	fullName,
+    userName,
+    email,
+    password,
+    addressInfo,
+    paymentInfo,
+
 }: IUserRequest) => {
 	const userRepository = AppDataSource.getRepository(Users);
 	const addresRepository = AppDataSource.getRepository(AddressInfo);
@@ -30,23 +30,23 @@ const userCreateService = async ({
 	}
 
 	const newAddress = new AddressInfo();
-	newAddress.address = address_info.address;
-	newAddress.number = address_info.number;
-	newAddress.zipCode = address_info.zipCode;
-	newAddress.city = address_info.city;
-	newAddress.state = address_info.state;
-	newAddress.complement = address_info.complement || 'Not specified';
+	newAddress.address = addressInfo.address;
+	newAddress.number = addressInfo.number;
+	newAddress.zipCode = addressInfo.zipCode;
+	newAddress.city = addressInfo.city;
+	newAddress.state = addressInfo.state;
+	newAddress.complement = addressInfo.complement || 'Not specified';
 
 	addresRepository.create(newAddress);
 
 	await addresRepository.save(newAddress);
 
 	const newPayment = new PaymentInfo();
-	newPayment.Name = payment_info.name;
-	newPayment.cardNo = payment_info.cardNo;
-	newPayment.cvvNo = payment_info.cvvNo;
-	newPayment.expireDate = payment_info.expireDate;
-	newPayment.cpf = payment_info.cpf;
+	newPayment.Name = paymentInfo.name;
+	newPayment.cardNo = paymentInfo.cardNo;
+	newPayment.cvvNo = paymentInfo.cvvNo;
+	newPayment.expireDate = paymentInfo.expireDate;
+	newPayment.cpf = paymentInfo.cpf;
 
 	paymentRepository.create(newPayment);
 	await paymentRepository.save(newPayment);
@@ -56,15 +56,15 @@ const userCreateService = async ({
 	cartRepository.create(newCart);
 	await cartRepository.save(newCart);
 
-	const newUser = new Users();
-	newUser.fullName = full_name;
-	newUser.userName = username;
-	newUser.email = email;
-	newUser.password = bcrypt.hashSync(password, 10);
-	newUser.isRestaurant = isRestaurant;
-	newUser.addressInfo = newAddress;
-	newUser.cart = newCart;
-	newUser.paymentInfo = newPayment;
+  const newUser = new Users();
+  newUser.fullName = fullName;
+  newUser.userName = userName;
+  newUser.email = email;
+  newUser.password = bcrypt.hashSync(password, 10);
+  newUser.addressInfo = newAddress;
+  newUser.cart = newCart;
+  newUser.paymentInfo = newPayment;
+
 
 	userRepository.create(newUser);
 

@@ -24,14 +24,27 @@ const userEditService = async (id: string, data: any) => {
     data.updated_at ||
     data.isRestaurant ||
     data.isActive ||
-    data.address_info?.id ||
+    data.addressInfo?.id ||
     data.cart?.id ||
-    data.payment_info?.id ||
+    data.paymentInfo?.id ||
     data.cart?.price
 
   ) {
     throw new AppError("Those changes are not allowed", 403);
   }
+
+  if (data.paymentInfo?.cpf) {
+    const cpfChecker = await paymentRepository.findOne({
+      where: { cpf: data.paymentInfo.cpf },
+    });
+
+    if (cpfChecker) {
+      console.log(cpfChecker);
+      throw new AppError("Given CPF is already being used", 409);
+    }
+  }
+
+
   try {
 
     if (data.addressInfo) {

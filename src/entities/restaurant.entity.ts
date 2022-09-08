@@ -29,6 +29,9 @@ class Restaurant {
 	@Column({length: 60, unique: true})
 	email: string;
 
+	@Column({length: 256})
+	img_url: string;
+
 	@Column({length: 120})
 	@Exclude()
 	password: string;

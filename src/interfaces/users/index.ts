@@ -8,13 +8,12 @@ import { IPaymentInfoRequest } from "../paymentInfo";
 
 
 export interface IUserRequest {
-  full_name: string;
-  username: string;
+  fullName: string;
+  userName: string;
   email: string;
   password: string;
-  isRestaurant: boolean;
-  address_info: IAddressInfoRequest;
-  payment_info: IPaymentInfoRequest ;
+  addressInfo: IAddressInfoRequest;
+  paymentInfo: IPaymentInfoRequest ;
 }
 
 export interface IUserResponse {

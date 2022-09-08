@@ -30,10 +30,10 @@ export interface IRestaurant {
 export interface IRestaurantCreate {
   name: string;
   description: string;
-  isRestaurant: boolean;
   email: string;
   password: string;
   cnpj: string;
+  img_url: string | undefined;
   category: string;
   restaurant_address: IRestaurantAdress;
 }

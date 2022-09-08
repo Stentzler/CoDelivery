@@ -8,7 +8,6 @@ import {
 } from "typeorm";
 import { ProductCategory } from "./categories.entity";
 import { Restaurant } from "./restaurant.entity";
-
 @Entity("products")
 class Products {
   @PrimaryGeneratedColumn("uuid")
