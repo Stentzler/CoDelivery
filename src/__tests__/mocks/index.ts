@@ -1,12 +1,11 @@
 import { IUserRequest } from '../../interfaces/users';
 
 export const mockedUser200: IUserRequest = {
-  full_name: 'Joana',
-  username: 'Joana23',
+  fullName: 'Joana',
+  userName: 'Joana23',
   email: 'joana@kenzie.com',
   password: '123456',
-  isRestaurant: false,
-  address_info: {
+  addressInfo: {
     address: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-340',
@@ -14,7 +13,7 @@ export const mockedUser200: IUserRequest = {
     state: 'Rio de Janeiro',
     complement: 'Condomínio Gaivotas',
   },
-  payment_info: {
+  paymentInfo: {
     name: 'Joana',
     cardNo: '2452374993562234',
     cvvNo: '950',
@@ -24,12 +23,11 @@ export const mockedUser200: IUserRequest = {
 };
 
 export const mockedUser201: IUserRequest = {
-  full_name: 'Joana',
-  username: 'Joana23',
+  fullName: 'Joana',
+  userName: 'Joana23',
   email: 'joana2@kenzie.com',
   password: '123456',
-  isRestaurant: false,
-  address_info: {
+  addressInfo: {
     address: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-340',
@@ -37,7 +35,7 @@ export const mockedUser201: IUserRequest = {
     state: 'Rio de Janeiro',
     complement: 'Condomínio Gaivotas',
   },
-  payment_info: {
+  paymentInfo: {
     name: 'Joana',
     cardNo: '2452374993562234',
     cvvNo: '950',
@@ -47,12 +45,11 @@ export const mockedUser201: IUserRequest = {
 };
 
 export const mockedUserSecond: IUserRequest = {
-  full_name: 'Joana D`Arc',
-  username: 'Joana23',
+  fullName: 'Joana D Arc',
+  userName: 'Joana23',
   email: 'user@mail.com',
   password: '1234',
-  isRestaurant: false,
-  address_info: {
+  addressInfo: {
     address: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-342',
@@ -60,7 +57,7 @@ export const mockedUserSecond: IUserRequest = {
     state: 'Rio de Janeiro',
     complement: 'Condomínio Gaivotas',
   },
-  payment_info: {
+  paymentInfo: {
     name: 'Joana D`Arc',
     cardNo: '2452374889562234',
     cvvNo: '951',

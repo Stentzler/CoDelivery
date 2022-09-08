@@ -13,6 +13,7 @@ import {
   mockedUserLogin,
   mockedUserSecond,
   sensibleDataAddressInfo,
+  sensibleDataCartInfo,
   sensibleDataPaymentInfo,
   sensibleDataUser,
 } from '../../mocks';
@@ -84,11 +85,11 @@ describe('/users', () => {
         break;
       case 1:
         // @ts-expect-error
-        delete newUser.full_name;
+        delete newUser.fullName;
         break;
       case 2:
         // @ts-expect-error
-        delete newUser.username;
+        delete newUser.userName;
         break;
       default:
         // @ts-expect-error
@@ -108,19 +109,19 @@ describe('/users', () => {
     switch (value) {
       case 0:
         // @ts-expect-error
-        delete newUser.address_info.address;
+        delete newUser.addressInfo.address;
         break;
       case 1:
         // @ts-expect-error
-        delete newUser.address_info.city;
+        delete newUser.addressInfo.city;
         break;
       case 2:
         // @ts-expect-error
-        delete newUser.address_info.zipCode;
+        delete newUser.addressInfo.zipCode;
         break;
       default:
         // @ts-expect-error
-        delete newUser.address_info.state;
+        delete newUser.addressInfo.state;
     }
 
     const response = await request(app).post('/users').send(newUser);
@@ -136,19 +137,19 @@ describe('/users', () => {
     switch (value) {
       case 0:
         // @ts-expect-error
-        delete newUser.payment_info.cardNo;
+        delete newUser.paymentInfo.cardNo;
         break;
       case 1:
         // @ts-expect-error
-        delete newUser.payment_info.cpf;
+        delete newUser.paymentInfo.cpf;
         break;
       case 2:
         // @ts-expect-error
-        delete newUser.payment_info.cvvNo;
+        delete newUser.paymentInfo.cvvNo;
         break;
       default:
         // @ts-expect-error
-        delete newUser.payment_info.expireDate;
+        delete newUser.paymentInfo.expireDate;
     }
 
     const response = await request(app).post('/users').send(newUser);
@@ -190,7 +191,7 @@ describe('/users', () => {
     expect(response.body[0].addressInfo).toHaveProperty('complement');
     expect(response.body[0].cart).toHaveProperty('id');
     expect(response.body[0].cart).toHaveProperty('subtotal');
-    // expect(response.body[0]).not.toHaveProperty('password'); - !!!!!!! Add back later !!!!!!!
+    expect(response.body[0]).not.toHaveProperty('password');
     expect(response.body[0].isRestaurant).toEqual(false);
     expect(response.body[0].isActive).toEqual(true);
     expect(response.status).toBe(200);
@@ -358,7 +359,7 @@ describe('/users', () => {
     const response = await request(app)
       .patch(`/users/${createdUser201Id}`)
       .set('Authorization', `Bearer ${loginResponse.body.token}`)
-      .send(sensibleDataPaymentInfo);
+      .send(sensibleDataCartInfo);
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(403);
