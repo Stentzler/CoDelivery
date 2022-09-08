@@ -11,7 +11,7 @@ const restaurantSchema: SchemaOf<IRestaurantCreate> = yup.object().shape({
   cnpj: yup.string().required(),
   img_url: yup.string(),
   category: yup.string().required(),
-  restaurant_address: yup.object(restaurantAddressSchema),
+  restaurantAddress: yup.object(restaurantAddressSchema),
 });
 
 export { restaurantSchema };
