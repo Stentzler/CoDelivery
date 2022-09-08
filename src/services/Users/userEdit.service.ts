@@ -1,36 +1,35 @@
-import AppDataSource from "../../data-source";
-import { AddressInfo } from "../../entities/addressInfo.entity";
-import { PaymentInfo } from "../../entities/paymentInfo.entity";
-import { Users } from "../../entities/user.entity";
-import { AppError } from "../../errors/AppError";
+import AppDataSource from '../../data-source';
+import { AddressInfo } from '../../entities/addressInfo.entity';
+import { PaymentInfo } from '../../entities/paymentInfo.entity';
+import { Users } from '../../entities/user.entity';
+import { AppError } from '../../errors/AppError';
 
 const userEditService = async (id: string, data: any) => {
   const userRepository = AppDataSource.getRepository(Users);
   const addressRepository = AppDataSource.getRepository(AddressInfo);
-  const paymentRepository=AppDataSource.getRepository(PaymentInfo)
+  const paymentRepository = AppDataSource.getRepository(PaymentInfo);
 
   const user = await userRepository.findOne({ where: { id } });
 
   if (!user) {
-    throw new AppError("User not found", 404);
+    throw new AppError('User not found', 404);
   }
 
-  if (typeof data !== "object") {
-    throw new AppError("Request format is not an object", 400);
+  if (typeof data !== 'object') {
+    throw new AppError('Request format is not an object', 400);
   }
   if (
     data.id ||
-    data.created_at ||
-    data.updated_at ||
+    data.createdAt ||
+    data.updatedAt ||
     data.isRestaurant ||
     data.isActive ||
     data.addressInfo?.id ||
     data.cart?.id ||
     data.paymentInfo?.id ||
     data.cart?.price
-
   ) {
-    throw new AppError("Those changes are not allowed", 403);
+    throw new AppError('Those changes are not allowed', 403);
   }
 
   if (data.paymentInfo?.cpf) {
@@ -40,13 +39,11 @@ const userEditService = async (id: string, data: any) => {
 
     if (cpfChecker) {
       console.log(cpfChecker);
-      throw new AppError("Given CPF is already being used", 409);
+      throw new AppError('Given CPF is already being used', 409);
     }
   }
 
-
   try {
-
     if (data.addressInfo) {
       const address = await addressRepository.find();
 
@@ -60,8 +57,8 @@ const userEditService = async (id: string, data: any) => {
       delete data.addressInfo;
     }
 
-    if(data.paymentInfo) {
-      const payment = await paymentRepository.find()
+    if (data.paymentInfo) {
+      const payment = await paymentRepository.find();
 
       const updatedPayment = payment.find(
         (payment) => payment.id === user.paymentInfo.id
@@ -79,7 +76,7 @@ const userEditService = async (id: string, data: any) => {
 
     return true;
   } catch (error) {
-    throw new AppError("Request has invalid properties", 422);
+    throw new AppError('Request has invalid properties', 422);
   }
 };
 
