@@ -10,7 +10,7 @@ const listRestaurantService = async (): Promise<Restaurant[]> => {
     (restaurant) => restaurant.isActive === true
   );
 
-  return restaurants;
+  return filteredRestaurants;
 };
 
 export { listRestaurantService };

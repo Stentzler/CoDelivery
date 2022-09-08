@@ -42,16 +42,16 @@ const updateRestaurantService = async (id: string, data: any) => {
   try {
     data.updatedAt = new Date();
 
-    if (data.restaurant_address) {
+    if (data.restaurantAddress) {
       const targetAddress = await restaurantAddressRepo.findOne({
         where: { zipCode: restaurant.restaurantAddress.zipCode },
       });
 
       await restaurantAddressRepo.update(targetAddress!.id, {
         ...targetAddress,
-        ...data.restaurant_address,
+        ...data.restaurantAddress,
       });
-      delete data.restaurant_address;
+      delete data.restaurantAddress;
     }
 
     await restaurantRepo.update(restaurant.id, { ...restaurant, ...data });

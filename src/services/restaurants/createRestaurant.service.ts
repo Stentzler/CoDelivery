@@ -14,7 +14,7 @@ const createRestaurantService = async ({
   cnpj,
   category,
   img_url,
-  restaurant_address,
+  restaurantAddress,
 }: IRestaurantCreate) => {
   const restaurantRepo = AppDataSource.getRepository(Restaurant);
   const restaurantAddressRepo = AppDataSource.getRepository(RestaurantAddress);
@@ -24,7 +24,7 @@ const createRestaurantService = async ({
   const restaurantNameDupe = await restaurantRepo.findOne({ where: { name } });
 
   if (restaurantNameDupe) {
-    throw new AppError('Restaurant name already exists');
+    throw new AppError('Restaurant name already exists', 409);
   }
 
   const restaurantCNPJDupe = await restaurantRepo.findOne({ where: { cnpj } });
@@ -40,7 +40,7 @@ const createRestaurantService = async ({
   }
 
   const zipCodeDupe = await restaurantAddressRepo.findOne({
-    where: { zipCode: restaurant_address.zipCode },
+    where: { zipCode: restaurantAddress.zipCode },
   });
 
   if (zipCodeDupe) {
@@ -82,19 +82,19 @@ const createRestaurantService = async ({
 
   const newRestaurantAddress = new RestaurantAddress();
 
-  newRestaurantAddress.address = restaurant_address.address;
-  newRestaurantAddress.number = restaurant_address.number;
-  newRestaurantAddress.phoneNumber = restaurant_address.phoneNumber;
-  newRestaurantAddress.zipCode = restaurant_address.zipCode;
-  newRestaurantAddress.city = restaurant_address.city;
-  newRestaurantAddress.state = restaurant_address.state;
+  newRestaurantAddress.address = restaurantAddress.address;
+  newRestaurantAddress.number = restaurantAddress.number;
+  newRestaurantAddress.phoneNumber = restaurantAddress.phoneNumber;
+  newRestaurantAddress.zipCode = restaurantAddress.zipCode;
+  newRestaurantAddress.city = restaurantAddress.city;
+  newRestaurantAddress.state = restaurantAddress.state;
   newRestaurantAddress.complement =
-    restaurant_address.complement || 'Not specified';
+    restaurantAddress.complement || 'Not specified';
 
   restaurantAddressRepo.create(newRestaurantAddress);
   await restaurantAddressRepo.save(newRestaurantAddress);
 
-  const restaurantAddress = await restaurantAddressRepo.findOne({
+  const targetRestaurantAddress = await restaurantAddressRepo.findOne({
     where: { zipCode: newRestaurantAddress.zipCode },
   });
 
@@ -109,7 +109,7 @@ const createRestaurantService = async ({
     img_url ||
     'https://res.cloudinary.com/dffnwue8t/image/upload/v1662581503/l4kg5doufmuuyvgrgj7u.png';
   newRestaurant.category = targetCategory;
-  newRestaurant.restaurantAddress = restaurantAddress!;
+  newRestaurant.restaurantAddress = targetRestaurantAddress!;
 
   restaurantRepo.create(newRestaurant);
   await restaurantRepo.save(newRestaurant);

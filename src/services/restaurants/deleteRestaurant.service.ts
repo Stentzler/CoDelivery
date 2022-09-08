@@ -16,7 +16,6 @@ const deleteRestaurantService = async (id: string) => {
   }
 
   await restaurantRepo.update(restaurant.id, { isActive: false });
-  // await restaurantRepo.delete(restaurant.id);
 
   return true;
 };
