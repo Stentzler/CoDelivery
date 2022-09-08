@@ -17,6 +17,11 @@ userRoutes.post(
   userCreateController
 );
 userRoutes.patch(
+  "/delete/inactivate",
+  authenticationMiddleware,
+  userSoftDeleteController
+);
+userRoutes.patch(
   "/:id",
   authenticationMiddleware,
   idVerifierMiddleware,
@@ -26,11 +31,6 @@ userRoutes.get(
   "/profile",
   authenticationMiddleware,
   userListController
-);
-userRoutes.patch(
-  "/inactivate",
-  authenticationMiddleware,
-  userSoftDeleteController
 );
 
 export default userRoutes;
