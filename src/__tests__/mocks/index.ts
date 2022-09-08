@@ -1,3 +1,4 @@
+import { IRestaurantCreate } from '../../interfaces/restaurants';
 import { IUserRequest } from '../../interfaces/users';
 
 export const mockedUser200: IUserRequest = {
@@ -118,4 +119,26 @@ export const sensibleDataCartInfo = {
   cart: {
     price: '3.00',
   },
+};
+
+export const loginNoEmail = {
+  password: '123456',
+};
+
+export const loginNoPassword = {
+  email: 'joana@kenzie.com',
+};
+
+export const loginWrongPassword = {
+  email: 'joana@kenzie.com',
+  password: '654321',
+};
+
+export const mockedRestaurant200: IRestaurantCreate = {
+  name: 'KenzieBurger',
+  description: 'Best burgers of all time!',
+  email: 'kenzie@email.com',
+  password: '123456',
+  cnpj: '86.903.685/0001-95',
+  category: 'Fast Food',
 };
