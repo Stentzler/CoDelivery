@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { listProductsService } from "../../services/product/listProducts.service";
+import { Request, Response } from 'express';
+import { listProductsService } from '../../services/product/listProducts.service';
 
 const listProductsController = async (req: Request, res: Response) => {
   const id: string = req.params.id;
