@@ -1,7 +1,8 @@
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
+import {Users} from './user.entity';
 
 @Entity('addressInfo')
-class AddressInfo {
+class Address {
 	@PrimaryGeneratedColumn('uuid')
 	readonly id: string;
 
@@ -22,6 +23,9 @@ class AddressInfo {
 
 	@Column({length: 20, nullable: true})
 	complement: string;
+
+	@ManyToOne(() => Users, {nullable: true})
+	user: Users;
 }
 
-export {AddressInfo};
+export {Address};
