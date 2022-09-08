@@ -140,5 +140,15 @@ export const mockedRestaurant200: IRestaurantCreate = {
   email: 'kenzie@email.com',
   password: '123456',
   cnpj: '86.903.685/0001-95',
+  img_url: '',
   category: 'Fast Food',
+  restaurantAddress: {
+    address: 'Avenida Herculano Teixeira da Rocha',
+    number: '47',
+    phoneNumber: '6689467123',
+    zipCode: '35745-932',
+    city: 'Andiroba',
+    state: 'MG',
+    complement: '',
+  },
 };
