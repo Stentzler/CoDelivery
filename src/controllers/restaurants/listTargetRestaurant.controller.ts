@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { listTargetRestaurantService } from "../../services/restaurants/listTargetRestaurant.service";
+import { Request, Response } from 'express';
+import { listTargetRestaurantService } from '../../services/restaurants/listTargetRestaurant.service';
 
 const listTargetRestaurantController = async (req: Request, res: Response) => {
   const id = req.user.id;
