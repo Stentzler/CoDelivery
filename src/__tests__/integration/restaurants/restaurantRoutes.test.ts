@@ -80,6 +80,46 @@ describe('/login', () => {
       case 3:
         // @ts-expect-error
         delete newRestaurant.password;
+      default:
+        // @ts-expect-error
+        delete newRestaurant.cnpj;
     }
+
+    const response = await request(app)
+      .post('/restaurants')
+      .send(newRestaurant);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(400);
+  });
+
+  test('POST /restaurants - Should not be able to create a restaurant with missing information 2 - Restaurant address data', async () => {
+    const newRestaurant = { ...mockedRestaurantDummy };
+    const value = randomNumberGenerator();
+
+    switch (value) {
+      case 0:
+        // @ts-expect-error
+        delete newRestaurant.restaurantAddress.address;
+      case 1:
+        // @ts-expect-error
+        delete newRestaurant.restaurantAddress.city;
+      case 2:
+        // @ts-expect-error
+        delete newRestaurant.restaurantAddress.zipCode;
+      case 3:
+        // @ts-expect-error
+        delete newRestaurant.restaurantAddress.number;
+      default:
+        // @ts-expect-error
+        delete newRestaurant.restaurantAddress.state;
+    }
+
+    const response = await request(app)
+      .post('/restaurants')
+      .send(newRestaurant);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(400);
   });
 });
