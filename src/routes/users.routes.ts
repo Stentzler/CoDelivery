@@ -18,7 +18,7 @@ userRoutes.post(
   userCreateController
 );
 userRoutes.patch(
-  "/delete/deactivate",
+  '/delete/deactivate',
   authenticationMiddleware,
   userSoftDeleteController
 );

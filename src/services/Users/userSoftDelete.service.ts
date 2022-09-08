@@ -1,19 +1,19 @@
-import AppDataSource from "../../data-source";
-import { Users } from "../../entities/user.entity";
-import { AppError } from "../../errors/AppError";
+import AppDataSource from '../../data-source';
+import { Users } from '../../entities/user.entity';
+import { AppError } from '../../errors/AppError';
 
 const userSoftDeleteService = async (id: string) => {
-    const userRepository = AppDataSource.getRepository(Users)
-    
-    const user = await userRepository.findOne({ where: {id}})
+  const userRepository = AppDataSource.getRepository(Users);
 
-    if(!user){
-        throw new AppError("User not found", 404)
-    }
+  const user = await userRepository.findOne({ where: { id } });
 
-    await userRepository.update(id, {isActive: false})
+  if (!user) {
+    throw new AppError('User not found', 404);
+  }
 
-    return true
-}
+  await userRepository.update(user.id, { isActive: false });
 
-export {userSoftDeleteService}
+  return true;
+};
+
+export { userSoftDeleteService };
