@@ -7,7 +7,9 @@ const uploadImageRestaurantController = async (req: Request, res: Response) => {
   const { id } = req.params;
   const imageSave = await uploadImageRestaurantService(imageRequest, id);
 
-  return res.status(200).json({ message: 'Upload succcessfully' });
+  return res
+    .status(200)
+    .json({ message: 'Image has been uploaded succcessfully' });
 };
 
 export { uploadImageRestaurantController };

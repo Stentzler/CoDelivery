@@ -1,10 +1,10 @@
-import { AppError } from "../../errors/AppError";
-import { IProductRequest } from "../../interfaces/product/product.interface";
+import { AppError } from '../../errors/AppError';
+import { IProductRequest } from '../../interfaces/product/product.interface';
 import {
   categoryRepository,
   productRepository,
   restaurantRepository,
-} from "./repositories";
+} from './repositories';
 
 const updateProductService = async (
   id: string,
@@ -26,18 +26,21 @@ const updateProductService = async (
   });
 
   if (!isRestaurant) {
-    throw new AppError("This product does not belong to this restaurant", 403);
+    throw new AppError('This product does not belong to this restaurant', 403);
   }
+
   if (!findProduct) {
-    throw new AppError("Product not find", 404);
+    throw new AppError('Product not found', 404);
   }
+
   if (!findCategory) {
-    throw new AppError("Product not find", 404);
+    throw new AppError('Product not found', 404);
   }
 
   if (!findRestaurant) {
-    throw new AppError("Product not find", 404);
+    throw new AppError('Product not found', 404);
   }
+
   const updatedProduct = await productRepository.update(id, {
     name: name ? name : findProduct.name,
     description: description ? description : findProduct.description,

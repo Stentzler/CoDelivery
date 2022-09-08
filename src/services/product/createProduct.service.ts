@@ -1,17 +1,17 @@
-import AppDataSource from "../../data-source";
-import { AppError } from "../../errors/AppError";
-import { IProductRequest } from "../../interfaces/product/product.interface";
+import AppDataSource from '../../data-source';
+import { AppError } from '../../errors/AppError';
+import { IProductRequest } from '../../interfaces/product/product.interface';
 import {
   categoryRepository,
   productRepository,
   restaurantRepository,
-} from "./repositories";
+} from './repositories';
 
 const createProductService = async ({
   name,
   description,
   price,
-  img_url = "https://res.cloudinary.com/dffnwue8t/image/upload/v1662581503/l4kg5doufmuuyvgrgj7u.png",
+  img_url = 'https://res.cloudinary.com/dffnwue8t/image/upload/v1662581503/l4kg5doufmuuyvgrgj7u.png',
   category,
   restaurant,
 }: IProductRequest) => {
@@ -19,13 +19,13 @@ const createProductService = async ({
   const findRestaurant = await restaurantRepository.findOneBy({
     id: restaurant,
   });
-  img_url;
 
   if (!findCategory) {
-    throw new AppError("Category not find", 404);
+    throw new AppError('Category not find', 404);
   }
+
   if (!findRestaurant) {
-    throw new AppError("Restaurant not find", 404);
+    throw new AppError('Restaurant not find', 404);
   }
 
   const newProduct = productRepository.create({
