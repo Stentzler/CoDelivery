@@ -38,7 +38,6 @@ const userEditService = async (id: string, data: any) => {
     });
 
     if (cpfChecker) {
-      console.log(cpfChecker);
       throw new AppError('Given CPF is already being used', 409);
     }
   }

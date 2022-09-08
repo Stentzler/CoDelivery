@@ -13,8 +13,6 @@ const createRestaurantController = async (req: Request, res: Response) => {
     category,
     restaurantAddress,
   } = req.body;
-  console.log(req.body);
-  console.log(req.file);
   const restaurant = await createRestaurantService({
     name,
     description,

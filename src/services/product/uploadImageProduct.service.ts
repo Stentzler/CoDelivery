@@ -19,7 +19,6 @@ const uploadImageProductService = async (
     relations: { restaurant: true },
     where: { id: id },
   });
-  console.log(product?.restaurant.id);
   if (restarauntId !== product?.restaurant.id) {
     throw new AppError('This product does not belong to this restaurant ', 401);
   }

@@ -34,7 +34,6 @@ const updateRestaurantService = async (id: string, data: any) => {
     });
 
     if (cnpjChecker) {
-      console.log(cnpjChecker);
       throw new AppError('Given CNPJ is already being used', 409);
     }
   }
