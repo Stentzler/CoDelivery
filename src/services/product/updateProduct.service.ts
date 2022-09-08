@@ -8,7 +8,7 @@ import {
 
 const updateProductService = async (
   id: string,
-  isRestaurant: boolean,
+  restaurantId: string,
   {
     name,
     description,
@@ -19,29 +19,39 @@ const updateProductService = async (
     restaurant,
   }: IProductRequest
 ) => {
-  const findProduct = await productRepository.findOneBy({ id: id });
+  const findProduct = await productRepository.findOne({
+    where: { id },
+    relations: { restaurant: true },
+  });
   const findCategory = await categoryRepository.findOneBy({ id: category });
   const findRestaurant = await restaurantRepository.findOneBy({
-    id: restaurant,
+    id: restaurantId,
   });
-
-  if (!isRestaurant) {
-    throw new AppError('This product does not belong to this restaurant', 403);
-  }
 
   if (!findProduct) {
     throw new AppError('Product not found', 404);
   }
 
   if (!findCategory) {
-    throw new AppError('Product not found', 404);
+    throw new AppError('Category not found', 404);
   }
 
   if (!findRestaurant) {
-    throw new AppError('Product not found', 404);
+    throw new AppError('Restaurant not found', 404);
+  }
+  console.log('Vibe check');
+
+  if (findProduct?.restaurant.id !== findRestaurant?.id) {
+    throw new AppError('This product does not belong to given restaurant', 403);
   }
 
-  const updatedProduct = await productRepository.update(id, {
+  const nameDupeChecker = await productRepository.findOne({ where: { name } });
+
+  if (nameDupeChecker) {
+    throw new AppError('Product name has already been registered', 409);
+  }
+
+  const updatedProduct = await productRepository.update(findProduct.id, {
     name: name ? name : findProduct.name,
     description: description ? description : findProduct.description,
     price: price ? price : findProduct.price,

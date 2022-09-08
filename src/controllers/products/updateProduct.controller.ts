@@ -1,15 +1,20 @@
 import { Request, Response } from 'express';
 import { IProductRequest } from '../../interfaces/product/product.interface';
+import { restaurantRepository } from '../../services/product/repositories';
 import { updateProductService } from '../../services/product/updateProduct.service';
 
 const updateProductController = async (req: Request, res: Response) => {
-  const isRestaurant: any = req.user;
+  const id: string = req.params.id;
 
-  const id: string = req.body.id;
+  console.log(id);
+
+  const restaurantId: string = req.user.id;
+
+  console.log(restaurantId);
 
   const data: IProductRequest = req.body;
 
-  const updatedProduct = await updateProductService(id, isRestaurant, data);
+  const updatedProduct = await updateProductService(id, restaurantId, data);
 
   return res.status(200).json(updatedProduct);
 };

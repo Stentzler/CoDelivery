@@ -21,11 +21,17 @@ const createProductService = async ({
   });
 
   if (!findCategory) {
-    throw new AppError('Category not find', 404);
+    throw new AppError('Category not found', 404);
   }
 
   if (!findRestaurant) {
-    throw new AppError('Restaurant not find', 404);
+    throw new AppError('Restaurant not found', 404);
+  }
+
+  const productDupe = await productRepository.findOne({ where: { name } });
+
+  if (productDupe) {
+    throw new AppError('Product name is already registered', 409);
   }
 
   const newProduct = productRepository.create({
@@ -36,7 +42,9 @@ const createProductService = async ({
     category: findCategory,
     restaurant: findRestaurant,
   });
+
   await productRepository.save(newProduct);
+
   return newProduct;
 };
 
