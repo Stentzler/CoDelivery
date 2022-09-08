@@ -6,7 +6,7 @@ const userSoftDeleteController = async (req: Request, res: Response) => {
 
   await userSoftDeleteService(id);
 
-  return res.status(204).json({ message: "User inactivate successfully" });
+  return res.status(204).json({ message: "User deactivated successfully" });
 };
 
 export { userSoftDeleteController };
