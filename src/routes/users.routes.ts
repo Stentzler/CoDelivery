@@ -18,19 +18,19 @@ userRoutes.post(
   userCreateController
 );
 userRoutes.patch(
+  "/delete/deactivate",
+  authenticationMiddleware,
+  userSoftDeleteController
+);
+
+userRoutes.patch(
   '/:id',
   authenticationMiddleware,
   idVerifierMiddleware,
   userEditController
 );
-userRoutes.get('/profile', authenticationMiddleware, userListController);
 
-userRoutes.patch(
-  '/inactivate',
-  authenticationMiddleware,
-  idVerifierMiddleware,
-  userSoftDeleteController
-);
+userRoutes.get('/profile', authenticationMiddleware, userListController);
 
 userRoutes.delete(
   '/:id',
