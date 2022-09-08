@@ -24,7 +24,7 @@ const createRestaurantService = async ({
   const restaurantNameDupe = await restaurantRepo.findOne({ where: { name } });
 
   if (restaurantNameDupe) {
-    throw new AppError('Restaurant name already exists');
+    throw new AppError('Restaurant name already exists', 409);
   }
 
   const restaurantCNPJDupe = await restaurantRepo.findOne({ where: { cnpj } });
