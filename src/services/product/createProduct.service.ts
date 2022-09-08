@@ -30,10 +30,20 @@ const createProductService = async (
     throw new AppError('Restaurant not found', 404);
   }
 
-  const productDupe = await productRepository.findOne({ where: { name } });
+  const productRepo = await productRepository.find({
+    relations: { restaurant: true },
+  });
 
-  if (productDupe) {
-    throw new AppError('Product name is already registered', 409);
+  const restaurantProducts = productRepo.filter(
+    (product) => product.restaurant.id === findRestaurant.id
+  );
+
+  const productDupe = restaurantProducts.filter(
+    (product) => product.name.toLowerCase() === name.toLowerCase()
+  );
+
+  if (productDupe.length > 0) {
+    throw new AppError('Product has already been registered', 409);
   }
 
   const newProduct = productRepository.create({
