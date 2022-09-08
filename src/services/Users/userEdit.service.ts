@@ -33,7 +33,7 @@ const userEditService = async (id: string, data: any) => {
     throw new AppError("Those changes are not allowed", 403);
   }
 
-  if (data.paymentInfo.cpf) {
+  if (data.paymentInfo?.cpf) {
     const cpfChecker = await paymentRepository.findOne({
       where: { cpf: data.paymentInfo.cpf },
     });
