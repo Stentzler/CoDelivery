@@ -3,6 +3,7 @@ import AppDataSource from '../../../data-source';
 import request from 'supertest';
 import app from '../../../app';
 import { mockedRestaurant200 } from '../../mocks';
+import { categoriesQueryBuilder } from '../../../utils/categoriesQueryBuilder';
 
 describe('/login', () => {
   let connection: DataSource;
@@ -11,6 +12,9 @@ describe('/login', () => {
     await AppDataSource.initialize()
       .then((res) => {
         connection = res;
+      })
+      .then((res) => {
+        categoriesQueryBuilder();
       })
       .catch((err) => {
         console.error('Error during Data Source initialization', err);
@@ -53,6 +57,8 @@ describe('/login', () => {
     const response = await request(app)
       .post('/restaurants')
       .send(mockedRestaurant200);
+
+    console.log(response.body);
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(409);
