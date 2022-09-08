@@ -2,11 +2,14 @@ import { productRepository } from './repositories';
 
 const listProductsService = async (id: string) => {
   if (id) {
-    const Products = await productRepository.findOneBy({ id: id });
-    return Products;
+    const product = await productRepository.findOne({
+      where: { id },
+      relations: { category: true, restaurant: true },
+    });
+    return product;
   }
 
-  const Products = await productRepository.find();
-  return Products;
+  const products = await productRepository.find();
+  return products;
 };
 export { listProductsService };
