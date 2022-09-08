@@ -11,7 +11,7 @@ const createRestaurantController = async (req: Request, res: Response) => {
     cnpj,
     img_url,
     category,
-    restaurant_address,
+    restaurantAddress,
   } = req.body;
   console.log(req.body);
   console.log(req.file);
@@ -23,7 +23,7 @@ const createRestaurantController = async (req: Request, res: Response) => {
     cnpj,
     img_url,
     category,
-    restaurant_address,
+    restaurantAddress,
   });
 
   return res.status(201).json(instanceToPlain(restaurant));

@@ -20,11 +20,11 @@ export interface IRestaurant {
   email: string;
   password: string;
   cnpj: string;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
   isActive: boolean;
   category: IRestaurantCategory;
-  restaurant_address: IRestaurantAdress;
+  restaurantAddress: IRestaurantAdress;
 }
 
 export interface IRestaurantCreate {
@@ -35,7 +35,7 @@ export interface IRestaurantCreate {
   cnpj: string;
   img_url: string | undefined;
   category: string;
-  restaurant_address: IRestaurantAdress;
+  restaurantAddress: IRestaurantAdress;
 }
 
 export interface IRestaurantLogin {
