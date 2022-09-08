@@ -4,9 +4,9 @@ import { userDeleteService } from "../../services/users/userDelete.service";
 const userDeleteController = async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  await userDeleteService(id);
+   const deleted=await userDeleteService(id);
 
-  return res.status(204).json({ message: "User deleted successfully" });
+  return res.status(200).json({ message: "User deleted successfully" });
 };
 
 export { userDeleteController };
