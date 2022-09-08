@@ -158,7 +158,7 @@ describe('/users', () => {
     expect(response.status).toBe(400);
   });
 
-  test('GET /users/:id - Should list the user', async () => {
+  test('GET /users/profile - Should list the user', async () => {
     const createdUser = await request(app).post('/users').send(mockedUser201);
 
     createdUser201Id = createdUser.body.id;
@@ -168,7 +168,7 @@ describe('/users', () => {
       .send(mockedUser201Login);
 
     const response = await request(app)
-      .get(`/users/${createdUser201Id}`)
+      .get(`/users/profile`)
       .set('Authorization', `Bearer ${loginResponse.body.token}`);
 
     expect(response.body[0]).toHaveProperty('id');
@@ -197,34 +197,17 @@ describe('/users', () => {
     expect(response.status).toBe(200);
   });
 
-  test('GET /users/:id - Should not be able to list a user without a token', async () => {
-    const response = await request(app).get(`/users/${createdUser201Id}`);
+  test('GET /users/profile - Should not be able to list a user without a token', async () => {
+    const response = await request(app).get(`/users/profile`);
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(401);
   });
 
-  test('GET /users/:id - Should not be able to list a user with an invalid token', async () => {
+  test('GET /users/profile - Should not be able to list a user with an invalid token', async () => {
     const response = await request(app)
-      .get(`/users/${createdUser201Id}`)
+      .get(`/users/profile`)
       .set('Authorization', `Bearer ${fakeToken}`);
-
-    expect(response.body).toHaveProperty('message');
-    expect(response.status).toBe(401);
-  });
-
-  test('GET /users/:id - Should not be able to list a user other than self', async () => {
-    const secondUser = await request(app).post('/users').send(mockedUserSecond);
-
-    createdUserSecondId = secondUser.body.id;
-
-    const loginResponse = await request(app)
-      .post('/login/users')
-      .send(mockedUser201Login);
-
-    const response = await request(app)
-      .get(`/users/${secondUser.body.id}`)
-      .set('Authorization', `Bearer ${loginResponse.body.token}`);
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(401);
@@ -292,6 +275,10 @@ describe('/users', () => {
   });
 
   test('PATCH /users/:id - Should not be able to edit a user other than self', async () => {
+    const secondUser = await request(app).post('/users').send(mockedUserSecond);
+
+    createdUserSecondId = secondUser.body.id;
+
     const loginResponse = await request(app)
       .post('/login/users')
       .send(mockedUser201Login);
@@ -316,8 +303,6 @@ describe('/users', () => {
       .patch(`/users/${createdUser201Id}`)
       .set('Authorization', `Bearer ${loginResponse.body.token}`)
       .send(sensibleDataUser[value]);
-
-    console.log(sensibleDataUser[value]);
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(403);

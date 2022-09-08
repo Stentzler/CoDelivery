@@ -2,8 +2,9 @@ import { DataSource } from 'typeorm';
 import AppDataSource from '../../../data-source';
 import request from 'supertest';
 import app from '../../../app';
-import { mockedRestaurant200 } from '../../mocks';
+import { mockedRestaurant200, mockedRestaurantDummy } from '../../mocks';
 import { categoriesQueryBuilder } from '../../../utils/categoriesQueryBuilder';
+import { randomNumberGenerator } from '../../../utils/randomRemover';
 
 describe('/login', () => {
   let connection: DataSource;
@@ -58,9 +59,27 @@ describe('/login', () => {
       .post('/restaurants')
       .send(mockedRestaurant200);
 
-    console.log(response.body);
-
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(409);
+  });
+
+  test('POST /restaurants - Should not be able to create a restaurant with missing information 1 - Restaurant data', async () => {
+    const newRestaurant = { ...mockedRestaurantDummy };
+    const value = randomNumberGenerator();
+
+    switch (value) {
+      case 0:
+        // @ts-expect-error
+        delete newRestaurant.name;
+      case 1:
+        // @ts-expect-error
+        delete newRestaurant.description;
+      case 2:
+        // @ts-expect-error
+        delete newRestaurant.email;
+      case 3:
+        // @ts-expect-error
+        delete newRestaurant.password;
+    }
   });
 });

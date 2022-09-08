@@ -152,3 +152,22 @@ export const mockedRestaurant200: IRestaurantCreate = {
     complement: '',
   },
 };
+
+export const mockedRestaurantDummy: IRestaurantCreate = {
+  name: 'FamilyBurger',
+  description: 'Burgers for your entire family!',
+  email: 'family@email.com',
+  password: '123456',
+  cnpj: '93.716.438/0025-92',
+  img_url: '',
+  category: 'Fast Food',
+  restaurantAddress: {
+    address: 'Rua Coelho e Castro',
+    number: '125',
+    phoneNumber: '2126420659',
+    zipCode: '20081-060',
+    city: 'Rio de Janeiro',
+    state: 'RJ',
+    complement: '',
+  },
+};
