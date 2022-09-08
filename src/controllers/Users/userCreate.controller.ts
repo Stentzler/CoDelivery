@@ -4,20 +4,20 @@ import { userCreateService } from "../../services/users/userCreate.service";
 
 const userCreateController = async (req: Request, res: Response) => {
   const {
-    full_name,
-    username,
+    fullName,
+    userName,
     email,
     password,
-    address_info,
-    payment_info,
+    addressInfo,
+    paymentInfo,
   } = req.body;
   const newUser = await userCreateService({
-    full_name,
-    username,
+    fullName,
+    userName,
     email,
     password,
-    address_info,
-    payment_info,
+    addressInfo,
+    paymentInfo,
   });
   return res.status(201).json(instanceToPlain(newUser));
 };
