@@ -9,7 +9,7 @@ import {
 	JoinColumn,
 	ManyToOne,
 } from 'typeorm';
-import {RestaurantAddress} from './restaurantAddress.entity';
+import {Address} from './address.entity';
 import {RestaurantCategory} from './restaurantCategory.entity';
 
 @Entity('restaurant')
@@ -39,6 +39,9 @@ class Restaurant {
 	@Column({length: 60, unique: true})
 	cnpj: string;
 
+	@Column({length: 60})
+	phoneNumber: string;
+
 	@Column({default: true})
 	isActive: boolean;
 
@@ -48,9 +51,9 @@ class Restaurant {
 	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@OneToOne(type => RestaurantAddress, {eager: true})
+	@OneToOne(type => Address, {eager: true})
 	@JoinColumn()
-	restaurantAddress: RestaurantAddress;
+	address: Address;
 
 	@ManyToOne(() => RestaurantCategory)
 	category: RestaurantCategory;
