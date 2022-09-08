@@ -7,17 +7,19 @@ import {
   restaurantRepository,
 } from './repositories';
 
-const createProductService = async ({
-  name,
-  description,
-  price,
-  img_url = 'https://res.cloudinary.com/dffnwue8t/image/upload/v1662581503/l4kg5doufmuuyvgrgj7u.png',
-  category,
-  restaurant,
-}: IProductRequest) => {
+const createProductService = async (
+  {
+    name,
+    description,
+    price,
+    img_url = 'https://res.cloudinary.com/dffnwue8t/image/upload/v1662581503/l4kg5doufmuuyvgrgj7u.png',
+    category,
+  }: IProductRequest,
+  restarauntId: string
+) => {
   const findCategory = await categoryRepository.findOneBy({ name: category });
   const findRestaurant = await restaurantRepository.findOneBy({
-    id: restaurant,
+    id: restarauntId,
   });
 
   if (!findCategory) {

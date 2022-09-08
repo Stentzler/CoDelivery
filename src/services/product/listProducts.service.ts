@@ -1,4 +1,4 @@
-import { productRepository } from './repositories';
+import { productRepository, restaurantRepository } from './repositories';
 
 const listProductsService = async (id: string) => {
   if (id) {
@@ -9,7 +9,10 @@ const listProductsService = async (id: string) => {
     return product;
   }
 
-  const products = await productRepository.find();
+  const products = await productRepository.find({
+    where: { id: id },
+  });
+  console.log(products);
   return products;
 };
 export { listProductsService };
