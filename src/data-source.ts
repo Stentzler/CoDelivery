@@ -10,9 +10,9 @@ const AppDataSource = new DataSource(
         entities: ["src/entities/*.ts"],
       }
     : {
-        type: "postgres",
+        type: process.env.DB_HOST,
         host: "localhost",
-        port: 5431,
+        port: 5432,
         username: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_PWD,
         database: process.env.POSTGRES_DB,
