@@ -9,15 +9,7 @@ import {
 const updateProductService = async (
   id: string,
   restaurantId: string,
-  {
-    name,
-    description,
-    price,
-    img_url,
-    isAvailable,
-    category,
-    restaurant,
-  }: IProductRequest
+  { name, description, price, img_url, isAvailable, category }: IProductRequest
 ) => {
   const findProduct = await productRepository.findOne({
     where: { id },
@@ -39,7 +31,6 @@ const updateProductService = async (
   if (!findRestaurant) {
     throw new AppError('Restaurant not found', 404);
   }
-  console.log('Vibe check');
 
   if (findProduct?.restaurant.id !== findRestaurant?.id) {
     throw new AppError('This product does not belong to given restaurant', 403);

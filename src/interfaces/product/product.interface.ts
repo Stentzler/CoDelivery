@@ -1,4 +1,4 @@
-import { Url } from "url";
+import { Url } from 'url';
 
 interface IProductRequest {
   name: string;
@@ -7,7 +7,6 @@ interface IProductRequest {
   img_url?: string;
   isAvailable?: boolean;
   category: string;
-  restaurant: string;
 }
 
 interface IProductResponse {
