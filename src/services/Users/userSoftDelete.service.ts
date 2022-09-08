@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { Users } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 
-const userDeleteService = async (id: string) => {
+const userSoftDeleteService = async (id: string) => {
     const userRepository = AppDataSource.getRepository(Users)
     
     const user = await userRepository.findOne({ where: {id}})
@@ -16,4 +16,4 @@ const userDeleteService = async (id: string) => {
     return true
 }
 
-export {userDeleteService}
+export {userSoftDeleteService}
