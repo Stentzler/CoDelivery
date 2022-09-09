@@ -6,7 +6,7 @@ export const mockedUser200: IUserRequest = {
   userName: 'Joana23',
   email: 'joana@kenzie.com',
   password: '123456',
-  addressInfo: {
+  address: {
     address: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-340',
@@ -28,7 +28,7 @@ export const mockedUser201: IUserRequest = {
   userName: 'Joana23',
   email: 'joana2@kenzie.com',
   password: '123456',
-  addressInfo: {
+  address: {
     address: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-340',
@@ -50,7 +50,7 @@ export const mockedUserSecond: IUserRequest = {
   userName: 'Joana23',
   email: 'user@mail.com',
   password: '1234',
-  addressInfo: {
+  address: {
     address: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-342',
@@ -85,7 +85,7 @@ export const editData1 = {
 };
 
 export const editData2 = {
-  addressInfo: {
+  address: {
     number: '42',
   },
 };
@@ -140,12 +140,12 @@ export const mockedRestaurant200: IRestaurantCreate = {
   email: 'kenzie@email.com',
   password: '123456',
   cnpj: '86.903.685/0001-95',
+  phoneNumber: '6689467123',
   img_url: '',
   category: 'Fast Food',
-  restaurantAddress: {
+  address: {
     address: 'Avenida Herculano Teixeira da Rocha',
     number: '47',
-    phoneNumber: '6689467123',
     zipCode: '35745-932',
     city: 'Andiroba',
     state: 'MG',
@@ -159,12 +159,12 @@ export const mockedRestaurantDummy: IRestaurantCreate = {
   email: 'family@email.com',
   password: '123456',
   cnpj: '93.716.438/0025-92',
+  phoneNumber: '2126420659',
   img_url: '',
   category: 'Fast Food',
-  restaurantAddress: {
+  address: {
     address: 'Rua Coelho e Castro',
     number: '125',
-    phoneNumber: '2126420659',
     zipCode: '20081-060',
     city: 'Rio de Janeiro',
     state: 'RJ',
