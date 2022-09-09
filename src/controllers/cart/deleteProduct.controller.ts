@@ -1,15 +1,16 @@
 import {Request, Response} from 'express';
-import {AppError} from '../../errors/AppError';
-import {deleteProductService} from '../../services/product/deleteProduct.service';
+import {deleteCartProductService} from '../../services/cart/deleteProduct.service';
 
-const deleteProductController = async (req: Request, res: Response) => {
+const deleteCartProductController = async (req: Request, res: Response) => {
 	const productId: string = req.params.id;
 
 	const userId: string = req.user.id;
 
-	const removeProduct = deleteProductService(userId, productId);
+	console.log(userId, productId);
+
+	const removeProduct = deleteCartProductService(userId, productId);
 
 	return res.sendStatus(204);
 };
 
-export {deleteProductController};
+export {deleteCartProductController};

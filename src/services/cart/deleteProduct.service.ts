@@ -3,7 +3,7 @@ import {Cart} from '../../entities/cart.entity';
 import {Users} from '../../entities/user.entity';
 import {AppError} from '../../errors/AppError';
 
-const deleteProductService = async (userId: string, prodId: string) => {
+const deleteCartProductService = async (userId: string, prodId: string) => {
 	const userRepository = AppDataSource.getRepository(Users);
 	const cartRepository = AppDataSource.getRepository(Cart);
 
@@ -42,4 +42,4 @@ const deleteProductService = async (userId: string, prodId: string) => {
 	return;
 };
 
-export {deleteProductService};
+export {deleteCartProductService};
