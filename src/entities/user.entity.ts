@@ -7,8 +7,8 @@ import {
 	UpdateDateColumn,
 	JoinColumn,
 	OneToOne,
+	OneToMany,
 } from 'typeorm';
-import {AddressInfo} from './addressInfo.entity';
 import {Cart} from './cart.entity';
 import {PaymentInfo} from './paymentInfo.entity';
 
@@ -41,10 +41,6 @@ class Users {
 
 	@UpdateDateColumn()
 	updatedAt: Date;
-
-	@OneToOne(type => AddressInfo, {eager: true})
-	@JoinColumn()
-	addressInfo: AddressInfo;
 
 	@OneToOne(type => PaymentInfo, {eager: true})
 	@JoinColumn()

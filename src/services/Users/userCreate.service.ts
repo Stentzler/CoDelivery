@@ -1,6 +1,6 @@
 import AppDataSource from '../../data-source';
 import bcrypt from 'bcrypt';
-import {AddressInfo} from '../../entities/addressInfo.entity';
+import {AddressInfo} from '../../entities/address.entity';
 import {Cart} from '../../entities/cart.entity';
 import {PaymentInfo} from '../../entities/paymentInfo.entity';
 import {Users} from '../../entities/user.entity';
@@ -9,12 +9,11 @@ import {IUserRequest} from '../../interfaces/users';
 
 const userCreateService = async ({
 	fullName,
-    userName,
-    email,
-    password,
-    addressInfo,
-    paymentInfo,
-
+	userName,
+	email,
+	password,
+	addressInfo,
+	paymentInfo,
 }: IUserRequest) => {
 	const userRepository = AppDataSource.getRepository(Users);
 	const addresRepository = AppDataSource.getRepository(AddressInfo);
@@ -56,15 +55,13 @@ const userCreateService = async ({
 	cartRepository.create(newCart);
 	await cartRepository.save(newCart);
 
-  const newUser = new Users();
-  newUser.fullName = fullName;
-  newUser.userName = userName;
-  newUser.email = email;
-  newUser.password = bcrypt.hashSync(password, 10);
-  newUser.addressInfo = newAddress;
-  newUser.cart = newCart;
-  newUser.paymentInfo = newPayment;
-
+	const newUser = new Users();
+	newUser.fullName = fullName;
+	newUser.userName = userName;
+	newUser.email = email;
+	newUser.password = bcrypt.hashSync(password, 10);
+	newUser.cart = newCart;
+	newUser.paymentInfo = newPayment;
 
 	userRepository.create(newUser);
 

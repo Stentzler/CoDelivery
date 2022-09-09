@@ -5,6 +5,8 @@ import { listProductsController } from '../controllers/products/listProducts.con
 import { updateProductController } from '../controllers/products/updateProduct.controller';
 import { authenticationMiddleware } from '../middlewares/authentication.middleware';
 import { isRestaurantMiddleware } from '../middlewares/isRestaurant.middlewares';
+import { upload } from '../middlewares/multer.middleware';
+import { uploadImageProductController } from '../controllers/products/uploadImageProduct.controller';
 
 const productsRoutes = Router();
 
@@ -30,6 +32,19 @@ productsRoutes.patch(
 );
 
 //deletar produto
-productsRoutes.delete('/:id', deleteProductController);
+productsRoutes.delete(
+  '/:id',
+  authenticationMiddleware,
+  isRestaurantMiddleware,
+  deleteProductController
+);
+
+productsRoutes.post(
+  '/uploadImage/:id',
+  authenticationMiddleware,
+  isRestaurantMiddleware,
+  upload.single('image'),
+  uploadImageProductController
+);
 
 export default productsRoutes;

@@ -9,18 +9,18 @@ const createRestaurantController = async (req: Request, res: Response) => {
     email,
     password,
     cnpj,
+    phoneNumber,
     img_url,
     category,
     restaurantAddress,
   } = req.body;
-  console.log(req.body);
-  console.log(req.file);
   const restaurant = await createRestaurantService({
     name,
     description,
     email,
     password,
     cnpj,
+    phoneNumber,
     img_url,
     category,
     restaurantAddress,

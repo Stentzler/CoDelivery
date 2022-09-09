@@ -30,7 +30,6 @@ const uploadImageRestaurantService = async (
     img_url: upload.secure_url,
   });
 
-  console.log(upload.secure_url);
   return upload;
 };
 
