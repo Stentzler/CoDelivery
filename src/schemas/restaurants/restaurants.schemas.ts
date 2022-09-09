@@ -9,9 +9,10 @@ const restaurantSchema: SchemaOf<IRestaurantCreate> = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().required(),
   cnpj: yup.string().required(),
+  phoneNumber: yup.string().required(),
   img_url: yup.string(),
   category: yup.string().required(),
-  restaurantAddress: yup.object(restaurantAddressSchema),
+  address: yup.object(restaurantAddressSchema),
 });
 
 export { restaurantSchema };
