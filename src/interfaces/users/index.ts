@@ -7,7 +7,7 @@ export interface IUserRequest {
   userName: string;
   email: string;
   password: string;
-  addressInfo: IAddressInfoRequest;
+  address: IAddressInfoRequest;
   paymentInfo: IPaymentInfoRequest;
 }
 

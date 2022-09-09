@@ -13,7 +13,7 @@ class UserAddress {
   readonly id: string;
 
   @Column({ length: 60 })
-  address: string;
+  street: string;
 
   @Column({ length: 10 })
   number: string;

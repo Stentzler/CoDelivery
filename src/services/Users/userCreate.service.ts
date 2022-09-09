@@ -12,7 +12,7 @@ const userCreateService = async ({
   userName,
   email,
   password,
-  addressInfo,
+  address,
   paymentInfo,
 }: IUserRequest) => {
   const userRepository = AppDataSource.getRepository(Users);
@@ -31,19 +31,19 @@ const userCreateService = async ({
   }
 
   const newAddress = new UserAddress();
-  newAddress.address = addressInfo.address;
-  newAddress.number = addressInfo.number;
-  newAddress.zipCode = addressInfo.zipCode;
-  newAddress.city = addressInfo.city;
-  newAddress.state = addressInfo.state;
-  newAddress.complement = addressInfo.complement || 'Not specified';
+  newAddress.street =  address.street;
+  newAddress.number =  address.number;
+  newAddress.zipCode =  address.zipCode;
+  newAddress.city = address.city;
+  newAddress.state =  address.state;
+  newAddress.complement =  address.complement || 'Not specified';
 
   addressRepository.create(newAddress);
 
   await addressRepository.save(newAddress);
 
   const newPayment = new PaymentInfo();
-  newPayment.Name = paymentInfo.name;
+  newPayment.Name = paymentInfo.Name;
   newPayment.cardNo = paymentInfo.cardNo;
   newPayment.cvvNo = paymentInfo.cvvNo;
   newPayment.expireDate = paymentInfo.expireDate;
