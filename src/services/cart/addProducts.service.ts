@@ -9,7 +9,7 @@ const addProductService = async (productId: string, userId: string) => {
 
 	const user = await userRepository.findOne({
 		where: {
-			email: userId,
+			id: userId,
 		},
 	});
 
@@ -46,7 +46,11 @@ const addProductService = async (productId: string, userId: string) => {
 	}
 
 	cart.products = [...cart.products, productToAdd];
-	cart.subtotal = Number(cart.products.reduce((acc, product) => acc + product.price, 0).toFixed(2));
+
+	let subtotal: any = cart.products.reduce((acc, product) => acc + product.price, 0);
+	subtotal = subtotal.toString();
+
+	cart.subtotal = subtotal;
 
 	await cartRepository.save(cart);
 
