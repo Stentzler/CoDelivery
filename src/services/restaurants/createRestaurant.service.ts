@@ -4,7 +4,8 @@ import { IRestaurantCreate } from '../../interfaces/restaurants';
 import bcrypt from 'bcrypt';
 import { AppError } from '../../errors/AppError';
 import { RestaurantCategory } from '../../entities/restaurantCategory.entity';
-import { Address } from '../../entities/address.entity';
+import { RestaurantAddress } from '../../entities/restaurantAddress.entity';
+import { Users } from '../../entities/user.entity';
 
 const createRestaurantService = async ({
   name,
@@ -18,9 +19,11 @@ const createRestaurantService = async ({
   address,
 }: IRestaurantCreate) => {
   const restaurantRepo = AppDataSource.getRepository(Restaurant);
-  const addressRepo = AppDataSource.getRepository(Address);
+  const addressRepo = AppDataSource.getRepository(RestaurantAddress);
   const restaurantCategoryRepo =
     AppDataSource.getRepository(RestaurantCategory);
+
+  const userRepo = AppDataSource.getRepository(Users);
 
   const restaurantNameDupe = await restaurantRepo.findOne({ where: { name } });
 
@@ -73,7 +76,7 @@ const createRestaurantService = async ({
     throw new AppError('Category not found', 404);
   }
 
-  const newRestaurantAddress = new Address();
+  const newRestaurantAddress = new RestaurantAddress();
 
   newRestaurantAddress.address = address.address;
   newRestaurantAddress.number = address.number;

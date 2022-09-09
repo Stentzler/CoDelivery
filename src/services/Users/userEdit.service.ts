@@ -1,15 +1,19 @@
 import AppDataSource from '../../data-source';
-import { Address } from '../../entities/address.entity';
 import { PaymentInfo } from '../../entities/paymentInfo.entity';
 import { Users } from '../../entities/user.entity';
+import { UserAddress } from '../../entities/userAddresses.entity';
 import { AppError } from '../../errors/AppError';
 
 const userEditService = async (id: string, data: any) => {
   const userRepository = AppDataSource.getRepository(Users);
-  const addressRepository = AppDataSource.getRepository(Address);
+  const addressRepository = AppDataSource.getRepository(UserAddress);
   const paymentRepository = AppDataSource.getRepository(PaymentInfo);
 
-  const user = await userRepository.findOne({ where: { id } });
+  // const user = await userRepository.findOne({ where: { id } });
+  const user = await userRepository
+    .createQueryBuilder('users')
+    .where('users.id = :id', { id })
+    .getOne();
 
   if (!user) {
     throw new AppError('User not found', 404);
@@ -44,20 +48,16 @@ const userEditService = async (id: string, data: any) => {
 
   try {
     if (data.address) {
-      if (user.addresses.length === 1) {
+      if (data.address.length === 1) {
         const addresses = await addressRepository.find();
-
         const updatedAddress = addresses.find(
-          (address) => address.id === user.addresses[0].id
+          (address) => address.id === user.address[0].id
         );
-        await addressRepository.update(user.addresses[0].id, {
-          ...user.addresses[0],
+        await addressRepository.update(user.address[0].id, {
+          ...user.address[0],
           ...data.addressInfo,
         });
         delete data.addressInfo;
-      } else {
-        //   There should be a way to treat information when
-        //	 there are more than two addresses.
       }
     }
 

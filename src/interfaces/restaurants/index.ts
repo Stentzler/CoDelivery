@@ -7,7 +7,7 @@
 //   complement?: string;
 // }
 
-import { Address } from '../../entities/address.entity';
+import { RestaurantAddress } from '../../entities/restaurantAddress.entity';
 import { IAddressInfoRequest } from '../addresses';
 
 interface IRestaurantCategory {
@@ -27,7 +27,7 @@ export interface IRestaurant {
   updatedAt: Date;
   isActive: boolean;
   category: IRestaurantCategory;
-  address: Address;
+  address: RestaurantAddress;
 }
 
 export interface IRestaurantCreate {

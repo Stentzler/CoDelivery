@@ -1,7 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Users } from './user.entity';
 
-@Entity('restaurantAddress')
-class RestaurantAddress {
+@Entity('userAddress')
+class UserAddress {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
@@ -22,6 +29,9 @@ class RestaurantAddress {
 
   @Column({ length: 20, nullable: true })
   complement: string;
+
+  @ManyToOne((type) => Users, (user) => user.address, { onDelete: 'CASCADE' })
+  user: Users;
 }
 
-export { RestaurantAddress };
+export { UserAddress };
