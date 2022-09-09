@@ -1,12 +1,13 @@
-export interface IRestaurantAdress {
-  address: string;
-  number: string;
-  phoneNumber: string;
-  zipCode: string;
-  city: string;
-  state: string;
-  complement?: string;
-}
+// export interface IRestaurantAdress {
+//   address: string;
+//   number: string;
+//   zipCode: string;
+//   city: string;
+//   state: string;
+//   complement?: string;
+// }
+
+import { Address } from '../../entities/address.entity';
 
 interface IRestaurantCategory {
   name: string;
@@ -20,11 +21,12 @@ export interface IRestaurant {
   email: string;
   password: string;
   cnpj: string;
+  phoneNumber: string;
   createdAt: Date;
   updatedAt: Date;
   isActive: boolean;
   category: IRestaurantCategory;
-  restaurantAddress: IRestaurantAdress;
+  restaurantAddress: Address;
 }
 
 export interface IRestaurantCreate {
@@ -33,9 +35,10 @@ export interface IRestaurantCreate {
   email: string;
   password: string;
   cnpj: string;
+  phoneNumber: string;
   img_url: string | undefined;
   category: string;
-  restaurantAddress: IRestaurantAdress;
+  address: Address;
 }
 
 export interface IRestaurantLogin {
