@@ -8,6 +8,7 @@
 // }
 
 import { Address } from '../../entities/address.entity';
+import { IAddressInfoRequest } from '../addresses';
 
 interface IRestaurantCategory {
   name: string;
@@ -38,7 +39,7 @@ export interface IRestaurantCreate {
   phoneNumber: string;
   img_url: string | undefined;
   category: string;
-  address: Address;
+  address: IAddressInfoRequest;
 }
 
 export interface IRestaurantLogin {
