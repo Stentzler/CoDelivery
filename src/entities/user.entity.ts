@@ -8,10 +8,12 @@ import {
 	JoinColumn,
 	OneToOne,
 	OneToMany,
+	ManyToOne,
 } from 'typeorm';
 import {UserAddress} from './user_addresses.entity';
 import {Cart} from './cart.entity';
 import {PaymentInfo} from './paymentInfo.entity';
+import { Order } from './order.entity';
 
 @Entity('users')
 class Users {
@@ -53,6 +55,9 @@ class Users {
 
 	@OneToMany(() => UserAddress, adress => adress.user)
 	addresses: UserAddress[];
+
+	@OneToMany(() => Order, order => order.user)
+	orders: Order[];
 }
 
 export {Users};
