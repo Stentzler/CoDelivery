@@ -10,9 +10,9 @@ import {
 	ManyToOne,
 	OneToMany,
 } from 'typeorm';
-import {Address} from './address.entity';
 import {Products} from './products.entity';
 import {RestaurantCategory} from './restaurantCategory.entity';
+import {RestaurantAddress} from './restaurantAddress.entity';
 
 @Entity('restaurant')
 class Restaurant {
@@ -56,9 +56,9 @@ class Restaurant {
 	@OneToMany(() => Products, product => product.restaurant)
 	products: Products[];
 
-	@OneToOne(type => Address, {eager: true})
+	@OneToOne(type => RestaurantAddress, {eager: true})
 	@JoinColumn()
-	address: Address;
+	address: RestaurantAddress;
 
 	@ManyToOne(() => RestaurantCategory)
 	category: RestaurantCategory;
