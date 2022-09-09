@@ -1,5 +1,5 @@
 export interface IAddressInfoRequest {
-  address: string;
+  street: string;
   number: string;
   zipCode: string;
   city: string;

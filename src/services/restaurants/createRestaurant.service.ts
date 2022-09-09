@@ -78,7 +78,7 @@ const createRestaurantService = async ({
 
   const newRestaurantAddress = new RestaurantAddress();
 
-  newRestaurantAddress.address = address.address;
+  newRestaurantAddress.address = address.street;
   newRestaurantAddress.number = address.number;
   newRestaurantAddress.zipCode = address.zipCode;
   newRestaurantAddress.city = address.city;
