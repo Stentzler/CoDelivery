@@ -6,8 +6,8 @@ export const mockedUser200: IUserRequest = {
   userName: 'Joana23',
   email: 'joana@kenzie.com',
   password: '123456',
-  addressInfo: {
-    address: 'Rua Barcelos Domingos',
+  address: {
+    street: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-340',
     city: 'Rio de Janeiro',
@@ -28,8 +28,8 @@ export const mockedUser201: IUserRequest = {
   userName: 'Joana23',
   email: 'joana2@kenzie.com',
   password: '123456',
-  addressInfo: {
-    address: 'Rua Barcelos Domingos',
+  address: {
+    street: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-340',
     city: 'Rio de Janeiro',
@@ -50,8 +50,8 @@ export const mockedUserSecond: IUserRequest = {
   userName: 'Joana23',
   email: 'user@mail.com',
   password: '1234',
-  addressInfo: {
-    address: 'Rua Barcelos Domingos',
+  address: {
+    street: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-342',
     city: 'Rio de Janeiro',
@@ -144,7 +144,7 @@ export const mockedRestaurant200: IRestaurantCreate = {
   img_url: '',
   category: 'Fast Food',
   address: {
-    address: 'Avenida Herculano Teixeira da Rocha',
+    street: 'Avenida Herculano Teixeira da Rocha',
     number: '47',
     zipCode: '35745-932',
     city: 'Andiroba',
@@ -163,7 +163,7 @@ export const mockedRestaurantDummy: IRestaurantCreate = {
   img_url: '',
   category: 'Fast Food',
   address: {
-    address: 'Rua Coelho e Castro',
+    street: 'Rua Coelho e Castro',
     number: '125',
     zipCode: '20081-060',
     city: 'Rio de Janeiro',
