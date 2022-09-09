@@ -13,6 +13,7 @@ import {
 import {Products} from './products.entity';
 import {RestaurantCategory} from './restaurantCategory.entity';
 import {RestaurantAddress} from './restaurantAddress.entity';
+import { Order } from './order.entity';
 
 @Entity('restaurant')
 class Restaurant {
@@ -62,6 +63,9 @@ class Restaurant {
 
 	@ManyToOne(() => RestaurantCategory)
 	category: RestaurantCategory;
+
+	@OneToMany(() => Order, order => order.restaurant)
+	orders: Order[];
 }
 
 export {Restaurant};
