@@ -1,21 +1,19 @@
 import { Exclude } from 'class-transformer';
 import {
-
-	Entity,
-	Column,
-	PrimaryGeneratedColumn,
-	CreateDateColumn,
-	UpdateDateColumn,
-	JoinColumn,
-	OneToOne,
-	OneToMany,
-	ManyToOne,
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  JoinColumn,
+  OneToOne,
+  OneToMany,
+  ManyToOne,
 } from 'typeorm';
-import {UserAddress} from './user_addresses.entity';
-import {Cart} from './cart.entity';
-import {PaymentInfo} from './paymentInfo.entity';
+import { Cart } from './cart.entity';
+import { PaymentInfo } from './paymentInfo.entity';
 import { Order } from './order.entity';
-
+import { UserAddress } from './userAddresses.entity';
 
 @Entity('users')
 class Users {
@@ -54,17 +52,12 @@ class Users {
   @JoinColumn()
   paymentInfo: PaymentInfo;
 
-
-	@OneToMany(() => UserAddress, adress => adress.user)
-	addresses: UserAddress[];
-
-	@OneToMany(() => Order, order => order.user)
-	orders: Order[];
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 
   @OneToOne((type) => Cart, { eager: true })
   @JoinColumn()
   cart: Cart;
-
 }
 
 export { Users };
