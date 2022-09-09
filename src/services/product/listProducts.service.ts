@@ -12,6 +12,7 @@ const listProductsService = async (id: string) => {
   const products = await productRepository.find({
     where: { id: id },
   });
+  console.log(products);
   return products;
 };
 export { listProductsService };

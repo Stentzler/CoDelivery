@@ -7,9 +7,10 @@ import { categoriesQueryBuilder } from './utils/categoriesQueryBuilder';
   await AppDataSource.initialize().catch((err) => {
     console.error('Error during Data Source initialization', err);
   });
-  await categoriesQueryBuilder();
+  // await categoriesQueryBuilder();
+  const PORT = process.env.PORT || 3000;
 
-  app.listen(3000, () => {
+  app.listen(PORT, () => {
     console.log('Servidor executando');
   });
 })();
