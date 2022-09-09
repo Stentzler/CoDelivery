@@ -9,7 +9,7 @@ import {
 	OneToOne,
 	OneToMany,
 } from 'typeorm';
-import {Address} from './address.entity';
+import {UserAddress} from './user_addresses.entity';
 import {Cart} from './cart.entity';
 import {PaymentInfo} from './paymentInfo.entity';
 
@@ -51,8 +51,8 @@ class Users {
 	@JoinColumn()
 	cart: Cart;
 
-	@OneToMany(() => Address, adress => adress.user)
-	addresses: Address[];
+	@OneToMany(() => UserAddress, adress => adress.user)
+	addresses: UserAddress[];
 }
 
 export {Users};

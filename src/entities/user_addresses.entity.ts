@@ -2,7 +2,7 @@ import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
 import {Users} from './user.entity';
 
 @Entity('addressInfo')
-class Address {
+class UserAddress {
 	@PrimaryGeneratedColumn('uuid')
 	readonly id: string;
 
@@ -28,4 +28,4 @@ class Address {
 	user: Users;
 }
 
-export {Address};
+export {UserAddress};
