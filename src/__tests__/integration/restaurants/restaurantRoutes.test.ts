@@ -38,18 +38,18 @@ describe('/login', () => {
     expect(response.body).toHaveProperty('isActive');
     expect(response.body).toHaveProperty('email');
     expect(response.body).toHaveProperty('cnpj');
+    expect(response.body).toHaveProperty('phoneNumber');
     expect(response.body).toHaveProperty('createdAt');
     expect(response.body).toHaveProperty('updatedAt');
     expect(response.body.category).toHaveProperty('id');
     expect(response.body.category).toHaveProperty('name');
-    expect(response.body.restaurantAddress).toHaveProperty('id');
-    expect(response.body.restaurantAddress).toHaveProperty('address');
-    expect(response.body.restaurantAddress).toHaveProperty('number');
-    expect(response.body.restaurantAddress).toHaveProperty('phoneNumber');
-    expect(response.body.restaurantAddress).toHaveProperty('zipCode');
-    expect(response.body.restaurantAddress).toHaveProperty('city');
-    expect(response.body.restaurantAddress).toHaveProperty('state');
-    expect(response.body.restaurantAddress).toHaveProperty('complement');
+    expect(response.body.address).toHaveProperty('id');
+    expect(response.body.address).toHaveProperty('address');
+    expect(response.body.address).toHaveProperty('number');
+    expect(response.body.address).toHaveProperty('zipCode');
+    expect(response.body.address).toHaveProperty('city');
+    expect(response.body.address).toHaveProperty('state');
+    expect(response.body.address).toHaveProperty('complement');
     expect(response.body).not.toHaveProperty('password');
     expect(response.status).toBe(201);
   });
@@ -100,19 +100,19 @@ describe('/login', () => {
     switch (value) {
       case 0:
         // @ts-expect-error
-        delete newRestaurant.restaurantAddress.address;
+        delete newRestaurant.address.address;
       case 1:
         // @ts-expect-error
-        delete newRestaurant.restaurantAddress.city;
+        delete newRestaurant.address.city;
       case 2:
         // @ts-expect-error
-        delete newRestaurant.restaurantAddress.zipCode;
+        delete newRestaurant.address.zipCode;
       case 3:
         // @ts-expect-error
-        delete newRestaurant.restaurantAddress.number;
+        delete newRestaurant.address.number;
       default:
         // @ts-expect-error
-        delete newRestaurant.restaurantAddress.state;
+        delete newRestaurant.address.state;
     }
 
     const response = await request(app)

@@ -6,7 +6,7 @@ export const mockedUser200: IUserRequest = {
   userName: 'Joana23',
   email: 'joana@kenzie.com',
   password: '123456',
-  address: {
+  addressInfo: {
     address: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-340',
@@ -28,7 +28,7 @@ export const mockedUser201: IUserRequest = {
   userName: 'Joana23',
   email: 'joana2@kenzie.com',
   password: '123456',
-  address: {
+  addressInfo: {
     address: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-340',
@@ -50,7 +50,7 @@ export const mockedUserSecond: IUserRequest = {
   userName: 'Joana23',
   email: 'user@mail.com',
   password: '1234',
-  address: {
+  addressInfo: {
     address: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-342',
