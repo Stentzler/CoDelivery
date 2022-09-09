@@ -9,6 +9,7 @@ import {
 	OneToOne,
 	OneToMany,
 } from 'typeorm';
+import {Address} from './address.entity';
 import {Cart} from './cart.entity';
 import {PaymentInfo} from './paymentInfo.entity';
 
@@ -49,6 +50,9 @@ class Users {
 	@OneToOne(type => Cart, {eager: true})
 	@JoinColumn()
 	cart: Cart;
+
+	@OneToMany(() => Address, adress => adress.user)
+	addresses: Address[];
 }
 
 export {Users};

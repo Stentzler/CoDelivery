@@ -8,8 +8,10 @@ import {
 	OneToOne,
 	JoinColumn,
 	ManyToOne,
+	OneToMany,
 } from 'typeorm';
 import {Address} from './address.entity';
+import {Products} from './products.entity';
 import {RestaurantCategory} from './restaurantCategory.entity';
 
 @Entity('restaurant')
@@ -50,6 +52,9 @@ class Restaurant {
 
 	@UpdateDateColumn()
 	updatedAt: Date;
+
+	@OneToMany(() => Products, product => product.restaurant)
+	products: Products[];
 
 	@OneToOne(type => Address, {eager: true})
 	@JoinColumn()
