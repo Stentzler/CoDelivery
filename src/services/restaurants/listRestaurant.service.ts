@@ -1,5 +1,6 @@
 import AppDataSource from '../../data-source';
 import { Restaurant } from '../../entities/restaurant.entity';
+import { Users } from '../../entities/user.entity';
 
 const listRestaurantService = async (): Promise<Restaurant[]> => {
   const restaurantRepo = AppDataSource.getRepository(Restaurant);

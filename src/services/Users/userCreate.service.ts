@@ -1,40 +1,42 @@
 import AppDataSource from '../../data-source';
 import bcrypt from 'bcrypt';
-import { Address } from '../../entities/address.entity';
 import { Cart } from '../../entities/cart.entity';
 import { PaymentInfo } from '../../entities/paymentInfo.entity';
-import { Users } from '../../entities/user.entity';
 import { AppError } from '../../errors/AppError';
 import { IUserRequest } from '../../interfaces/users';
+import { Users } from '../../entities/user.entity';
+import { UserAddress } from '../../entities/userAddresses.entity';
 
 const userCreateService = async ({
   fullName,
   userName,
   email,
   password,
-  address,
+  addressInfo,
   paymentInfo,
 }: IUserRequest) => {
   const userRepository = AppDataSource.getRepository(Users);
-  const addressRepository = AppDataSource.getRepository(Address);
+  const addressRepository = AppDataSource.getRepository(UserAddress);
   const cartRepository = AppDataSource.getRepository(Cart);
   const paymentRepository = AppDataSource.getRepository(PaymentInfo);
 
-  const usersList = await userRepository.find();
+  // const emailExists = await userRepository.findOne({ where: { email } });
+  const emailExists = await userRepository
+    .createQueryBuilder('users')
+    .where('users.email = :email', { email })
+    .getOne();
 
-  const emailExist = usersList.find((user) => user.email === email);
-
-  if (emailExist) {
+  if (emailExists) {
     throw new AppError('Email already exists', 400);
   }
 
-  const newAddress = new Address();
-  newAddress.address = address.address;
-  newAddress.number = address.number;
-  newAddress.zipCode = address.zipCode;
-  newAddress.city = address.city;
-  newAddress.state = address.state;
-  newAddress.complement = address.complement || 'Not specified';
+  const newAddress = new UserAddress();
+  newAddress.address = addressInfo.address;
+  newAddress.number = addressInfo.number;
+  newAddress.zipCode = addressInfo.zipCode;
+  newAddress.city = addressInfo.city;
+  newAddress.state = addressInfo.state;
+  newAddress.complement = addressInfo.complement || 'Not specified';
 
   addressRepository.create(newAddress);
 
@@ -61,6 +63,7 @@ const userCreateService = async ({
   newUser.email = email;
   newUser.password = bcrypt.hashSync(password, 10);
   newUser.cart = newCart;
+  newUser.address = [newAddress];
   newUser.paymentInfo = newPayment;
 
   userRepository.create(newUser);
