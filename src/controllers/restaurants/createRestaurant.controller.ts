@@ -12,7 +12,7 @@ const createRestaurantController = async (req: Request, res: Response) => {
     phoneNumber,
     img_url,
     category,
-    restaurantAddress,
+    address,
   } = req.body;
   const restaurant = await createRestaurantService({
     name,
@@ -23,7 +23,7 @@ const createRestaurantController = async (req: Request, res: Response) => {
     phoneNumber,
     img_url,
     category,
-    restaurantAddress,
+    address,
   });
 
   return res.status(201).json(instanceToPlain(restaurant));

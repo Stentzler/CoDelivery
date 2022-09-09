@@ -27,7 +27,7 @@ export interface IRestaurant {
   updatedAt: Date;
   isActive: boolean;
   category: IRestaurantCategory;
-  restaurantAddress: Address;
+  address: Address;
 }
 
 export interface IRestaurantCreate {
