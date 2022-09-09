@@ -24,7 +24,7 @@ class Address {
 	@Column({length: 20, nullable: true})
 	complement: string;
 
-	@ManyToOne(() => Users, {nullable: true})
+	@ManyToOne(() => Users)
 	user: Users;
 }
 

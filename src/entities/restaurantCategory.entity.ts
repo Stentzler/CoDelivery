@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {Restaurant} from './restaurant.entity';
 
 @Entity('restaurantCategory')
 class RestaurantCategory {
@@ -7,6 +8,9 @@ class RestaurantCategory {
 
 	@Column({length: 60, unique: true})
 	name: string;
+
+	@OneToMany(() => Restaurant, restaurant => restaurant.category)
+	restaurants: Restaurant[];
 }
 
 export {RestaurantCategory};
