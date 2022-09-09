@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import {Address} from './address.entity';
 import {Cart} from './cart.entity';
+import { Order } from './order.entity';
 import {PaymentInfo} from './paymentInfo.entity';
 
 @Entity('users')
@@ -53,6 +54,10 @@ class Users {
 
 	@OneToMany(() => Address, adress => adress.user)
 	addresses: Address[];
+
+	// Relação OneToMany com a tabela Order. O lado one da relação é o User pois ele é o dono da ordem
+	// @OneToMany( () => Order, orders => orders.user, {eager: true})
+	// orders: Order[]
 }
 
 export {Users};
