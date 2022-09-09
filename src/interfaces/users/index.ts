@@ -1,19 +1,14 @@
-import { IAddressInfoRequest } from "../addresses";
-import { ICartInfoRequest } from "../cart";
-import { IPaymentInfoRequest } from "../paymentInfo";
-
-
-
-
-
+import { IAddressInfoRequest } from '../addresses';
+import { ICartInfoRequest } from '../cart';
+import { IPaymentInfoRequest } from '../paymentInfo';
 
 export interface IUserRequest {
   fullName: string;
   userName: string;
   email: string;
   password: string;
-  addressInfo: IAddressInfoRequest;
-  paymentInfo: IPaymentInfoRequest ;
+  address: IAddressInfoRequest;
+  paymentInfo: IPaymentInfoRequest;
 }
 
 export interface IUserResponse {
@@ -28,4 +23,3 @@ export interface IUserResponse {
   createdAt: Date;
   updatedAt: Date;
 }
-
