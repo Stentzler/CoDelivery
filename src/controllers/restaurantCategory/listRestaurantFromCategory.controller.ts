@@ -5,7 +5,7 @@ const listRestaurantFromCategoryController = async (
   req: Request,
   res: Response
 ) => {
-  const restaurantId: string = req.params.id_category;
+  const restaurantId: string = req.params.id;
 
   const listRes = await listRestaurantFromCategoryService(restaurantId);
 
