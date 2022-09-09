@@ -43,7 +43,7 @@ const userCreateService = async ({
   await addressRepository.save(newAddress);
 
   const newPayment = new PaymentInfo();
-  newPayment.Name = paymentInfo.Name;
+  newPayment.name = paymentInfo.name;
   newPayment.cardNo = paymentInfo.cardNo;
   newPayment.cvvNo = paymentInfo.cvvNo;
   newPayment.expireDate = paymentInfo.expireDate;

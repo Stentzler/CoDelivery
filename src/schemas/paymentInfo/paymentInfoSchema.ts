@@ -1,7 +1,7 @@
 import * as yup from "yup"
 
 const paymentInfoSchema= {
-    Name:yup.string().required(),
+    name:yup.string().required(),
     cardNo:yup.string().required(),
     cvvNo:yup.string().required(),
     expireDate:yup.string().required(),
