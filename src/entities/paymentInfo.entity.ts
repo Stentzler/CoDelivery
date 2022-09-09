@@ -1,14 +1,4 @@
-import {
-	Entity,
-	Column,
-	PrimaryGeneratedColumn,
-	ManyToMany,
-	JoinTable,
-	OneToOne,
-	JoinColumn,
-} from 'typeorm';
-import {Products} from './products.entity';
-import {Restaurant} from './restaurant.entity';
+import {Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm';
 import {Users} from './user.entity';
 
 @Entity('paymentInfo')
@@ -30,16 +20,6 @@ class PaymentInfo {
 
 	@Column({length: 20})
 	cpf: string;
-
-	@ManyToMany(type => Products, {
-		eager: true,
-	})
-	@JoinTable()
-	products: Products[];
-
-	@OneToOne(type => Restaurant, {eager: true})
-	@JoinColumn()
-	restaurant: Restaurant;
 
 	@OneToOne(type => Users, {eager: true})
 	@JoinColumn()
