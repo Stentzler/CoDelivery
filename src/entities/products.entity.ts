@@ -34,7 +34,7 @@ class Products {
 	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@ManyToOne(() => ProductCategory)
+	@ManyToOne(() => ProductCategory, {eager: true})
 	category: ProductCategory;
 
 	@ManyToOne(() => Restaurant)
