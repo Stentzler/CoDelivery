@@ -1,13 +1,12 @@
 # API Endpoints
 
-Base_URL: (ARRUMAR depois do deploy)
+**BASE_URL: https://codelivery-api.herokuapp.com**
 
-## Users
+## User Routes
 
 ### Create User
 
 - POST /users
-
 - Expected body request example:
 
 ```json
@@ -37,14 +36,12 @@ Base_URL: (ARRUMAR depois do deploy)
 ### List User Profile
 
 - GET /users/profile
-
 - No request body needed.
 - User token required.
 
 ### Update User
 
 - PATCH /users/:user_id
-
 - User token required.
 - Expected body request example:
 
@@ -63,21 +60,18 @@ Base_URL: (ARRUMAR depois do deploy)
 ### User Soft Delete
 
 - PATCH /users/delete/deactivate
-
 - No request body needed.
 - User token required.
--
 
 ### User Delete
 
 - DELETE /users/:user_id
-
 - No request body needed.
 - User token required.
 
 ---
 
-## Restaurants
+## Restaurant Routes
 
 ### Create Restaurant
 
@@ -122,7 +116,7 @@ Base_URL: (ARRUMAR depois do deploy)
 
 - PATCH /restaurants/:restaurant_id
 - Restaurant token expected.
-- You are only able to proceed if your token matches the {restaurant_id} you are trying to update.
+- To proceed your token must match the {restaurant_id} you are trying to update.
 - Expected body request example:
 
 ```json
@@ -141,7 +135,122 @@ Base_URL: (ARRUMAR depois do deploy)
 
 - DELETE /restaurants/:restaurant_id
 - Restaurant token expected.
-- You are only able to proceed if your token matches the {restaurant_id} you are trying to delete.
+- To proceed your token must match the {restaurant_id} you are trying to delete.
 - No body request expected.
 
 ---
+
+## Session Routes
+
+### User Login
+
+- POST /users/login
+- Expected body request example:
+
+```json
+{
+	"email": "example@email.com",
+	"password": "examplePass"
+}
+```
+
+### Restaurant Login
+
+- POST /restaurants/login
+- Expected body request example:
+
+```json
+{
+	"email": "example@email.com",
+	"password": "examplePass"
+}
+```
+
+---
+
+## Product Routes
+
+### List All Products
+
+- GET /products
+
+### List Single Product
+
+- GET /products/:product_id
+
+### Create Product
+
+- POST /products
+- Restaurant token expected.
+- Expected body request example:
+
+```json
+{
+	"exemplo": "exemplo",
+	"exemplo_address": {
+		"exemplo": "lorem400"
+	},
+	"exemplo_payment": {
+		"exemplo": "lemrem400"
+	}
+}
+```
+
+### Update Product
+
+- PATCH /products/:product_id
+- Restaurant token expected.
+- To proceed you must own the {product_id} you are trying to delete.
+- Expected body request example:
+
+```json
+{
+	"exemplo": "exemplo",
+	"exemplo_address": {
+		"exemplo": "lorem400"
+	},
+	"exemplo_payment": {
+		"exemplo": "lemrem400"
+	}
+}
+```
+
+### Delete Product
+
+- DELETE /products/:product_id
+- Restaurant token expected.
+- To proceed you must own the {product_id} you are trying to delete.
+
+### Uploading Product Image
+
+- POST /products/uploadImage/:product_id
+- Restaurant token expected.
+- To proceed you must own this {product_id}.
+- Expected body request example:
+
+```json
+{
+	"exemplo": "exemplo"
+}
+```
+
+---
+
+## Cart Routes
+
+### Add Product To Cart
+
+- POST /cart
+- User token exprected.
+- Expected body request:
+
+```json
+{
+	"prodId": "3057de03-978e-4172-b076-f6d9dbeecb44"
+}
+```
+
+### Remove Product From Cart
+
+- DELETE /cart/:product_id
+- User token exprected.
