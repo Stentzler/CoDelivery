@@ -7,8 +7,8 @@
 [3 - Session Routes](https://github.com/Stentzler/CoDelivery#3---session-routes)  
 [4 - Product Routes](https://github.com/Stentzler/CoDelivery#4---product-routes)  
 [5 - Cart Routes](https://github.com/Stentzler/CoDelivery#5---cart-routes)  
-[6 - Restaurant Categories](https://github.com/Stentzler/CoDelivery#6---restaurant-categories-routes)  
-[7 - Product Routes](https://github.com/Stentzler/CoDelivery#7---product-categories-routes)
+[6 - Restaurant Categories Routes](https://github.com/Stentzler/CoDelivery#6---restaurant-categories-routes)  
+[7 - Product Categories Routes](https://github.com/Stentzler/CoDelivery#7---product-categories-routes)
 
 ## 1 - User Routes
 
