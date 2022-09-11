@@ -2,9 +2,9 @@
 
 **BASE_URL: https://codelivery-api.herokuapp.com**
 
-## User Routes
+## 1 - User_Routes
 
-### Create User
+### 1.1 - Create User
 
 - POST /users
 - Expected body request example:
@@ -33,13 +33,13 @@
 }
 ```
 
-### List User Profile
+### 1.2 - List User Profile
 
 - GET /users/profile
 - No request body needed.
 - User token required.
 
-### Update User
+### 1.3 - Update User
 
 - PATCH /users/:user_id
 - User token required.
@@ -57,13 +57,13 @@
 }
 ```
 
-### User Soft Delete
+### 1.4 - User Soft Delete
 
 - PATCH /users/delete/deactivate
 - No request body needed.
 - User token required.
 
-### User Delete
+### 1.5 - User Delete
 
 - DELETE /users/:user_id
 - No request body needed.
@@ -71,9 +71,9 @@
 
 ---
 
-## Restaurant Routes
+## 2 - Restaurant Routes
 
-### Create Restaurant
+### 2.1 - Create Restaurant
 
 - POST /restaurants
 - Expected body request example:
@@ -90,7 +90,7 @@
 }
 ```
 
-### Uploading Image For Restaurant Avatar
+### 2.2 - Uploading Image For Restaurant Avatar
 
 - POST /restaurants/uploadImage/:id
 - Expected body request example:
@@ -101,18 +101,18 @@
 }
 ```
 
-### List all restaurants
+### 2.3 - List all restaurants
 
 - GET /restaurants
 - No Authorization required.
 
-### Get Restaurant Profile
+### 2.4 - Get Restaurant Profile
 
 - GET /restaurants/profile
 - Restaurant token expected.
 - This endpoint will return all information about the restaurant which is sending the request.
 
-### Update Restaurant
+### 2.5 - Update Restaurant
 
 - PATCH /restaurants/:restaurant_id
 - Restaurant token expected.
@@ -131,7 +131,7 @@
 }
 ```
 
-### Delete Restaurant
+### 2.6 - Delete Restaurant
 
 - DELETE /restaurants/:restaurant_id
 - Restaurant token expected.
@@ -140,9 +140,9 @@
 
 ---
 
-## Session Routes
+## 3 - Session Routes
 
-### User Login
+### 3.1 - User Login
 
 - POST /users/login
 - Expected body request example:
@@ -154,7 +154,7 @@
 }
 ```
 
-### Restaurant Login
+### 3.2 - Restaurant Login
 
 - POST /restaurants/login
 - Expected body request example:
@@ -168,17 +168,17 @@
 
 ---
 
-## Product Routes
+## 4 - Product Routes
 
-### List All Products
+### 4.1 - List All Products
 
 - GET /products
 
-### List Single Product
+### 4.2 - List Single Product
 
 - GET /products/:product_id
 
-### Create Product
+### 4.3 - Create Product
 
 - POST /products
 - Restaurant token expected.
@@ -196,7 +196,7 @@
 }
 ```
 
-### Update Product
+### 4.4 - Update Product
 
 - PATCH /products/:product_id
 - Restaurant token expected.
@@ -215,13 +215,13 @@
 }
 ```
 
-### Delete Product
+### 4.5 - Delete Product
 
 - DELETE /products/:product_id
 - Restaurant token expected.
 - To proceed you must own the {product_id} you are trying to delete.
 
-### Uploading Product Image
+### 4.6 - Uploading Product Image
 
 - POST /products/uploadImage/:product_id
 - Restaurant token expected.
@@ -236,9 +236,9 @@
 
 ---
 
-## Cart Routes
+## 5 - Cart Routes
 
-### Add Product To Cart
+### 5.1 - Add Product To Cart
 
 - POST /cart
 - User token exprected.
@@ -250,33 +250,33 @@
 }
 ```
 
-### Remove Product From Cart
+### 5.2 - Remove Product From Cart
 
 - DELETE /cart/:product_id
 - User token expected.
 
 ---
 
-## Restaurant Categories Routes
+## 6 - Restaurant Categories Routes
 
-### List all restaurant categories
+### 6.1 - List all restaurant categories
 
 - GET /restaurant_categories
 
-### List all restaurant from specified category
+### 6.2 - List all restaurant from specified category
 
 - GET /restaurant_categories/:category_id/restaurants
 - {category_id} must be provided correctly
 
 ---
 
-## Product Categories Routes
+## 7 - Product Categories Routes
 
-### List all product categories
+### 7.1 - List all product categories
 
 - GET /products_categories
 
-### List all products from specified category
+### 7.2 - List all products from specified category
 
 - GET /products_categories/:category_id/products
 - {category_id} must be provided correctly
