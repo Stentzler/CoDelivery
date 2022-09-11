@@ -34,86 +34,114 @@ Base_URL: (ARRUMAR depois do deploy)
 }
 ```
 
+### List User Profile
+
+- GET /users/profile
+
+- No request body needed.
+- User token required.
+
 ### Update User
 
+- PATCH /users/:user_id
+
+- User token required.
+- Expected body request example:
+
+```json
+{
+	"exemplo": "exemplo",
+	"exemplo_address": {
+		"exemplo": "lorem400"
+	},
+	"exemplo_payment": {
+		"exemplo": "lemrem400"
+	}
+}
+```
+
+### User Soft Delete
+
+- PATCH /users/delete/deactivate
+
+- No request body needed.
+- User token required.
+-
+
+### User Delete
+
+- DELETE /users/:user_id
+
+- No request body needed.
+- User token required.
+
+---
+
 ## Restaurants
+
+### Create Restaurant
+
+- POST /restaurants
+- Expected body request example:
+
+```json
+{
+	"exemplo": "exemplo",
+	"exemplo_address": {
+		"exemplo": "lorem400"
+	},
+	"exemplo_payment": {
+		"exemplo": "lemrem400"
+	}
+}
+```
+
+### Uploading Image For Restaurant Avatar
+
+- POST /restaurants/uploadImage/:id
+- Expected body request example:
+
+```json
+{
+	"exemplo": "exemplo"
+}
+```
 
 ### List all restaurants
 
 - GET /restaurants
-
 - No Authorization required.
 
 ### Get Restaurant Profile
 
 - GET /restaurants/profile
-
-- Restaurant Authorization expected.
-
+- Restaurant token expected.
 - This endpoint will return all information about the restaurant which is sending the request.
-
-### Create Restaurant
-
-- POST /restaurants
-
-- Expected body request example:
-
-```json
-{
-	"name": "X-Burger",
-	"description": "Best burgers in town",
-	"email": "xburger@mail.com",
-	"password": "abc123",
-	"cnpj": "99.999.999/0001-00",
-	"category": "Fast Food",
-	"restaurant_address": {
-		"address": "Avenida Herculano Teixeira da Rocha",
-		"number": "99",
-		"phoneNumber": "99999999999",
-		"zipCode": "35745-932",
-		"city": "Andiroba",
-		"state": "MG",
-		"complement": ""
-	}
-}
-```
 
 ### Update Restaurant
 
-- PATCH /restaurants/{restaurant_id}
-
-- Restaurant Authorization expected.
-
-- You are only able to update information if your token matches the {restaurant_id} you are trying to update.
-
+- PATCH /restaurants/:restaurant_id
+- Restaurant token expected.
+- You are only able to proceed if your token matches the {restaurant_id} you are trying to update.
 - Expected body request example:
 
 ```json
 {
-	"name": "X-Burger",
-	"description": "Best burgers in town",
-	"email": "xburger@mail.com",
-	"password": "abc123",
-	"cnpj": "99.999.999/0001-00",
-	"category": "Fast Food",
-	"restaurant_address": {
-		"address": "Avenida Herculano Teixeira da Rocha",
-		"number": "99",
-		"phoneNumber": "99999999999",
-		"zipCode": "35745-932",
-		"city": "Andiroba",
-		"state": "MG",
-		"complement": ""
+	"exemplo": "exemplo",
+	"exemplo_address": {
+		"exemplo": "lorem400"
+	},
+	"exemplo_payment": {
+		"exemplo": "lemrem400"
 	}
 }
 ```
 
 ### Delete Restaurant
 
-DELETE /restaurants/{restaurant_id}
-
-- Restaurant Authorization expected.
-
+- DELETE /restaurants/:restaurant_id
+- Restaurant token expected.
 - You are only able to proceed if your token matches the {restaurant_id} you are trying to delete.
+- No body request expected.
 
-- PS: All products belonging to the restaurant are going to be deleted as well.
+---
