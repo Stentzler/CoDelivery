@@ -253,4 +253,30 @@
 ### Remove Product From Cart
 
 - DELETE /cart/:product_id
-- User token exprected.
+- User token expected.
+
+---
+
+## Restaurant Categories Routes
+
+### List all restaurant categories
+
+- GET /restaurant_categories
+
+### List all restaurant from specified category
+
+- GET /restaurant_categories/:category_id/restaurants
+- {category_id} must be provided correctly
+
+---
+
+## Product Categories Routes
+
+### List all product categories
+
+- GET /products_categories
+
+### List all products from specified category
+
+- GET /products_categories/:category_id/products
+- {category_id} must be provided correctly

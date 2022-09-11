@@ -1,16 +1,12 @@
-import { Router } from "express";
+import {Router} from 'express';
 
-import { listRestaurantCategoryController } from "../controllers/restaurantCategory/listRestaurantCategory.controller";
-import { listRestaurantFromCategoryController } from "../controllers/restaurantCategory/listRestaurantFromCategory.controller";
+import {listRestaurantCategoryController} from '../controllers/restaurantCategory/listRestaurantCategory.controller';
+import {listRestaurantFromCategoryController} from '../controllers/restaurantCategory/listRestaurantFromCategory.controller';
 
-const restaurantCategory = Router();
+const restaurantCategoriesRoutes = Router();
 
-restaurantCategory.get(
-  "/restaurant_categories",
-  listRestaurantCategoryController
-);
+restaurantCategoriesRoutes.get('', listRestaurantCategoryController);
 
-restaurantCategory.get(
-  "/restaurant_categories/:id/products",
-  listRestaurantFromCategoryController
-);
+restaurantCategoriesRoutes.get('/:id/restaurants', listRestaurantFromCategoryController);
+
+export {restaurantCategoriesRoutes};
