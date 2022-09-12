@@ -2,6 +2,7 @@ import AppDataSource from '../../data-source';
 import { Restaurant } from '../../entities/restaurant.entity';
 import { RestaurantAddress } from '../../entities/restaurantAddress.entity';
 import { AppError } from '../../errors/AppError';
+import bcrypt from 'bcrypt';
 
 const updateRestaurantService = async (id: string, data: any) => {
   const restaurantRepo = AppDataSource.getRepository(Restaurant);
@@ -28,6 +29,26 @@ const updateRestaurantService = async (id: string, data: any) => {
     throw new AppError('Those changes are not allowed', 403);
   }
 
+  if (data.name) {
+    const nameChecker = await restaurantRepo.findOne({
+      where: { name: data.name },
+    });
+
+    if (nameChecker) {
+      throw new AppError('Given name is already registered', 409);
+    }
+  }
+
+  if (data.email) {
+    const emailChecker = await restaurantRepo.findOne({
+      where: { email: data.email },
+    });
+
+    if (emailChecker) {
+      throw new AppError('Given email is already being used', 409);
+    }
+  }
+
   if (data.cnpj) {
     const cnpjChecker = await restaurantRepo.findOne({
       where: { cnpj: data.cnpj },
@@ -36,6 +57,10 @@ const updateRestaurantService = async (id: string, data: any) => {
     if (cnpjChecker) {
       throw new AppError('Given CNPJ is already being used', 409);
     }
+  }
+
+  if (data.password) {
+    data.password = bcrypt.hashSync(data.password, 10);
   }
 
   try {
