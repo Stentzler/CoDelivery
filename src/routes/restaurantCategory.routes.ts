@@ -7,6 +7,6 @@ const restaurantCategoriesRoutes = Router();
 
 restaurantCategoriesRoutes.get('', listRestaurantCategoryController);
 
-restaurantCategoriesRoutes.get('/:id/restaurants', listRestaurantFromCategoryController);
+restaurantCategoriesRoutes.get('/:id_category/restaurants', listRestaurantFromCategoryController);
 
 export {restaurantCategoriesRoutes};
