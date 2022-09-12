@@ -412,7 +412,7 @@ describe('/restaurants', () => {
     expect(deleteRequest.status).toBe(401);
   });
 
-  test('DELETE /restaurants/:id - Should not be able to delete a restaurant with an invalid token', async () => {
+  test('DELETE /restaurants/:id - Should not be able to (soft) delete a restaurant with an invalid token', async () => {
     const deleteRequest = await request(app)
       .delete(`/restaurants/${firstRestaurantId}`)
       .set('Authorization', `Bearer ${fakeToken}`);
