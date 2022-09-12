@@ -162,8 +162,6 @@ describe('/restaurants', () => {
       .post('/login/restaurants')
       .send(mockedRestaurantLogin);
 
-    console.log(login.body);
-
     const response = await request(app)
       .get('/restaurants/profile')
       .set('Authorization', `Bearer ${login.body.token}`);
