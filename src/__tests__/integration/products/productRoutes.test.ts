@@ -3,7 +3,7 @@ import AppDataSource from '../../../data-source';
 import request from 'supertest';
 import app from '../../../app';
 
-describe('/login', () => {
+describe('/products', () => {
   let connection: DataSource;
 
   beforeAll(async () => {
