@@ -24,7 +24,8 @@ const updateRestaurantService = async (id: string, data: any) => {
     data.updatedAt ||
     data.isRestaurant ||
     data.isActive ||
-    data.category
+    data.category ||
+    data.address?.id
   ) {
     throw new AppError('Those changes are not allowed', 403);
   }
