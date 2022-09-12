@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import {IAddressInfoRequest} from '../../interfaces/addresses';
-import {userAddressCreateService} from '../../services/userAddresses/userAddress.service';
+import {userAddressCreateService} from '../../services/userAddresses/createUserAddress.service';
 
 const addressCreateController = async (req: Request, res: Response) => {
 	const addressInfo: IAddressInfoRequest = req.body.address;
