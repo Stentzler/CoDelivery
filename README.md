@@ -79,7 +79,7 @@
 
 ---
 
-## 2 - Restaurant Routes
+## 2 - Restaurant Routes (Documentacao da imagem faltando)
 
 ### 2.1 - Create Restaurant
 
@@ -88,12 +88,20 @@
 
 ```json
 {
-	"exemplo": "exemplo",
-	"exemplo_address": {
-		"exemplo": "lorem400"
-	},
-	"exemplo_payment": {
-		"exemplo": "lemrem400"
+	"name": "KenzieBurger",
+	"description": "Best burgers of all time!",
+	"email": "kenzie2@mail.com",
+	"password": "123456",
+	"cnpj": "00.494.159/0001-00",
+	"phoneNumber": "6689467123",
+	"category": "Fast Food",
+	"address": {
+		"street": "Avenida Herculano Teixeira da Rocha",
+		"number": "47",
+		"zipCode": "35745-933",
+		"city": "Andiroba",
+		"state": "MG",
+		"complement": ""
 	}
 }
 ```
@@ -125,16 +133,24 @@
 - PATCH /restaurants/:restaurant_id
 - Restaurant token expected.
 - To proceed your token must match the {restaurant_id} you are trying to update.
+- Property "name", "email" and "cnpj" must be unique.
 - Expected body request example:
 
 ```json
 {
-	"exemplo": "exemplo",
-	"exemplo_address": {
-		"exemplo": "lorem400"
-	},
-	"exemplo_payment": {
-		"exemplo": "lemrem400"
+	"name": "Example",
+	"description": "Example",
+	"email": "Example@mail.com",
+	"password": "123456",
+	"cnpj": "99.99.999/0001-00",
+	"phoneNumber": "99999999999",
+	"address": {
+		"street": "Avenida Kenzie",
+		"number": "99",
+		"zipCode": "99999-999",
+		"city": "Brasilia",
+		"state": "DF",
+		"complement": ""
 	}
 }
 ```
@@ -148,7 +164,7 @@
 
 ---
 
-## 3 - Session Routes
+## 3 - Session Routes (Pronto)
 
 ### 3.1 - User Login
 
@@ -244,13 +260,14 @@
 
 ---
 
-## 5 - Cart Routes
+## 5 - Cart Routes (Pronto)
 
 ### 5.1 - Add Product To Cart
 
 - POST /cart
 - User token exprected.
-- Expected body request:
+- The UUID of the product that is going to be added must be provided in the body request.
+- Expected body request example:
 
 ```json
 {
@@ -262,10 +279,11 @@
 
 - DELETE /cart/:product_id
 - User token expected.
+- product ID must be provided on the URL as a parameter.
 
 ---
 
-## 6 - Restaurant Categories Routes
+## 6 - Restaurant Categories Routes (Pronto)
 
 ### 6.1 - List all restaurant categories
 
@@ -278,7 +296,7 @@
 
 ---
 
-## 7 - Product Categories Routes
+## 7 - Product Categories Routes (Pronto)
 
 ### 7.1 - List all product categories
 
