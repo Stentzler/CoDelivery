@@ -1,5 +1,6 @@
 import {Express} from 'express';
 import cartRoutes from './cart.routes';
+import orderRoutes from './order.routes';
 import productsRoutes from './products.routes';
 import {productsCategoryRoutes} from './productsCategory.routes';
 import {restaurantCategoriesRoutes} from './restaurantCategory.routes';
@@ -16,4 +17,5 @@ export const appRoutes = (app: Express) => {
 	app.use('/cart', cartRoutes);
 	app.use('/products_categories', productsCategoryRoutes);
 	app.use('/restaurant_categories', restaurantCategoriesRoutes);
+	app.use('/order', orderRoutes)
 };

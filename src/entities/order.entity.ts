@@ -17,7 +17,7 @@ export class Order {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
-  @Column({ nullable: false, length: 60 })
+  @Column({ nullable: false, length: 60, default: 'Preparando'})
   status: string;
 
   @VersionColumn()
@@ -36,6 +36,6 @@ export class Order {
   @ManyToOne(() => Users, (user) => user.orders)
   user: Users;
 
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant.orders)
-  restaurant: Restaurant;
+  @ManyToMany(() => Restaurant, {eager: true})
+  restaurant: Restaurant[];
 }
