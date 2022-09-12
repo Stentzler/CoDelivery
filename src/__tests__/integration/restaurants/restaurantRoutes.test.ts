@@ -3,15 +3,23 @@ import AppDataSource from '../../../data-source';
 import request from 'supertest';
 import app from '../../../app';
 import {
+  dummyRestaurantEditData,
+  dupeRestaurantEditData1,
+  dupeRestaurantEditData2,
+  dupeRestaurantEditData3,
   fakeToken,
   mockedRestaurant200,
   mockedRestaurant201,
   mockedRestaurantDummy,
   mockedRestaurantLogin,
+  restaurantEditData1,
+  restaurantEditData2,
+  sensibleRestaurantAddressData,
+  sensibleRestaurantData,
+  wrongData,
 } from '../../mocks';
 import { categoriesQueryBuilder } from '../../../utils/categoriesQueryBuilder';
 import { randomNumberGenerator } from '../../../utils/randomRemover';
-import { response } from 'express';
 
 describe('/restaurants', () => {
   let connection: DataSource;
@@ -23,8 +31,8 @@ describe('/restaurants', () => {
       .then((res) => {
         connection = res;
       })
-      .then((res) => {
-        categoriesQueryBuilder();
+      .then(async (res) => {
+        await categoriesQueryBuilder();
       })
       .catch((err) => {
         console.error('Error during Data Source initialization', err);
@@ -155,6 +163,7 @@ describe('/restaurants', () => {
     expect(response.body).toHaveLength(2);
     expect(response.body[0].name).toEqual('KenzieBurger');
     expect(response.body[1].name).toEqual('KenzieYa');
+    expect(response.status).toBe(200);
   });
 
   test('GET /restaurants/profile - Should be able to list own restaurant', async () => {
@@ -205,5 +214,223 @@ describe('/restaurants', () => {
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(401);
+  });
+
+  test("PATCH /restaurants/:id - Should be able to edit a restaurant's data 1 - Restaurant data", async () => {
+    const login = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    const editRequest = await request(app)
+      .patch(`/restaurants/${firstRestaurantId}`)
+      .send(restaurantEditData1)
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    const response = await request(app)
+      .get('/restaurants/profile')
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    expect(editRequest.status).toBe(204);
+    expect(response.body.name).toEqual('KenzieHappyBurgers');
+  });
+
+  test("PATCH /restaurants/:id - Should be able to edit a restaurant's data 2 - Restaurant address data", async () => {
+    const login = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    const editRequest = await request(app)
+      .patch(`/restaurants/${firstRestaurantId}`)
+      .send(restaurantEditData2)
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    const response = await request(app)
+      .get('/restaurants/profile')
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    expect(editRequest.status).toBe(204);
+    expect(response.body.address.street).toEqual('Rua Cortes');
+    expect(response.body.address.number).toEqual('928');
+    expect(response.body.address.zipCode).toEqual('22725-430');
+    expect(response.body.address.city).toEqual('Andiroba');
+    expect(response.body.address.state).toEqual('MG');
+  });
+
+  test("PATCH /restaurants/:id - Should not be able to edit a restaurant's data without a token", async () => {
+    const editRequest = await request(app)
+      .patch(`/restaurants/${firstRestaurantId}`)
+      .send(dupeRestaurantEditData1);
+
+    expect(editRequest.body).toHaveProperty('message');
+    expect(editRequest.status).toBe(401);
+  });
+
+  test("PATCH /restaurants/:id - Should not be able to edit a restaurant's data with an invalid token", async () => {
+    const editRequest = await request(app)
+      .patch(`/restaurants/${firstRestaurantId}`)
+      .send(dupeRestaurantEditData1)
+      .set('Authorization', `Bearer ${fakeToken}`);
+
+    expect(editRequest.body).toHaveProperty('message');
+    expect(editRequest.status).toBe(401);
+  });
+
+  test('PATCH /restaurants/:id - Should not be able to edit a restaurant other than itself', async () => {
+    const login = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    const editRequest = await request(app)
+      .patch(`/restaurants/${secondRestaurantId}`)
+      .send(dummyRestaurantEditData)
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    expect(editRequest.body).toHaveProperty('message');
+    expect(editRequest.status).toBe(401);
+  });
+
+  test('PATCH /restaurants/:id - Should not be able to edit into duplicate values 1 - Name', async () => {
+    const login = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    const editRequest = await request(app)
+      .patch(`/restaurants/${firstRestaurantId}`)
+      .send(dupeRestaurantEditData1)
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    expect(editRequest.body).toHaveProperty('message');
+    expect(editRequest.status).toBe(409);
+  });
+
+  test('PATCH /restaurants/:id - Should not be able to edit into duplicate values 2 - Email', async () => {
+    const login = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    const editRequest = await request(app)
+      .patch(`/restaurants/${firstRestaurantId}`)
+      .send(dupeRestaurantEditData2)
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    expect(editRequest.body).toHaveProperty('message');
+    expect(editRequest.status).toBe(409);
+  });
+
+  test('PATCH /restaurants/:id - Should not be able to edit into duplicate values 3 - CNPJ', async () => {
+    const login = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    const editRequest = await request(app)
+      .patch(`/restaurants/${firstRestaurantId}`)
+      .send(dupeRestaurantEditData3)
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    expect(editRequest.body).toHaveProperty('message');
+    expect(editRequest.status).toBe(409);
+  });
+
+  test('PATCH /restaurants/:id - Should not be able to edit sensible data 1 - Restaurant data', async () => {
+    const index = randomNumberGenerator(4);
+
+    const login = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    const editRequest = await request(app)
+      .patch(`/restaurants/${firstRestaurantId}`)
+      .send(sensibleRestaurantData[index])
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    expect(editRequest.body).toHaveProperty('message');
+    expect(editRequest.status).toBe(403);
+  });
+
+  test('PATCH /restaurants/:id - Should not be able to edit sensible data 2 - Restaurant address data', async () => {
+    const login = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    const editRequest = await request(app)
+      .patch(`/restaurants/${firstRestaurantId}`)
+      .send(sensibleRestaurantAddressData)
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    expect(editRequest.body).toHaveProperty('message');
+    expect(editRequest.status).toBe(403);
+  });
+
+  test('PATCH /restaurants/:id - Should not be able to edit using wrong key properties', async () => {
+    const login = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    const editRequest = await request(app)
+      .patch(`/restaurants/${firstRestaurantId}`)
+      .send(wrongData)
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    expect(editRequest.body).toHaveProperty('message');
+    expect(editRequest.status).toBe(422);
+  });
+
+  test('DELETE /restaurants/:id - Should be able to (soft) delete a restaurant', async () => {
+    const login = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    const deleteRequest = await request(app)
+      .delete(`/restaurants/${firstRestaurantId}`)
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    const profile = await request(app)
+      .get('/restaurants/profile')
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    expect(deleteRequest.status).toBe(204);
+    expect(profile.body).toHaveProperty('name');
+    expect(profile.body.name).toEqual('KenzieHappyBurgers');
+    expect(profile.body.isActive).toEqual(false);
+  });
+
+  test('DELETE /restaurants/:id - Should not be able to login as a (soft) deleted restaurant', async () => {
+    const login = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    expect(login.body).toHaveProperty('message');
+    expect(login.status).toBe(403);
+  });
+
+  test('DELETE /restaurants/:id - Should not be able to (soft) delete a restaurant without a token', async () => {
+    const deleteRequest = await request(app).delete(
+      `/restaurants/${firstRestaurantId}`
+    );
+
+    expect(deleteRequest.body).toHaveProperty('message');
+    expect(deleteRequest.status).toBe(401);
+  });
+
+  test('DELETE /restaurants/:id - Should not be able to delete a restaurant with an invalid token', async () => {
+    const deleteRequest = await request(app)
+      .delete(`/restaurants/${firstRestaurantId}`)
+      .set('Authorization', `Bearer ${fakeToken}`);
+
+    expect(deleteRequest.body).toHaveProperty('message');
+    expect(deleteRequest.status).toBe(401);
+  });
+
+  test('DELETE /restaurants/:id - Should not be able to (soft) delete a restaurant other than itself', async () => {
+    const login = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    const deleteRequest = await request(app)
+      .delete(`/restaurants/${secondRestaurantId}`)
+      .set('Authorization', `Bearer ${login.body.token}`);
+
+    expect(deleteRequest.body).toHaveProperty('message');
+    expect(deleteRequest.status).toBe(401);
   });
 });

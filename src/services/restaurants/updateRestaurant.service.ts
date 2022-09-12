@@ -22,8 +22,8 @@ const updateRestaurantService = async (id: string, data: any) => {
     data.id ||
     data.createdAt ||
     data.updatedAt ||
-    data.isRestaurant ||
-    data.isActive ||
+    data.isRestaurant !== undefined ||
+    data.isActive !== undefined ||
     data.category ||
     data.address?.id
   ) {

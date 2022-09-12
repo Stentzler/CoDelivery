@@ -6,21 +6,21 @@ export const mockedUser200: IUserRequest = {
   userName: 'Joana23',
   email: 'joana@kenzie.com',
   password: '123456',
-  address: {
-    street: 'Rua Barcelos Domingos',
-    number: '20',
-    zipCode: '25017-340',
-    city: 'Rio de Janeiro',
-    state: 'Rio de Janeiro',
-    complement: 'Condomínio Gaivotas',
-  },
-  paymentInfo: {
-    name: 'Joana',
-    cardNo: '2452374993562234',
-    cvvNo: '950',
-    expireDate: '12/31',
-    cpf: '16203209792',
-  },
+  // address: {
+  //   street: 'Rua Barcelos Domingos',
+  //   number: '20',
+  //   zipCode: '25017-340',
+  //   city: 'Rio de Janeiro',
+  //   state: 'Rio de Janeiro',
+  //   complement: 'Condomínio Gaivotas',
+  // },
+  // paymentInfo: {
+  //   name: 'Joana',
+  //   cardNo: '2452374993562234',
+  //   cvvNo: '950',
+  //   expireDate: '12/31',
+  //   cpf: '16203209792',
+  // },
 };
 
 export const mockedUser201: IUserRequest = {
@@ -28,21 +28,21 @@ export const mockedUser201: IUserRequest = {
   userName: 'Joana23',
   email: 'joana2@kenzie.com',
   password: '123456',
-  address: {
-    street: 'Rua Barcelos Domingos',
-    number: '20',
-    zipCode: '25017-340',
-    city: 'Rio de Janeiro',
-    state: 'Rio de Janeiro',
-    complement: 'Condomínio Gaivotas',
-  },
-  paymentInfo: {
-    name: 'Joana',
-    cardNo: '2452374993562234',
-    cvvNo: '950',
-    expireDate: '12/31',
-    cpf: '16203209792',
-  },
+  // address: {
+  //   street: 'Rua Barcelos Domingos',
+  //   number: '20',
+  //   zipCode: '25017-340',
+  //   city: 'Rio de Janeiro',
+  //   state: 'Rio de Janeiro',
+  //   complement: 'Condomínio Gaivotas',
+  // },
+  // paymentInfo: {
+  //   name: 'Joana',
+  //   cardNo: '2452374993562234',
+  //   cvvNo: '950',
+  //   expireDate: '12/31',
+  //   cpf: '16203209792',
+  // },
 };
 
 export const mockedUserSecond: IUserRequest = {
@@ -50,21 +50,21 @@ export const mockedUserSecond: IUserRequest = {
   userName: 'Joana23',
   email: 'user@mail.com',
   password: '1234',
-  address: {
-    street: 'Rua Barcelos Domingos',
-    number: '20',
-    zipCode: '25017-342',
-    city: 'Rio de Janeiro',
-    state: 'Rio de Janeiro',
-    complement: 'Condomínio Gaivotas',
-  },
-  paymentInfo: {
-    name: 'Joana D`Arc',
-    cardNo: '2452374889562234',
-    cvvNo: '951',
-    expireDate: '11/30',
-    cpf: '16203209782',
-  },
+  // address: {
+  //   street: 'Rua Barcelos Domingos',
+  //   number: '20',
+  //   zipCode: '25017-342',
+  //   city: 'Rio de Janeiro',
+  //   state: 'Rio de Janeiro',
+  //   complement: 'Condomínio Gaivotas',
+  // },
+  // paymentInfo: {
+  //   name: 'Joana D`Arc',
+  //   cardNo: '2452374889562234',
+  //   cvvNo: '951',
+  //   expireDate: '11/30',
+  //   cpf: '16203209782',
+  // },
 };
 
 export const mockedUserLogin = {
@@ -207,4 +207,51 @@ export const mockedRestaurantLoginNoPassword = {
 export const mockedRestaurantLoginWrongPassword = {
   email: 'kenzie@email.com',
   password: '123457',
+};
+
+export const restaurantEditData1 = {
+  name: 'KenzieHappyBurgers',
+};
+
+export const restaurantEditData2 = {
+  address: {
+    street: 'Rua Cortes',
+    number: '928',
+    zipCode: '22725-430',
+    complement: '',
+  },
+};
+
+export const dupeRestaurantEditData1 = {
+  name: 'KenzieYa',
+};
+
+export const dupeRestaurantEditData2 = {
+  email: 'kenzieya@email.com',
+};
+
+export const dupeRestaurantEditData3 = {
+  cnpj: '72.482.202/0001-28',
+};
+
+export const dummyRestaurantEditData = {
+  name: 'RandomRestaurantName9999',
+};
+
+export const sensibleRestaurantData = [
+  { createdAt: '2021-05-23T12:32:44.727Z' },
+  { updatedAt: '2021-09-24T08:17:56.139Z' },
+  { id: '68a6fe9e-1c4b-4e8f-a09a-d8faac39e0e7' },
+  { isRestaurant: false },
+  { isActive: false },
+];
+
+export const sensibleRestaurantAddressData = {
+  address: {
+    id: '81b0d854-fd5a-4a92-8e3d-cf9cf646d901',
+  },
+};
+
+export const wrongData = {
+  crabRave: 'trolling data',
 };
