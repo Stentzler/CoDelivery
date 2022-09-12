@@ -28,6 +28,26 @@ const updateRestaurantService = async (id: string, data: any) => {
     throw new AppError('Those changes are not allowed', 403);
   }
 
+  if (data.name) {
+    const nameChecker = await restaurantRepo.findOne({
+      where: { name: data.name },
+    });
+
+    if (nameChecker) {
+      throw new AppError('Given name is already registered', 409);
+    }
+  }
+
+  if (data.email) {
+    const emailChecker = await restaurantRepo.findOne({
+      where: { email: data.email },
+    });
+
+    if (emailChecker) {
+      throw new AppError('Given email is already being used', 409);
+    }
+  }
+
   if (data.cnpj) {
     const cnpjChecker = await restaurantRepo.findOne({
       where: { cnpj: data.cnpj },
