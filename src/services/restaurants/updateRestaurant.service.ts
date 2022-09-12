@@ -2,6 +2,7 @@ import AppDataSource from '../../data-source';
 import { Restaurant } from '../../entities/restaurant.entity';
 import { RestaurantAddress } from '../../entities/restaurantAddress.entity';
 import { AppError } from '../../errors/AppError';
+import bcrypt from 'bcrypt';
 
 const updateRestaurantService = async (id: string, data: any) => {
   const restaurantRepo = AppDataSource.getRepository(Restaurant);
@@ -56,6 +57,10 @@ const updateRestaurantService = async (id: string, data: any) => {
     if (cnpjChecker) {
       throw new AppError('Given CNPJ is already being used', 409);
     }
+  }
+
+  if (data.password) {
+    data.password = bcrypt.hashSync(data.password, 10);
   }
 
   try {
