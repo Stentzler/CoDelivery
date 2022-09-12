@@ -6,8 +6,8 @@ export const mockedUser200: IUserRequest = {
   userName: 'Joana23',
   email: 'joana@kenzie.com',
   password: '123456',
-  addressInfo: {
-    address: 'Rua Barcelos Domingos',
+  address: {
+    street: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-340',
     city: 'Rio de Janeiro',
@@ -28,8 +28,8 @@ export const mockedUser201: IUserRequest = {
   userName: 'Joana23',
   email: 'joana2@kenzie.com',
   password: '123456',
-  addressInfo: {
-    address: 'Rua Barcelos Domingos',
+  address: {
+    street: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-340',
     city: 'Rio de Janeiro',
@@ -50,8 +50,8 @@ export const mockedUserSecond: IUserRequest = {
   userName: 'Joana23',
   email: 'user@mail.com',
   password: '1234',
-  addressInfo: {
-    address: 'Rua Barcelos Domingos',
+  address: {
+    street: 'Rua Barcelos Domingos',
     number: '20',
     zipCode: '25017-342',
     city: 'Rio de Janeiro',
@@ -104,7 +104,7 @@ export const sensibleDataUser = [
 ];
 
 export const sensibleDataAddressInfo = {
-  addressInfo: {
+  address: {
     id: 'd3c72f8e-6bd4-2ad5-a92c-2b87c45d9bd9',
   },
 };
@@ -144,10 +144,29 @@ export const mockedRestaurant200: IRestaurantCreate = {
   img_url: '',
   category: 'Fast Food',
   address: {
-    address: 'Avenida Herculano Teixeira da Rocha',
+    street: 'Avenida Herculano Teixeira da Rocha',
     number: '47',
     zipCode: '35745-932',
     city: 'Andiroba',
+    state: 'MG',
+    complement: '',
+  },
+};
+
+export const mockedRestaurant201: IRestaurantCreate = {
+  name: 'KenzieYa',
+  description: 'The taste of Japan is closer than you think',
+  email: 'kenzieya@email.com',
+  password: '123456',
+  cnpj: '72.482.202/0001-28',
+  phoneNumber: '6689467123',
+  img_url: '',
+  category: 'Japanese',
+  address: {
+    street: 'Avenida Doutor Cristiano Guimarães',
+    number: '823',
+    zipCode: '31720-300',
+    city: 'Belo Horizonte',
     state: 'MG',
     complement: '',
   },
@@ -163,11 +182,29 @@ export const mockedRestaurantDummy: IRestaurantCreate = {
   img_url: '',
   category: 'Fast Food',
   address: {
-    address: 'Rua Coelho e Castro',
+    street: 'Rua Coelho e Castro',
     number: '125',
     zipCode: '20081-060',
     city: 'Rio de Janeiro',
     state: 'RJ',
     complement: '',
   },
+};
+
+export const mockedRestaurantLogin = {
+  email: 'kenzie@email.com',
+  password: '123456',
+};
+
+export const mockedRestaurantLoginNoEmail = {
+  password: '123456',
+};
+
+export const mockedRestaurantLoginNoPassword = {
+  email: 'kenzie@email.com',
+};
+
+export const mockedRestaurantLoginWrongPassword = {
+  email: 'kenzie@email.com',
+  password: '123457',
 };

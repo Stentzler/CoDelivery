@@ -47,18 +47,18 @@ describe('/users', () => {
     expect(response.body).toHaveProperty('email');
     expect(response.body).toHaveProperty('isRestaurant');
     expect(response.body).toHaveProperty('isActive');
-    expect(response.body).toHaveProperty('addressInfo');
+    expect(response.body).toHaveProperty('address');
     expect(response.body).toHaveProperty('cart');
     expect(response.body).toHaveProperty('paymentInfo');
     expect(response.body).toHaveProperty('createdAt');
     expect(response.body).toHaveProperty('updatedAt');
-    expect(response.body.addressInfo).toHaveProperty('id');
-    expect(response.body.addressInfo).toHaveProperty('address');
-    expect(response.body.addressInfo).toHaveProperty('number');
-    expect(response.body.addressInfo).toHaveProperty('zipCode');
-    expect(response.body.addressInfo).toHaveProperty('city');
-    expect(response.body.addressInfo).toHaveProperty('state');
-    expect(response.body.addressInfo).toHaveProperty('complement');
+    expect(response.body.address[0]).toHaveProperty('id');
+    expect(response.body.address[0]).toHaveProperty('street');
+    expect(response.body.address[0]).toHaveProperty('number');
+    expect(response.body.address[0]).toHaveProperty('zipCode');
+    expect(response.body.address[0]).toHaveProperty('city');
+    expect(response.body.address[0]).toHaveProperty('state');
+    expect(response.body.address[0]).toHaveProperty('complement');
     expect(response.body.cart).toHaveProperty('id');
     expect(response.body.cart).toHaveProperty('subtotal');
     expect(response.body).not.toHaveProperty('password');
@@ -109,19 +109,19 @@ describe('/users', () => {
     switch (value) {
       case 0:
         // @ts-expect-error
-        delete newUser.addressInfo.address;
+        delete newUser.address.street;
         break;
       case 1:
         // @ts-expect-error
-        delete newUser.addressInfo.city;
+        delete newUser.address.city;
         break;
       case 2:
         // @ts-expect-error
-        delete newUser.addressInfo.zipCode;
+        delete newUser.address.zipCode;
         break;
       default:
         // @ts-expect-error
-        delete newUser.addressInfo.state;
+        delete newUser.address.state;
     }
 
     const response = await request(app).post('/users').send(newUser);
@@ -158,7 +158,7 @@ describe('/users', () => {
     expect(response.status).toBe(400);
   });
 
-  test('GET /users/profile - Should list the user', async () => {
+  test('GET /users/profile - Should be able to list the user', async () => {
     const createdUser = await request(app).post('/users').send(mockedUser201);
 
     createdUser201Id = createdUser.body.id;
@@ -167,33 +167,37 @@ describe('/users', () => {
       .post('/login/users')
       .send(mockedUser201Login);
 
+    console.log(loginResponse.body);
+
     const response = await request(app)
       .get(`/users/profile`)
       .set('Authorization', `Bearer ${loginResponse.body.token}`);
 
-    expect(response.body[0]).toHaveProperty('id');
-    expect(response.body[0]).toHaveProperty('fullName');
-    expect(response.body[0]).toHaveProperty('userName');
-    expect(response.body[0]).toHaveProperty('email');
-    expect(response.body[0]).toHaveProperty('isRestaurant');
-    expect(response.body[0]).toHaveProperty('isActive');
-    expect(response.body[0]).toHaveProperty('addressInfo');
-    expect(response.body[0]).toHaveProperty('cart');
-    expect(response.body[0]).toHaveProperty('paymentInfo');
-    expect(response.body[0]).toHaveProperty('createdAt');
-    expect(response.body[0]).toHaveProperty('updatedAt');
-    expect(response.body[0].addressInfo).toHaveProperty('id');
-    expect(response.body[0].addressInfo).toHaveProperty('address');
-    expect(response.body[0].addressInfo).toHaveProperty('number');
-    expect(response.body[0].addressInfo).toHaveProperty('zipCode');
-    expect(response.body[0].addressInfo).toHaveProperty('city');
-    expect(response.body[0].addressInfo).toHaveProperty('state');
-    expect(response.body[0].addressInfo).toHaveProperty('complement');
-    expect(response.body[0].cart).toHaveProperty('id');
-    expect(response.body[0].cart).toHaveProperty('subtotal');
-    expect(response.body[0]).not.toHaveProperty('password');
-    expect(response.body[0].isRestaurant).toEqual(false);
-    expect(response.body[0].isActive).toEqual(true);
+    console.log(response.body);
+
+    expect(response.body).toHaveProperty('id');
+    expect(response.body).toHaveProperty('fullName');
+    expect(response.body).toHaveProperty('userName');
+    expect(response.body).toHaveProperty('email');
+    expect(response.body).toHaveProperty('isRestaurant');
+    expect(response.body).toHaveProperty('isActive');
+    expect(response.body).toHaveProperty('address');
+    expect(response.body).toHaveProperty('cart');
+    expect(response.body).toHaveProperty('paymentInfo');
+    expect(response.body).toHaveProperty('createdAt');
+    expect(response.body).toHaveProperty('updatedAt');
+    expect(response.body.address[0]).toHaveProperty('id');
+    expect(response.body.address[0]).toHaveProperty('street');
+    expect(response.body.address[0]).toHaveProperty('number');
+    expect(response.body.address[0]).toHaveProperty('zipCode');
+    expect(response.body.address[0]).toHaveProperty('city');
+    expect(response.body.address[0]).toHaveProperty('state');
+    expect(response.body.address[0]).toHaveProperty('complement');
+    expect(response.body.cart).toHaveProperty('id');
+    expect(response.body.cart).toHaveProperty('subtotal');
+    expect(response.body).not.toHaveProperty('password');
+    expect(response.body.isRestaurant).toEqual(false);
+    expect(response.body.isActive).toEqual(true);
     expect(response.status).toBe(200);
   });
 
