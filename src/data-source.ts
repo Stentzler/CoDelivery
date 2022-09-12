@@ -10,17 +10,18 @@ const AppDataSource = new DataSource(
 				entities: ['src/entities/*.ts'],
 		  }
 		: {
-				type: 'postgres',
-				host: process.env.DB_HOST,
-				port: 5432,
-				username: process.env.POSTGRES_USER,
-				password: process.env.POSTGRES_PWD,
-				database: process.env.POSTGRES_DB,
-				synchronize: false,
-				logging: true,
-				entities: ['src/entities/*.ts'],
-				migrations: ['src/migrations/*.ts'],
-		  }
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      ssl: process.env.NODE_ENV === 'production' ? {rejectUnauthorized: false} : false,
+      synchronize: false,
+      logging: true,
+      entities:
+        process.env.NODE_ENV === 'production' ? ['dist/src/entities/*.js'] : ['src/entities/*.ts'],
+      migrations:
+        process.env.NODE_ENV === 'production'
+          ? ['dist/src/migrations/*.js']
+          : ['src/migrations/*.ts'],
+    }
 );
 
 export default AppDataSource;
@@ -38,16 +39,16 @@ export default AppDataSource;
 // 		migrations: ['src/migrations/*.ts'],
 //   }
 
-// : {
-//   type: 'postgres',
-//   url: process.env.DATABASE_URL,
-//   ssl: process.env.NODE_ENV === 'production' ? {rejectUnauthorized: false} : false,
-//   synchronize: false,
-//   logging: true,
-//   entities:
-//     process.env.NODE_ENV === 'production' ? ['dist/src/entities/*.js'] : ['src/entities/*.ts'],
-//   migrations:
-//     process.env.NODE_ENV === 'production'
-//       ? ['dist/src/migrations/*.js']
-//       : ['src/migrations/*.ts'],
-// }
+{
+  type: 'postgres',
+  url: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? {rejectUnauthorized: false} : false,
+  synchronize: false,
+  logging: true,
+  entities:
+    process.env.NODE_ENV === 'production' ? ['dist/src/entities/*.js'] : ['src/entities/*.ts'],
+  migrations:
+    process.env.NODE_ENV === 'production'
+      ? ['dist/src/migrations/*.js']
+      : ['src/migrations/*.ts'],
+}
