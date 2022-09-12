@@ -12,32 +12,38 @@
 
 ## 1 - User Routes
 
-### 1.1 - Create User
+### 1.1 - Create User V
 
 - POST /users
 - Expected body request example:
 
 ```json
 {
-	"full_name": "John Doe",
-	"username": "J_Doe_23",
-	"email": "john.doe@mail.com",
-	"password": "abc123",
-	"address_info": {
-		"address": "Rua das palmeiras",
-		"number": "20",
-		"zipCode": "25013-340",
-		"city": "Rio de Janeiro",
-		"state": "Rio de Janeiro",
-		"complement": "condominio gaivotas"
+ {
+    "fullName": "John Doe",
+    "userName": "Doedoe",
+    "email": "doe@gmail.com",
+    "password": "1234"
+  }
+}
+```
+
+-Expected response:
+
+```json
+{
+	"fullName": "John Doe",
+	"userName": "Doedoe",
+	"email": "doe@gmail.com",
+	"cart": {
+		"subtotal": "0.00",
+		"id": "a77c372b-6f3c-472a-b314-e9aca6a5da8e"
 	},
-	"payment_info": {
-		"name": "John Doe",
-		"cardNo": "2452374993562234",
-		"cvvNo": "123",
-		"expireDate": "12/31",
-		"cpf": "16203209792"
-	}
+	"id": "eceef5fe-ea0f-4c54-a951-14be9e8c3c34",
+	"isRestaurant": false,
+	"isActive": true,
+	"createdAt": "2022-09-12T14:50:37.970Z",
+	"updatedAt": "2022-09-12T14:50:37.970Z"
 }
 ```
 
@@ -46,6 +52,25 @@
 - GET /users/profile
 - No request body needed.
 - User token required.
+
+- Expected response:
+
+```json
+{
+	"fullName": "John Doe",
+	"userName": "Doedoe",
+	"email": "doe@gmail.com",
+	"cart": {
+		"subtotal": "0.00",
+		"id": "a77c372b-6f3c-472a-b314-e9aca6a5da8e"
+	},
+	"id": "eceef5fe-ea0f-4c54-a951-14be9e8c3c34",
+	"isRestaurant": false,
+	"isActive": true,
+	"createdAt": "2022-09-12T14:50:37.970Z",
+	"updatedAt": "2022-09-12T14:50:37.970Z"
+}
+```
 
 ### 1.3 - Update User
 
@@ -62,6 +87,25 @@
 	"exemplo_payment": {
 		"exemplo": "lemrem400"
 	}
+}
+```
+
+- Expected response:
+
+```json
+{
+	"fullName": "John Doe",
+	"userName": "Doedoe",
+	"email": "doe@gmail.com",
+	"cart": {
+		"subtotal": "0.00",
+		"id": "a77c372b-6f3c-472a-b314-e9aca6a5da8e"
+	},
+	"id": "eceef5fe-ea0f-4c54-a951-14be9e8c3c34",
+	"isRestaurant": false,
+	"isActive": true,
+	"createdAt": "2022-09-12T14:50:37.970Z",
+	"updatedAt": "2022-09-12T14:50:37.970Z"
 }
 ```
 
@@ -102,10 +146,24 @@
 
 - POST /restaurants/uploadImage/:id
 - Expected body request example:
+- Properties "name", "email" and "cnpj" must be unique, otherwise the request will fail.
 
 ```json
 {
-	"exemplo": "exemplo"
+	"name": "Mudei",
+	"description": "Alterado!",
+	"email": "kenzie2@mail.com",
+	"password": "123456",
+	"cnpj": "99.99.999/0001-00",
+	"phoneNumber": "99999999999",
+	"address": {
+		"street": "Avenida Kenzie",
+		"number": "99",
+		"zipCode": "99999-999",
+		"city": "Brasilia",
+		"state": "DF",
+		"complement": ""
+	}
 }
 ```
 
