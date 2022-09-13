@@ -7,6 +7,8 @@ import {
   editData2,
   editData3,
   fakeToken,
+  mockedRestaurant200,
+  mockedRestaurantLogin,
   mockedUser200,
   mockedUser201,
   mockedUser201Login,
@@ -16,6 +18,8 @@ import {
   sensibleDataCartInfo,
   sensibleDataPaymentInfo,
   sensibleDataUser,
+  userAddress200,
+  userAddressDummy,
 } from '../../mocks';
 import { randomNumberGenerator } from '../../../utils/randomRemover';
 
@@ -47,18 +51,9 @@ describe('/users', () => {
     expect(response.body).toHaveProperty('email');
     expect(response.body).toHaveProperty('isRestaurant');
     expect(response.body).toHaveProperty('isActive');
-    expect(response.body).toHaveProperty('address');
     expect(response.body).toHaveProperty('cart');
-    expect(response.body).toHaveProperty('paymentInfo');
     expect(response.body).toHaveProperty('createdAt');
     expect(response.body).toHaveProperty('updatedAt');
-    expect(response.body.address[0]).toHaveProperty('id');
-    expect(response.body.address[0]).toHaveProperty('street');
-    expect(response.body.address[0]).toHaveProperty('number');
-    expect(response.body.address[0]).toHaveProperty('zipCode');
-    expect(response.body.address[0]).toHaveProperty('city');
-    expect(response.body.address[0]).toHaveProperty('state');
-    expect(response.body.address[0]).toHaveProperty('complement');
     expect(response.body.cart).toHaveProperty('id');
     expect(response.body.cart).toHaveProperty('subtotal');
     expect(response.body).not.toHaveProperty('password');
@@ -74,7 +69,7 @@ describe('/users', () => {
     expect(response.status).toBe(400);
   });
 
-  test('POST /users - Should not be able to create a user with missing information 1 - User data', async () => {
+  test('POST /users - Should not be able to create a user with missing information', async () => {
     const newUser = { ...mockedUser200 };
     const value = randomNumberGenerator();
     // Deleting a random property to avoid playing the system
@@ -102,32 +97,75 @@ describe('/users', () => {
     expect(response.status).toBe(400);
   });
 
-  test('POST /users - Should not be able to create a user with missing information 2 - User address info', async () => {
-    const newUser = { ...mockedUser200 };
-    const value = randomNumberGenerator();
+  test('POST /users/addresses - Should be able to register an address to an existing user', async () => {
+    const userLogin = await request(app)
+      .post('/login/users')
+      .send(mockedUserLogin);
+
+    const response = await request(app)
+      .post('/users/addresses')
+      .send(userAddress200)
+      .set('Authorization', `Bearer ${userLogin.body.token}`);
+
+    expect(response.body).toHaveProperty('userName');
+    expect(response.body).toHaveProperty('email');
+    expect(response.body.address).toHaveProperty('id');
+    expect(response.body.address).toHaveProperty('street');
+    expect(response.body.address).toHaveProperty('number');
+    expect(response.body.address).toHaveProperty('zipCode');
+    expect(response.body.address).toHaveProperty('city');
+    expect(response.body.address).toHaveProperty('state');
+    expect(response.body.address).toHaveProperty('complement');
+    expect(response.status).toBe(201);
+  });
+
+  test('POST /users/addresses - Should not be able to register an address with missing information', async () => {
+    const newAddress = { ...userAddressDummy };
+    const value = randomNumberGenerator(4);
 
     switch (value) {
       case 0:
         // @ts-expect-error
-        delete newUser.address.street;
+        delete newAddress.street;
         break;
       case 1:
         // @ts-expect-error
-        delete newUser.address.city;
+        delete newAddress.city;
         break;
       case 2:
         // @ts-expect-error
-        delete newUser.address.zipCode;
+        delete newAddress.zipCode;
         break;
-      default:
+      case 3:
         // @ts-expect-error
-        delete newUser.address.state;
+        delete newAddress.state;
+      case 4:
+        // @ts-expect-error
+        delete newAddress.number;
     }
 
-    const response = await request(app).post('/users').send(newUser);
+    const response = await request(app).post('/users').send(newAddress);
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(400);
+  });
+
+  test('POST /users/addresses - Should not be accessible with a restaurant token', async () => {
+    const createRestaurant = await request(app)
+      .post('/restaurants')
+      .send(mockedRestaurant200);
+
+    const loginRestaurant = await request(app)
+      .post('/login/restaurants')
+      .send(mockedRestaurantLogin);
+
+    const response = await request(app)
+      .post('/users/addresses')
+      .send(userAddress200)
+      .set('Authorization', `Bearer ${loginRestaurant.body.token}`);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(403);
   });
 
   test('POST /users - Should not be able to create a user with missing information 3 - User payment info', async () => {
