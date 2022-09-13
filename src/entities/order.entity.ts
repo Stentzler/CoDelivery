@@ -7,6 +7,11 @@ import {
 	ManyToMany,
 	JoinTable,
 	ManyToOne,
+	OneToOne,
+	JoinColumn,
+	OneToMany,
+	PrimaryColumn,
+	Generated,
 } from 'typeorm';
 import {Products} from './products.entity';
 import {Restaurant} from './restaurant.entity';
@@ -20,7 +25,7 @@ export class Order {
 	@Column({nullable: false, length: 60, default: 'Preparando'})
 	status: string;
 
-	@VersionColumn()
+	@Generated('increment')
 	orderNº: number;
 
 	@CreateDateColumn()
@@ -36,7 +41,6 @@ export class Order {
 	@ManyToOne(() => Users, user => user.orders)
 	user: Users;
 
-	@ManyToMany(() => Restaurant, {eager: true})
-	@JoinTable()
-	restaurant: Restaurant[];
+	@ManyToOne(() => Restaurant,  restaurant => restaurant.orders, { eager: true})
+	restaurant: Restaurant;
 }
