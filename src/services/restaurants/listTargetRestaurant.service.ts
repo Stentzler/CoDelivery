@@ -5,7 +5,10 @@ import { AppError } from '../../errors/AppError';
 const listTargetRestaurantService = async (id: string) => {
   const restaurantRepo = AppDataSource.getRepository(Restaurant);
 
-  const restaurant = await restaurantRepo.findOne({ where: { id } });
+  const restaurant = await restaurantRepo.findOne({
+    where: { id },
+    relations: { category: true },
+  });
 
   if (!restaurant) {
     throw new AppError('Restaurant not found', 404);
