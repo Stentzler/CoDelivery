@@ -12,7 +12,7 @@ const updateUserAddressService = async (
 	const userRepository = AppDataSource.getRepository(Users);
 	const userAddressRepository = AppDataSource.getRepository(UserAddress);
 
-	const user = await userRepository.findOneBy({id: userId});
+	const user = await userRepository.findOne({where: {id: userId}, relations: {address: true}});
 
 	if (!user) {
 		throw new AppError('User not found', 404);
@@ -30,11 +30,14 @@ const updateUserAddressService = async (
 		throw new AppError('Address does not belong to this user', 401);
 	}
 
-	const newAddress = {...address, ...newAddressInfo};
+	const newAddress: IAddressUpdateRequest = {...address, ...newAddressInfo};
+	delete newAddress.id;
 
-	const updatedAddress = await userAddressRepository.update(addressId, newAddress);
+	await userAddressRepository.update(addressId, newAddress);
 
 	user.updatedAt = new Date();
+
+	const updatedAddress = await userAddressRepository.findOneBy({id: addressId});
 
 	return updatedAddress;
 };

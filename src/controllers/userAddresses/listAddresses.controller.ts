@@ -6,7 +6,7 @@ const listAddressesController = async (req: Request, res: Response) => {
 
 	const userAddresses = await listUserAddressService(userId);
 
-	return res.status(201).json(userAddresses);
+	return res.status(200).json(userAddresses);
 };
 
 export {listAddressesController};

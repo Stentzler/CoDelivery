@@ -8,7 +8,6 @@ import {restaurantCategoriesRoutes} from './restaurantCategory.routes';
 import restaurantRoutes from './restaurants.routes';
 import sessionRoutes from './session.routes';
 import userAddressesRoutes from './userAddresses.routes';
-
 import userRoutes from './users.routes';
 
 export const appRoutes = (app: Express) => {
@@ -21,5 +20,5 @@ export const appRoutes = (app: Express) => {
 	app.use('/restaurant_categories', restaurantCategoriesRoutes);
 	app.use('/order', orderRoutes);
 	app.use('/users/addresses', userAddressesRoutes);
-  app.use('/users/payment_info',paymentInfoRoutes);
+	app.use('/users/payment_info', paymentInfoRoutes);
 };
