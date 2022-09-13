@@ -2,17 +2,19 @@
 
 **BASE_URL: https://codelivery-api.herokuapp.com**
 
-[1 - User Routes](https://github.com/Stentzler/CoDelivery#1---user_routes)  
-[2 - Restaurant Routes](https://github.com/Stentzler/CoDelivery#2---restaurant-routes)  
-[3 - Session Routes](https://github.com/Stentzler/CoDelivery#3---session-routes)  
-[4 - Product Routes](https://github.com/Stentzler/CoDelivery#4---product-routes)  
-[5 - Cart Routes](https://github.com/Stentzler/CoDelivery#5---cart-routes)  
-[6 - Restaurant Categories Routes](https://github.com/Stentzler/CoDelivery#6---restaurant-categories-routes)  
-[7 - Product Categories Routes](https://github.com/Stentzler/CoDelivery#7---product-categories-routes)
+- [1.0 - User Routes](https://github.com/Stentzler/CoDelivery#1---user_routes)
+- &nbsp;&nbsp;&nbsp;&nbsp; [1.1 - User Address Routes](https://github.com/Stentzler/CoDelivery#2---user_address_routes)
+- &nbsp;&nbsp;&nbsp;&nbsp; [1.2 - User Paymento_Info Routes](https://github.com/Stentzler/CoDelivery#3---user_payment_info_routes)
+- [2 - Restaurant Routes](https://github.com/Stentzler/CoDelivery#4---restaurant-routes)
+- [3 - Session Routes](https://github.com/Stentzler/CoDelivery#5---session-routes)
+- [4 - Product Routes](https://github.com/Stentzler/CoDelivery#6---product-routes)
+- [5 - Cart Routes](https://github.com/Stentzler/CoDelivery#7---cart-routes)
+- [6 - Restaurant Categories Routes](https://github.com/Stentzler/CoDelivery#8---restaurant-categories-routes)
+- [7 - Product Categories Routes](https://github.com/Stentzler/CoDelivery#9---product-categories-routes)
 
-## 1 - User Routes
+## 1.0 - User Routes (Pronto)
 
-### 1.1 - Create User
+### 1.0.1 - Create User
 
 - POST /users
 - Expected body request example:
@@ -41,13 +43,64 @@
 }
 ```
 
-### 1.2 - List User Profile
+## 1.1 - User Address Routes (Pronto)
+
+### 1.1.1 - Create User Address
+
+- POST /users/addresses
+- User token expected
+- Expected body request example:
+
+```json
+{
+	"street": "street name",
+	"number": "77",
+	"zipCode": "77777-777",
+	"city": "Curitiba",
+	"state": "PR",
+	"complement": "Apartamento"
+}
+```
+
+### 1.1.2 - List User Address
+
+- GET /users/addresses
+- User token expected
+
+### 1.1.3 - Update User Address
+
+- PATCH /users/addresses/:address_id
+- User token expected
+- User requesting the update must be related to the address_id.
+- Request must contain any of the following properties.
+- Expected body request example:
+
+```json
+{
+	"street": "street name",
+	"number": "77",
+	"zipCode": "77777-777",
+	"city": "Curitiba",
+	"state": "PR",
+	"complement": "Apartamento"
+}
+```
+
+### 1.1.4 - Delete User Address
+
+- DELETE /users/addresses/:address_id
+- User token expected
+- User requesting the update must be related to the address_id.
+
+---
+
+### 1.0.2 - List User Profile
 
 - GET /users/profile
 - No request body needed.
 - User token required.
 
-### 1.3 - Update User
+### 1.0.3 - Update User
 
 - PATCH /users/:user_id
 - User token required.
@@ -65,13 +118,13 @@
 }
 ```
 
-### 1.4 - User Soft Delete
+### 1.0.4 - User Soft Delete
 
 - PATCH /users/delete/deactivate
 - No request body needed.
 - User token required.
 
-### 1.5 - User Delete
+### 1.0.5 - User Delete
 
 - DELETE /users/:user_id
 - No request body needed.
@@ -79,7 +132,58 @@
 
 ---
 
-## 2 - Restaurant Routes (Documentacao da imagem faltando)
+## 1.2 - User Paymento_Info Routes (Pronto)
+
+### 1.2.1 - Create User Paymento_Info
+
+- POST /users/payment_info
+- User token expected
+- Expected body request example:
+
+```json
+{
+	"userId": "2f913dd4-1cfa-4f40-8e81-cf6bad66ed63",
+	"name": "example",
+	"cardNo": "2452374993562234",
+	"cvvNo": "950",
+	"expireDate": "12/31",
+	"cpf": "16203204290"
+}
+```
+
+### 1.2.2 - List User Paymento_Info
+
+- GET /users/payment_info
+- User token expected
+
+### 1.2.3 - Update User Paymento_Info
+
+- PATCH /users/payment_info/:payment_info_id
+- User token expected
+- User requesting the update must be related to the payment_info_id.
+- Request must contain any of the following properties.
+- Expected body request example:
+
+```json
+{
+	"street": "street name",
+	"number": "77",
+	"zipCode": "77777-777",
+	"city": "Curitiba",
+	"state": "PR",
+	"complement": "Apartamento"
+}
+```
+
+### 1.2.4 - Delete User Paymento_Info
+
+- DELETE /users/payment_info/:payment_info_id
+- User token expected
+- User requesting the update must be related to the payment_info_id.
+
+---
+
+## 2 - Restaurant Routes (Pronto)
 
 ### 2.1 - Create Restaurant
 
@@ -109,12 +213,27 @@
 ### 2.2 - Uploading Image For Restaurant Avatar
 
 - POST /restaurants/uploadImage/:id
-- Expected body request example:
+- Expected file format (.JPEG, .PNG, .SVG)
+- Expected request example:
 
-```json
-{
-	"exemplo": "exemplo"
+```
+const form = new FormData();
+form.append("image", "C:\\Users\\User\\Desktop\\Burger.png");
+
+const options = {
+method: 'POST',
+headers: {
+'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE0ZWY3NGNlLTE2YjMtNDU5Yy1iODM5LTI5MjI3NzRjMTJjYSIsImlzUmVzdGF1cmFudCI6dHJ1ZSwiaWF0IjoxNjYzMDI0NDAzLCJleHAiOjE2NjMxMTA4MDN9.GDxIF7WmkY-Ckl0CWLzZdj9Gaawvg6HJNDZ_2z2RVk0'
 }
+};
+
+options.body = form;
+
+fetch('http://codelivery.com/restaurants/uploadImage/${restaurant_id}', options)
+.then(response => response.json())
+.then(response => console.log(response))
+.catch(err => console.error(err));
 ```
 
 ### 2.3 - List all restaurants
@@ -248,24 +367,40 @@
 ### 4.6 - Uploading Product Image
 
 - POST /products/uploadImage/:product_id
-- Restaurant token expected.
-- To proceed you must own this {product_id}.
-- Expected body request example:
+- Expected file format (.JPEG, .PNG, .SVG)
+- Expected request example:
 
-```json
-{
-	"exemplo": "exemplo"
-}
 ```
+const form = new FormData();
+form.append("image", "C:\\Users\\User\\Desktop\\Burger.png");
 
----
+const options = {
+method: 'POST',
+headers: {
+'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE0ZWY3NGNlLTE2YjMtNDU5Yy1iODM5LTI5MjI3NzRjMTJjYSIsImlzUmVzdGF1cmFudCI6dHJ1ZSwiaWF0IjoxNjYzMDI0NDAzLCJleHAiOjE2NjMxMTA4MDN9.GDxIF7WmkY-Ckl0CWLzZdj9Gaawvg6HJNDZ_2z2RVk0'
+}
+};
+
+options.body = form;
+
+fetch('http://codelivery.com/products/uploadImage/${product_id}', options)
+.then(response => response.json())
+.then(response => console.log(response))
+.catch(err => console.error(err));
+```
 
 ## 5 - Cart Routes (Pronto)
 
-### 5.1 - Add Product To Cart
+### 5.1 - List Products From Cart
+
+- GET /cart
+- User token expected.
+
+### 5.2 - Add Product To Cart
 
 - POST /cart
-- User token exprected.
+- User token expected.
 - The UUID of the product that is going to be added must be provided in the body request.
 - Expected body request example:
 
@@ -275,7 +410,7 @@
 }
 ```
 
-### 5.2 - Remove Product From Cart
+### 5.3 - Remove Product From Cart
 
 - DELETE /cart/:product_id
 - User token expected.

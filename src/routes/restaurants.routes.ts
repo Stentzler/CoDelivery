@@ -16,7 +16,7 @@ const restaurantRoutes = Router();
 restaurantRoutes.post('', schemaValidatedMiddleware(restaurantSchema), createRestaurantController);
 
 restaurantRoutes.post(
-	'/uploadImage/:id',
+	'/upload_image/:id',
 	authenticationMiddleware,
 	idVerifierMiddleware,
 	upload.single('image'),
