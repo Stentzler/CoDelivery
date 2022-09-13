@@ -11,6 +11,9 @@ const addProductService = async (productId: string, userId: string) => {
     where: {
       id: userId,
     },
+    relations: {
+      cart: true,
+    },
   });
 
   if (!user) {
@@ -22,6 +25,9 @@ const addProductService = async (productId: string, userId: string) => {
   const cart = await cartRepository.findOne({
     where: {
       id: user.cart.id,
+    },
+    relations: {
+      products: true,
     },
   });
 
