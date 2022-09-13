@@ -12,7 +12,7 @@ import {Products} from './products.entity';
 import {Restaurant} from './restaurant.entity';
 import {Users} from './user.entity';
 
-@Entity('Order')
+@Entity('order')
 export class Order {
 	@PrimaryGeneratedColumn('uuid')
 	readonly id: string;
