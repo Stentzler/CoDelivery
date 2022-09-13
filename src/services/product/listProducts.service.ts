@@ -13,7 +13,7 @@ const listProductsService = async (id: string) => {
     return product;
   }
 
-  const products = await productRepository.find({});
+  const products = await productRepository.find();
   return products;
 };
 export { listProductsService };
