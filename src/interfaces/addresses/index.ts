@@ -7,7 +7,8 @@ export interface IAddressInfoRequest {
 	complement?: string;
 }
 
-export interface IAddressUpdateRequest {
+export interface IUserAddressUpdateRequest {
+	id?: string;
 	street?: string;
 	number?: string;
 	zipCode?: string;

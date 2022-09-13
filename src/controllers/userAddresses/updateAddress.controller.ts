@@ -5,7 +5,7 @@ import {updateUserAddressService} from '../../services/userAddresses/updateUserA
 const updateAddressesController = async (req: Request, res: Response) => {
 	const userId: string = req.user.id;
 	const addressId: string = req.params.id;
-	const newAddressInfo: IAddressUpdateRequest = req.body.address;
+	const newAddressInfo: IAddressUpdateRequest = req.body;
 
 	const updatedUserAddress = await updateUserAddressService(userId, addressId, newAddressInfo);
 

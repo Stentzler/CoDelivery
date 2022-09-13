@@ -23,16 +23,20 @@ const userAddressCreateService = async (addressInfo: IAddressInfoRequest, userId
 	newUserAddress.city = addressInfo.city;
 	newUserAddress.state = addressInfo.state;
 	newUserAddress.complement = addressInfo.complement ? addressInfo.complement : '';
+	newUserAddress.user = user;
 
 	userAddressRepository.create(newUserAddress);
 	await userAddressRepository.save(newUserAddress);
 
-	user.address = [...user.address, newUserAddress];
+	const updatedUser = await usersRepository.findOne({
+		where: {id: userId},
+		relations: {address: true},
+	});
 
 	const dataToReturn = {
 		userName: user.userName,
 		email: user.email,
-		addressInfo: user.address,
+		address: updatedUser!.address,
 	};
 
 	return dataToReturn;

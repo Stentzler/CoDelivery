@@ -6,7 +6,7 @@ import {updateAddressesController} from '../controllers/userAddresses/updateAddr
 import {authenticationMiddleware} from '../middlewares/authentication.middleware';
 import {isUserMiddleware} from '../middlewares/isUser.middlewares';
 import {schemaValidatedMiddleware} from '../middlewares/schemaValidated.middleware';
-import {addressesSchema} from '../schemas/addresses/addressesSchema';
+import {addressesSchema, updateUseraddressesSchema} from '../schemas/addresses/addressesSchema';
 
 const userAddressesRoutes = Router();
 
@@ -24,6 +24,7 @@ userAddressesRoutes.patch(
 	'/:id',
 	authenticationMiddleware,
 	isUserMiddleware,
+	schemaValidatedMiddleware(updateUseraddressesSchema),
 	updateAddressesController
 );
 

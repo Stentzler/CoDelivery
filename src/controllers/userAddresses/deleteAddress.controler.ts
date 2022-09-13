@@ -6,7 +6,7 @@ const deleteAddressController = async (req: Request, res: Response) => {
 	const addressId: string = req.params.id;
 	const deleteAddress = await deleteUserAddressService(userId, addressId);
 
-	return res.status(204);
+	return res.status(204).send();
 };
 
 export {deleteAddressController};

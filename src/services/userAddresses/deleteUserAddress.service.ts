@@ -7,7 +7,7 @@ const deleteUserAddressService = async (userId: string, addressId: string) => {
 	const usersRepository = AppDataSource.getRepository(Users);
 	const addressRepository = AppDataSource.getRepository(UserAddress);
 
-	const user = await usersRepository.findOneBy({id: userId});
+	const user = await usersRepository.findOne({where: {id: userId}, relations: {address: true}});
 
 	if (!user) {
 		throw new AppError('User not found', 404);
