@@ -42,13 +42,12 @@ const addProductService = async (productId: string, userId: string) => {
 	}
 
 	if (cart.products.filter(product => product.id === productToAdd.id).length > 0) {
-		throw new AppError('Product already added', 404);
+		throw new AppError('Product already in cart', 409);
 	}
 
 	cart.products = [...cart.products, productToAdd];
 
-	let subtotal: any = cart.products.reduce((acc, product) => acc + product.price, 0);
-	subtotal = subtotal.toString();
+	const subtotal: number = cart.products.reduce((acc, product) => acc + Number(product.price), 0);
 
 	cart.subtotal = subtotal;
 

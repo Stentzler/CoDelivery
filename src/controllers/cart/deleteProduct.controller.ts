@@ -6,8 +6,6 @@ const deleteCartProductController = async (req: Request, res: Response) => {
 
 	const userId: string = req.user.id;
 
-	console.log(userId, productId);
-
 	const removeProduct = deleteCartProductService(userId, productId);
 
 	return res.sendStatus(204);

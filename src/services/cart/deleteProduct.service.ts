@@ -30,12 +30,13 @@ const deleteCartProductService = async (userId: string, prodId: string) => {
 	const isInCart = cart.products.find(product => product.id === prodId);
 
 	if (!isInCart) {
-		throw new AppError('Not is not in the cart', 404);
+		throw new AppError('Product not in the cart', 404);
 	}
 
-	cart.products = cart.products.filter(product => product.id !== prodId);
+	const subtotal: number = cart.products.reduce((acc, product) => acc + Number(product.price), 0);
 
-	cart.subtotal = Number(cart.products.reduce((acc, product) => acc + product.price, 0).toFixed(2));
+	cart.products = cart.products.filter(product => product.id !== prodId);
+	cart.subtotal = subtotal;
 
 	await cartRepository.save(cart);
 
