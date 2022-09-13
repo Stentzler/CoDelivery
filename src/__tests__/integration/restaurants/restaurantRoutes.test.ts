@@ -12,6 +12,8 @@ import {
   mockedRestaurant201,
   mockedRestaurantDummy,
   mockedRestaurantLogin,
+  mockedUser200,
+  mockedUserLogin,
   restaurantEditData1,
   restaurantEditData2,
   sensibleRestaurantAddressData,
@@ -216,6 +218,21 @@ describe('/restaurants', () => {
     expect(response.status).toBe(401);
   });
 
+  test('GET /restaurants/profile - Should not be accessible with a user token', async () => {
+    const createUser = await request(app).post('/users').send(mockedUser200);
+
+    const loginUser = await request(app)
+      .post('/login/users')
+      .send(mockedUserLogin);
+
+    const response = await request(app)
+      .get('/restaurants/profile')
+      .set('Authorization', `Bearer ${loginUser.body.token}`);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(403);
+  });
+
   test("PATCH /restaurants/:id - Should be able to edit a restaurant's data 1 - Restaurant data", async () => {
     const login = await request(app)
       .post('/login/restaurants')
@@ -273,6 +290,20 @@ describe('/restaurants', () => {
 
     expect(editRequest.body).toHaveProperty('message');
     expect(editRequest.status).toBe(401);
+  });
+
+  test('PATCH /restaurants/:id - Should not be accessible with a user token', async () => {
+    const loginUser = await request(app)
+      .post('/login/users')
+      .send(mockedUserLogin);
+
+    const response = await request(app)
+      .patch(`/restaurants/${firstRestaurantId}`)
+      .send(restaurantEditData2)
+      .set('Authorization', `Bearer ${loginUser.body.token}`);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(403);
   });
 
   test('PATCH /restaurants/:id - Should not be able to edit a restaurant other than itself', async () => {
@@ -419,6 +450,19 @@ describe('/restaurants', () => {
 
     expect(deleteRequest.body).toHaveProperty('message');
     expect(deleteRequest.status).toBe(401);
+  });
+
+  test('DELETE /restaurants/:id - Should not be accessible with a user token', async () => {
+    const loginUser = await request(app)
+      .post('/login/users')
+      .send(mockedUserLogin);
+
+    const response = await request(app)
+      .delete(`/restaurants/${firstRestaurantId}`)
+      .set('Authorization', `Bearer ${loginUser.body.token}`);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(403);
   });
 
   test('DELETE /restaurants/:id - Should not be able to (soft) delete a restaurant other than itself', async () => {
