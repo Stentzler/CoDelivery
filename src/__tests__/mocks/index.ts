@@ -197,6 +197,11 @@ export const mockedRestaurantLogin = {
   password: '123456',
 };
 
+export const mockedSecondRestaurantLogin = {
+  email: 'kenzieya@email.com',
+  password: '123456',
+};
+
 export const mockedRestaurantLoginNoEmail = {
   password: '123456',
 };
@@ -278,8 +283,29 @@ export const mockedProduct3: IProductRequest = {
   category: 'Drinks',
 };
 
+export const mockedProduct4: IProductRequest = {
+  name: 'Temaki',
+  description: "'Fishy' roll",
+  price: 13,
+  category: 'Sushis',
+};
+
 export const mockedMissingProduct = {
   name: 'Missing',
   price: 30,
   category: 'Drinks',
 };
+
+export const unexistentCategoryProduct = {
+  name: 'Product',
+  description: 'Yes sir this boutta fail',
+  price: 42,
+  category: 'Crabrave',
+};
+
+export const productEditData = {
+  name: 'X-Kenzie',
+  description: "Kenzie's Special!",
+};
+
+export const fakeProductId = '01e2a76d-8b44-48f6-8760-c95c7ed6bbd4';
