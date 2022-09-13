@@ -1,25 +1,30 @@
 import AppDataSource from '../../data-source';
-import {Cart} from '../../entities/cart.entity';
-import {Users} from '../../entities/user.entity';
-import {AppError} from '../../errors/AppError';
+import { Cart } from '../../entities/cart.entity';
+import { Users } from '../../entities/user.entity';
+import { AppError } from '../../errors/AppError';
 
 const listCartProductsService = async (userId: string) => {
-	const userRepository = AppDataSource.getRepository(Users);
-	const cartRepository = AppDataSource.getRepository(Cart);
+  const userRepository = AppDataSource.getRepository(Users);
+  const cartRepository = AppDataSource.getRepository(Cart);
 
-	const user = await userRepository.findOne({where: {id: userId}});
+  const user = await userRepository.findOne({
+    where: { id: userId },
+    relations: {
+      cart: true,
+    },
+  });
 
-	if (!user) {
-		throw new AppError('User not found', 404);
-	}
+  if (!user) {
+    throw new AppError('User not found', 404);
+  }
 
-	const cart = await cartRepository.findOne({where: {id: user.cart.id}});
+  const cart = await cartRepository.findOne({ where: { id: user.cart.id } });
 
-	if (!cart) {
-		throw new AppError('Cart not found', 404);
-	}
+  if (!cart) {
+    throw new AppError('Cart not found', 404);
+  }
 
-	return cart;
+  return cart;
 };
 
-export {listCartProductsService};
+export { listCartProductsService };
