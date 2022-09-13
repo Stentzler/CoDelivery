@@ -9,7 +9,7 @@ import { categoriesQueryBuilder } from './utils/categoriesQueryBuilder';
   });
   await categoriesQueryBuilder();
 
-  app.listen(3000, () => {
+  app.listen(3001, () => {
     console.log('Servidor executando');
   });
 })();

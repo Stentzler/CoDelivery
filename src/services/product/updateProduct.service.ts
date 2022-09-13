@@ -15,7 +15,7 @@ const updateProductService = async (
     where: { id },
     relations: { restaurant: true },
   });
-  const findCategory = await categoryRepository.findOneBy({ id: category });
+  const findCategory = await categoryRepository.findOneBy({ name: category });
   const findRestaurant = await restaurantRepository.findOneBy({
     id: restaurantId,
   });
