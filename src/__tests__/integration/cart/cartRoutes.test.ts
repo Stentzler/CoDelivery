@@ -7,8 +7,11 @@ import {
   fakeProductId,
   fakeToken,
   mockedProduct,
+  mockedProduct4,
   mockedRestaurant200,
+  mockedRestaurant201,
   mockedRestaurantLogin,
+  mockedSecondRestaurantLogin,
   mockedUser200,
   mockedUserLogin,
 } from '../../mocks';
@@ -77,6 +80,33 @@ describe('/cart', () => {
     const response = await request(app)
       .post('/cart')
       .send({ prodId: productId })
+      .set('Authorization', `Bearer ${loginUser.body.token}`);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(409);
+  });
+
+  test('POST /cart - Should not be able to add a product that is not from the same restaurant as the first added product', async () => {
+    const loginUser = await request(app)
+      .post('/login/users')
+      .send(mockedUserLogin);
+
+    const createSecondRestaurant = await request(app)
+      .post('/restaurants')
+      .send(mockedRestaurant201);
+
+    const secondRestaurantLogin = await request(app)
+      .post('/login/restaurants')
+      .send(mockedSecondRestaurantLogin);
+
+    const registerAnotherProduct = await request(app)
+      .post('/products')
+      .send(mockedProduct4)
+      .set('Authorization', `Bearer ${secondRestaurantLogin.body.token}`);
+
+    const response = await request(app)
+      .post('/cart')
+      .send({ prodId: registerAnotherProduct.body.id })
       .set('Authorization', `Bearer ${loginUser.body.token}`);
 
     expect(response.body).toHaveProperty('message');

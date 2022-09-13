@@ -78,6 +78,24 @@ export const mockedUser201Login = {
   password: '123456',
 };
 
+export const userAddress200 = {
+  street: 'Rua Dourival Monteiro da Silva',
+  number: '623',
+  zipCode: '23560-460',
+  city: 'Rio de Janeiro',
+  state: 'RJ',
+  complement: '',
+};
+
+export const userAddressDummy = {
+  street: 'Rua Dourival Monteiro da Silva',
+  number: '623',
+  zipCode: '23560-460',
+  city: 'Rio de Janeiro',
+  state: 'RJ',
+  complement: '',
+};
+
 export const fakeToken =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyYzQxODhlLTZlMGEtNGFiNi1hZWFjLTQyNDZjNDVkOWMyOCIsImlzUmVzdGF1cmFudCI6ZmFsc2UsImlhdCI6MTY2MjU3MzIzMiwiZXhwIjoxNjYyNjU5NjMyfQ.Q_a9iKQ0QCM6UhMekUYjOAzi647qGEqgylxLaMNlVns';
 
