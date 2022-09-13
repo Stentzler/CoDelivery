@@ -30,6 +30,10 @@ const createOrderService = async (id: string) => {
         throw new AppError("You need to register a payment info")
     }
 
+    if(user.paymentInfo.cpf===""||user.paymentInfo.expireDate===""||user.paymentInfo.cvvNo===""||user.paymentInfo.cardNo===""||user.paymentInfo.name===""){
+        throw new AppError("You need to register a payment info") 
+    }
+
 
 
     const cart = await cartRepository.findOne({ where: { id: user?.cart.id}})

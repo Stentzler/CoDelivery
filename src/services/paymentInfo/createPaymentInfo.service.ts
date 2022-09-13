@@ -8,7 +8,7 @@ const createPaymentInfoService = async ({userId,name,cardNo,cvvNo,expireDate, cp
     const userRepository = AppDataSource.getRepository(Users);
     const paymentRepository = AppDataSource.getRepository(PaymentInfo);
 
-
+console.log(cpf)
     try {
         const cpfExists = await paymentRepository.findOne({ where: { cpf } });
         const userIdValid =await userRepository.findOne({where:{id:userId}})
@@ -19,7 +19,13 @@ const createPaymentInfoService = async ({userId,name,cardNo,cvvNo,expireDate, cp
    
             throw new AppError('User not found', 400);
         }
-        
+    
+        if(userIdValid.paymentInfo!=null  ){
+            if(userIdValid.paymentInfo?.cpf !=""||userIdValid.paymentInfo?.expireDate !=""||userIdValid.paymentInfo?.cvvNo !=""||userIdValid.paymentInfo?.cardNo !=""||userIdValid.paymentInfo?.name !=""){
+
+                throw new AppError("you already have a payment method, you can edit or delete it and create a new one",404) 
+            }
+        }
    
        if(cpfExists){
            throw new AppError('cpf is already being used', 400);
