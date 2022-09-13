@@ -2,15 +2,15 @@
 
 **BASE_URL: https://codelivery-api.herokuapp.com**
 
-- [1.0 - User Routes](https://github.com/Stentzler/CoDelivery#1---user_routes)
-- &nbsp;&nbsp;&nbsp;&nbsp; [1.1 - User Address Routes](https://github.com/Stentzler/CoDelivery#2---user_address_routes)
-- &nbsp;&nbsp;&nbsp;&nbsp; [1.2 - User Paymento_Info Routes](https://github.com/Stentzler/CoDelivery#3---user_payment_info_routes)
-- [2 - Restaurant Routes](https://github.com/Stentzler/CoDelivery#4---restaurant-routes)
-- [3 - Session Routes](https://github.com/Stentzler/CoDelivery#5---session-routes)
-- [4 - Product Routes](https://github.com/Stentzler/CoDelivery#6---product-routes)
-- [5 - Cart Routes](https://github.com/Stentzler/CoDelivery#7---cart-routes)
-- [6 - Restaurant Categories Routes](https://github.com/Stentzler/CoDelivery#8---restaurant-categories-routes)
-- [7 - Product Categories Routes](https://github.com/Stentzler/CoDelivery#9---product-categories-routes)
+- [1.0 - User Routes](https://github.com/Stentzler/CoDelivery#10---user-routes-pronto)
+- &nbsp;&nbsp;&nbsp;&nbsp; [1.1 - User Address Routes](https://github.com/Stentzler/CoDelivery#11---user-address-routes-pronto)
+- &nbsp;&nbsp;&nbsp;&nbsp; [1.2 - User Paymento_Info Routes](https://github.com/Stentzler/CoDelivery#12---user-paymento_info-routes-pronto)
+- [2 - Restaurant Routes](https://github.com/Stentzler/CoDelivery#2---restaurant-routes-pronto)
+- [3 - Session Routes](https://github.com/Stentzler/CoDelivery#3---session-routes-pronto)
+- [4 - Product Routes](https://github.com/Stentzler/CoDelivery#4---product-routes)
+- [5 - Cart Routes](https://github.com/Stentzler/CoDelivery#5---cart-routes-pronto)
+- [6 - Restaurant Categories Routes](hhttps://github.com/Stentzler/CoDelivery#6---restaurant-categories-routes-pronto)
+- [7 - Product Categories Routes](https://github.com/Stentzler/CoDelivery#7---product-categories-routes-pronto)
 
 ## 1.0 - User Routes (Pronto)
 
@@ -42,6 +42,44 @@
 	}
 }
 ```
+
+### 1.0.2 - List User Profile
+
+- GET /users/profile
+- No request body needed.
+- User token required.
+
+### 1.0.3 - Update User
+
+- PATCH /users/:user_id
+- User token required.
+- Expected body request example:
+
+```json
+{
+	"exemplo": "exemplo",
+	"exemplo_address": {
+		"exemplo": "lorem400"
+	},
+	"exemplo_payment": {
+		"exemplo": "lemrem400"
+	}
+}
+```
+
+### 1.0.4 - User Soft Delete
+
+- PATCH /users/delete/deactivate
+- No request body needed.
+- User token required.
+
+### 1.0.5 - User Delete
+
+- DELETE /users/:user_id
+- No request body needed.
+- User token required.
+
+---
 
 ## 1.1 - User Address Routes (Pronto)
 
@@ -94,44 +132,6 @@
 
 ---
 
-### 1.0.2 - List User Profile
-
-- GET /users/profile
-- No request body needed.
-- User token required.
-
-### 1.0.3 - Update User
-
-- PATCH /users/:user_id
-- User token required.
-- Expected body request example:
-
-```json
-{
-	"exemplo": "exemplo",
-	"exemplo_address": {
-		"exemplo": "lorem400"
-	},
-	"exemplo_payment": {
-		"exemplo": "lemrem400"
-	}
-}
-```
-
-### 1.0.4 - User Soft Delete
-
-- PATCH /users/delete/deactivate
-- No request body needed.
-- User token required.
-
-### 1.0.5 - User Delete
-
-- DELETE /users/:user_id
-- No request body needed.
-- User token required.
-
----
-
 ## 1.2 - User Paymento_Info Routes (Pronto)
 
 ### 1.2.1 - Create User Paymento_Info
@@ -153,12 +153,14 @@
 
 ### 1.2.2 - List User Paymento_Info
 
-- GET /users/payment_info
+- GET /users/payment_info/:id
+- User id must be provided as parameter
 - User token expected
 
 ### 1.2.3 - Update User Paymento_Info
 
-- PATCH /users/payment_info/:payment_info_id
+- PATCH /users/payment_info/:id
+- User id must be provided as parameter
 - User token expected
 - User requesting the update must be related to the payment_info_id.
 - Request must contain any of the following properties.
@@ -177,7 +179,8 @@
 
 ### 1.2.4 - Delete User Paymento_Info
 
-- DELETE /users/payment_info/:payment_info_id
+- DELETE /users/payment_info/:id
+- User id must be provided as parameter
 - User token expected
 - User requesting the update must be related to the payment_info_id.
 
@@ -213,8 +216,8 @@
 ### 2.2 - Uploading Image For Restaurant Avatar
 
 - POST /restaurants/uploadImage/:id
-- Expected file format (.JPEG, .PNG, .SVG)
-- Expected request example:
+- Supported media types: (.jpg, .jpe, jpeg, .png, .svg, .webp, .pdf, .bmp, .bw, .flif, .heif, .heic, .ico, .arw, .cr2, .tif, .tiff, .ply, .wdp, .jxr, .hdp & .gif)
+- Expected fetch request example:
 
 ```
 const form = new FormData();
@@ -320,6 +323,7 @@ fetch('http://codelivery.com/restaurants/uploadImage/${restaurant_id}', options)
 ### 4.2 - List Single Product
 
 - GET /products/:product_id
+- Product id must be provided as parameter
 
 ### 4.3 - Create Product
 
@@ -329,46 +333,43 @@ fetch('http://codelivery.com/restaurants/uploadImage/${restaurant_id}', options)
 
 ```json
 {
-	"exemplo": "exemplo",
-	"exemplo_address": {
-		"exemplo": "lorem400"
-	},
-	"exemplo_payment": {
-		"exemplo": "lemrem400"
-	}
+	"name": "coca cola",
+	"description": "lata coca-cola 350ml",
+	"price": 3.99,
+	"category": "Drinks"
 }
 ```
 
 ### 4.4 - Update Product
 
 - PATCH /products/:product_id
+- Product id must be provided as parameter
 - Restaurant token expected.
-- To proceed you must own the {product_id} you are trying to delete.
+- To proceed you must own the {product_id} you are trying to update.
+- Category property does not support update
 - Expected body request example:
 
 ```json
 {
-	"exemplo": "exemplo",
-	"exemplo_address": {
-		"exemplo": "lorem400"
-	},
-	"exemplo_payment": {
-		"exemplo": "lemrem400"
-	}
+	"name": "cocada",
+	"description": "lata coca-cola 350ml",
+	"price": 20
 }
 ```
 
 ### 4.5 - Delete Product
 
 - DELETE /products/:product_id
+- Product id must be provided as parameter
 - Restaurant token expected.
 - To proceed you must own the {product_id} you are trying to delete.
 
 ### 4.6 - Uploading Product Image
 
 - POST /products/uploadImage/:product_id
-- Expected file format (.JPEG, .PNG, .SVG)
-- Expected request example:
+- Restaurant token reqeuired
+- Supported media types: (.jpg, .jpe, jpeg, .png, .svg, .webp, .pdf, .bmp, .bw, .flif, .heif, .heic, .ico, .arw, .cr2, .tif, .tiff, .ply, .wdp, .jxr, .hdp & .gif)
+- Expected fetch request example:
 
 ```
 const form = new FormData();
@@ -389,6 +390,8 @@ fetch('http://codelivery.com/products/uploadImage/${product_id}', options)
 .then(response => console.log(response))
 .catch(err => console.error(err));
 ```
+
+---
 
 ## 5 - Cart Routes (Pronto)
 
