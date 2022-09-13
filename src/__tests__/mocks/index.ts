@@ -1,3 +1,4 @@
+import { IProductRequest } from '../../interfaces/product/product.interface';
 import { IRestaurantCreate } from '../../interfaces/restaurants';
 import { IUserRequest } from '../../interfaces/users';
 
@@ -254,4 +255,31 @@ export const sensibleRestaurantAddressData = {
 
 export const wrongData = {
   crabRave: 'trolling data',
+};
+
+export const mockedProduct: IProductRequest = {
+  name: 'X-Tudo',
+  description: 'Com tudo, e um pouco mais!',
+  price: 25,
+  category: 'Hamburgers',
+};
+
+export const mockedProduct2: IProductRequest = {
+  name: 'X-Tudão',
+  description: 'Vale por dois tudos!',
+  price: 40,
+  category: 'Hamburgers',
+};
+
+export const mockedProduct3: IProductRequest = {
+  name: 'Coke',
+  description: 'Refresca até a alma!',
+  price: 6,
+  category: 'Drinks',
+};
+
+export const mockedMissingProduct = {
+  name: 'Missing',
+  price: 30,
+  category: 'Drinks',
 };
