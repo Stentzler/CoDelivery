@@ -7,10 +7,12 @@ import {
 	UpdateDateColumn,
 	JoinColumn,
 	OneToOne,
+	OneToMany,
 } from 'typeorm';
-import {AddressInfo} from './addressInfo.entity';
 import {Cart} from './cart.entity';
 import {PaymentInfo} from './paymentInfo.entity';
+import {Order} from './order.entity';
+import {UserAddress} from './userAddresses.entity';
 
 @Entity('users')
 class Users {
@@ -42,13 +44,15 @@ class Users {
 	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@OneToOne(type => AddressInfo, {eager: true})
-	@JoinColumn()
-	addressInfo: AddressInfo;
+	@OneToMany(type => UserAddress, address => address.user)
+	address: UserAddress[];
 
 	@OneToOne(type => PaymentInfo, {eager: true})
 	@JoinColumn()
 	paymentInfo: PaymentInfo;
+
+	@OneToMany(() => Order, order => order.user, {eager: true})
+	orders: Order[];
 
 	@OneToOne(type => Cart, {eager: true})
 	@JoinColumn()

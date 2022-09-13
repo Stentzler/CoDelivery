@@ -6,7 +6,7 @@ class PaymentInfo {
 	readonly id: string;
 
 	@Column({length: 60})
-	Name: string;
+	name: string;
 
 	@Column({length: 20})
 	cardNo: string;

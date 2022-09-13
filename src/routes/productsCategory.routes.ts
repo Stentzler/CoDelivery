@@ -1,13 +1,11 @@
-import { Router } from "express";
+import {Router} from 'express';
+import {listProductCategoryController} from '../controllers/productCategory/listProductCategory.controller';
+import {listProductsFromCategoryController} from '../controllers/productCategory/listProductsFromCategory.controller';
 
-/*import { listTargetProductCategoryController } from "../controllers/productCategory/listTargetProductCategory.controller";*/
-import { listProductCategoryController } from "../controllers/productCategory/listProductCategory.controller";
+const productsCategoryRoutes = Router();
 
-const productsCategory = Router();
+productsCategoryRoutes.get('', listProductCategoryController);
 
-productsCategory.get("/products_categories", listProductCategoryController);
+productsCategoryRoutes.get('/:id_category/products', listProductsFromCategoryController);
 
-productsCategory.get(
-  "/products_categories/:id_category/products",
-  /*listTargetProductCategoryController*/
-);
+export {productsCategoryRoutes};

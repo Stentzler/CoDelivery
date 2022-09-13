@@ -1,10 +1,4 @@
-import { IAddressInfoRequest } from "../addresses";
-import { ICartInfoRequest } from "../cart";
-import { IPaymentInfoRequest } from "../paymentInfo";
-
-
-
-
+import { ICartInfoRequest } from '../cart';
 
 
 export interface IUserRequest {
@@ -12,20 +6,18 @@ export interface IUserRequest {
   userName: string;
   email: string;
   password: string;
-  addressInfo: IAddressInfoRequest;
-  paymentInfo: IPaymentInfoRequest ;
+  
 }
 
 export interface IUserResponse {
   id: string;
-  full_name: string;
-  username: string;
+  fullName: string;
+  userName: string;
   email: string;
   isRestaurant: boolean;
-  address_info: string;
+  addressInfo: string;
   cart: ICartInfoRequest;
-  payment_info: string;
+  paymentInfo: string;
   createdAt: Date;
   updatedAt: Date;
 }
-

@@ -7,7 +7,7 @@ const updateRestaurantController = async (req: Request, res: Response) => {
 
   const update = await updateRestaurantService(id, data);
 
-  return res.status(200).json({ message: 'Updated succcessfully' });
+  return res.status(204).json({ message: 'Updated succcessfully' });
 };
 
 export { updateRestaurantController };

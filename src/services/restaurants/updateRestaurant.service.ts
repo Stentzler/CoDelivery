@@ -2,10 +2,11 @@ import AppDataSource from '../../data-source';
 import { Restaurant } from '../../entities/restaurant.entity';
 import { RestaurantAddress } from '../../entities/restaurantAddress.entity';
 import { AppError } from '../../errors/AppError';
+import bcrypt from 'bcrypt';
 
 const updateRestaurantService = async (id: string, data: any) => {
   const restaurantRepo = AppDataSource.getRepository(Restaurant);
-  const restaurantAddressRepo = AppDataSource.getRepository(RestaurantAddress);
+  const addressRepo = AppDataSource.getRepository(RestaurantAddress);
 
   const restaurant = await restaurantRepo.findOne({ where: { id } });
 
@@ -21,11 +22,32 @@ const updateRestaurantService = async (id: string, data: any) => {
     data.id ||
     data.createdAt ||
     data.updatedAt ||
-    data.isRestaurant ||
-    data.isActive ||
-    data.category
+    data.isRestaurant !== undefined ||
+    data.isActive !== undefined ||
+    data.category ||
+    data.address?.id
   ) {
     throw new AppError('Those changes are not allowed', 403);
+  }
+
+  if (data.name) {
+    const nameChecker = await restaurantRepo.findOne({
+      where: { name: data.name },
+    });
+
+    if (nameChecker) {
+      throw new AppError('Given name is already registered', 409);
+    }
+  }
+
+  if (data.email) {
+    const emailChecker = await restaurantRepo.findOne({
+      where: { email: data.email },
+    });
+
+    if (emailChecker) {
+      throw new AppError('Given email is already being used', 409);
+    }
   }
 
   if (data.cnpj) {
@@ -38,19 +60,23 @@ const updateRestaurantService = async (id: string, data: any) => {
     }
   }
 
+  if (data.password) {
+    data.password = bcrypt.hashSync(data.password, 10);
+  }
+
   try {
     data.updatedAt = new Date();
 
-    if (data.restaurantAddress) {
-      const targetAddress = await restaurantAddressRepo.findOne({
-        where: { zipCode: restaurant.restaurantAddress.zipCode },
+    if (data.address) {
+      const targetAddress = await addressRepo.findOne({
+        where: { zipCode: restaurant.address.zipCode },
       });
 
-      await restaurantAddressRepo.update(targetAddress!.id, {
+      await addressRepo.update(targetAddress!.id, {
         ...targetAddress,
-        ...data.restaurantAddress,
+        ...data.address,
       });
-      delete data.restaurantAddress;
+      delete data.address;
     }
 
     await restaurantRepo.update(restaurant.id, { ...restaurant, ...data });

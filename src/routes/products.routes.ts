@@ -7,6 +7,8 @@ import { authenticationMiddleware } from '../middlewares/authentication.middlewa
 import { isRestaurantMiddleware } from '../middlewares/isRestaurant.middlewares';
 import { upload } from '../middlewares/multer.middleware';
 import { uploadImageProductController } from '../controllers/products/uploadImageProduct.controller';
+import { schemaValidatedMiddleware } from '../middlewares/schemaValidated.middleware';
+import { productSchema } from '../schemas/product/productSchema';
 
 const productsRoutes = Router();
 
@@ -20,6 +22,7 @@ productsRoutes.post(
   '',
   authenticationMiddleware,
   isRestaurantMiddleware,
+  schemaValidatedMiddleware(productSchema),
   createProductController
 );
 
@@ -39,6 +42,7 @@ productsRoutes.delete(
   deleteProductController
 );
 
+//Upload product image
 productsRoutes.post(
   '/uploadImage/:id',
   authenticationMiddleware,

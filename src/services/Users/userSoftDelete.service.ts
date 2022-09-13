@@ -5,7 +5,10 @@ import { AppError } from '../../errors/AppError';
 const userSoftDeleteService = async (id: string) => {
   const userRepository = AppDataSource.getRepository(Users);
 
-  const user = await userRepository.findOne({ where: { id } });
+  const user = await userRepository
+    .createQueryBuilder('users')
+    .where('users.id = :id', { id })
+    .getOne();
 
   if (!user) {
     throw new AppError('User not found', 404);

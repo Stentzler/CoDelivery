@@ -8,9 +8,12 @@ import {
 	OneToOne,
 	JoinColumn,
 	ManyToOne,
+	OneToMany,
 } from 'typeorm';
-import {RestaurantAddress} from './restaurantAddress.entity';
+import {Products} from './products.entity';
 import {RestaurantCategory} from './restaurantCategory.entity';
+import {RestaurantAddress} from './restaurantAddress.entity';
+import { Order } from './order.entity';
 
 @Entity('restaurant')
 class Restaurant {
@@ -39,6 +42,9 @@ class Restaurant {
 	@Column({length: 60, unique: true})
 	cnpj: string;
 
+	@Column({length: 60})
+	phoneNumber: string;
+
 	@Column({default: true})
 	isActive: boolean;
 
@@ -48,12 +54,16 @@ class Restaurant {
 	@UpdateDateColumn()
 	updatedAt: Date;
 
+	@OneToMany(() => Products, product => product.restaurant)
+	products: Products[];
+
 	@OneToOne(type => RestaurantAddress, {eager: true})
 	@JoinColumn()
-	restaurantAddress: RestaurantAddress;
+	address: RestaurantAddress;
 
 	@ManyToOne(() => RestaurantCategory)
 	category: RestaurantCategory;
+
 }
 
 export {Restaurant};
