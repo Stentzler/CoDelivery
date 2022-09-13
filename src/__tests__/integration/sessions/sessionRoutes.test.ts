@@ -39,8 +39,6 @@ describe('/login', () => {
   test('POST /login/users - Should be able to successfully login', async () => {
     const createUser = await request(app).post('/users').send(mockedUser200);
 
-    console.log(createUser.body);
-
     const response = await request(app)
       .post('/login/users')
       .send(mockedUserLogin);

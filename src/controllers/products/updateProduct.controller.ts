@@ -6,11 +6,7 @@ import { updateProductService } from '../../services/product/updateProduct.servi
 const updateProductController = async (req: Request, res: Response) => {
   const id: string = req.params.id;
 
-  console.log(id);
-
   const restaurantId: string = req.user.id;
-
-  console.log(restaurantId);
 
   const data: IProductRequest = req.body;
 
