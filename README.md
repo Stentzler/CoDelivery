@@ -9,8 +9,9 @@
 - [3 - Session Routes](https://github.com/Stentzler/CoDelivery#3---session-routes-pronto)
 - [4 - Product Routes](https://github.com/Stentzler/CoDelivery#4---product-routes)
 - [5 - Cart Routes](https://github.com/Stentzler/CoDelivery#5---cart-routes-pronto)
-- [6 - Restaurant Categories Routes](hhttps://github.com/Stentzler/CoDelivery#6---restaurant-categories-routes-pronto)
+- [6 - Restaurant Categories Routes](https://github.com/Stentzler/CoDelivery#6---restaurant-categories-routes-pronto)
 - [7 - Product Categories Routes](https://github.com/Stentzler/CoDelivery#7---product-categories-routes-pronto)
+- [8 - Order Products Routes](https://github.com/Stentzler/CoDelivery#8---order-products-routes)
 
 ## 1.0 - User Routes (Pronto)
 
@@ -81,6 +82,10 @@
 
 ---
 
+[Back to navigation menu](https://github.com/Stentzler/CoDelivery#api-endpoints)
+
+---
+
 ## 1.1 - User Address Routes (Pronto)
 
 ### 1.1.1 - Create User Address
@@ -129,6 +134,10 @@
 - DELETE /users/addresses/:address_id
 - User token expected
 - User requesting the update must be related to the address_id.
+
+---
+
+[Back to navigation menu](https://github.com/Stentzler/CoDelivery#api-endpoints)
 
 ---
 
@@ -183,6 +192,10 @@
 - User id must be provided as parameter
 - User token expected
 - User requesting the update must be related to the payment_info_id.
+
+---
+
+[Back to navigation menu](https://github.com/Stentzler/CoDelivery#api-endpoints)
 
 ---
 
@@ -286,6 +299,10 @@ fetch('http://codelivery.com/restaurants/uploadImage/${restaurant_id}', options)
 
 ---
 
+[Back to navigation menu](https://github.com/Stentzler/CoDelivery#api-endpoints)
+
+---
+
 ## 3 - Session Routes (Pronto)
 
 ### 3.1 - User Login
@@ -311,6 +328,10 @@ fetch('http://codelivery.com/restaurants/uploadImage/${restaurant_id}', options)
 	"password": "examplePass"
 }
 ```
+
+---
+
+[Back to navigation menu](https://github.com/Stentzler/CoDelivery#api-endpoints)
 
 ---
 
@@ -393,6 +414,10 @@ fetch('http://codelivery.com/products/uploadImage/${product_id}', options)
 
 ---
 
+[Back to navigation menu](https://github.com/Stentzler/CoDelivery#api-endpoints)
+
+---
+
 ## 5 - Cart Routes (Pronto)
 
 ### 5.1 - List Products From Cart
@@ -421,6 +446,10 @@ fetch('http://codelivery.com/products/uploadImage/${product_id}', options)
 
 ---
 
+[Back to navigation menu](https://github.com/Stentzler/CoDelivery#api-endpoints)
+
+---
+
 ## 6 - Restaurant Categories Routes (Pronto)
 
 ### 6.1 - List all restaurant categories
@@ -434,6 +463,10 @@ fetch('http://codelivery.com/products/uploadImage/${product_id}', options)
 
 ---
 
+[Back to navigation menu](https://github.com/Stentzler/CoDelivery#api-endpoints)
+
+---
+
 ## 7 - Product Categories Routes (Pronto)
 
 ### 7.1 - List all product categories
@@ -444,3 +477,11 @@ fetch('http://codelivery.com/products/uploadImage/${product_id}', options)
 
 - GET /products_categories/:category_id/products
 - {category_id} must be provided correctly
+
+---
+
+[Back to navigation menu](https://github.com/Stentzler/CoDelivery#api-endpoints)
+
+---
+
+## 8 - Order Products Routes
