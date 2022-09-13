@@ -64,6 +64,8 @@ class Restaurant {
 	@ManyToOne(() => RestaurantCategory)
 	category: RestaurantCategory;
 
+	@OneToMany( () => Order, order => order.restaurant)
+	orders: Order
 }
 
 export {Restaurant};
