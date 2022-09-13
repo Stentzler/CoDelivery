@@ -22,25 +22,10 @@
 
 ```json
 {
-	"full_name": "John Doe",
-	"username": "J_Doe_23",
-	"email": "john.doe@mail.com",
-	"password": "abc123",
-	"address_info": {
-		"address": "Rua das palmeiras",
-		"number": "20",
-		"zipCode": "25013-340",
-		"city": "Rio de Janeiro",
-		"state": "Rio de Janeiro",
-		"complement": "condominio gaivotas"
-	},
-	"payment_info": {
-		"name": "John Doe",
-		"cardNo": "2452374993562234",
-		"cvvNo": "123",
-		"expireDate": "12/31",
-		"cpf": "16203209792"
-	}
+	"fullName": "John Doe",
+	"userName": "John",
+	"email": "user@mail.com",
+	"password": "1234"
 }
 ```
 
@@ -58,13 +43,8 @@
 
 ```json
 {
-	"exemplo": "exemplo",
-	"exemplo_address": {
-		"exemplo": "lorem400"
-	},
-	"exemplo_payment": {
-		"exemplo": "lemrem400"
-	}
+	"fullName": "New Name",
+	"userName": "NewName"
 }
 ```
 
@@ -177,12 +157,11 @@
 
 ```json
 {
-	"street": "street name",
-	"number": "77",
-	"zipCode": "77777-777",
-	"city": "Curitiba",
-	"state": "PR",
-	"complement": "Apartamento"
+	"name": "example",
+	"cardNo": "2452374993562234",
+	"cvvNo": "950",
+	"expireDate": "12/31",
+	"cpf": "16203204290"
 }
 ```
 
