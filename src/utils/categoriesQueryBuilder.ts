@@ -1,14 +1,14 @@
-import AppDataSource from "../data-source";
-import { ProductCategory } from "../entities/categories.entity";
-import { RestaurantCategory } from "../entities/restaurantCategory.entity";
+import AppDataSource from '../data-source';
+import { ProductCategory } from '../entities/categories.entity';
+import { RestaurantCategory } from '../entities/restaurantCategory.entity';
 
 const categoriesQueryBuilder = async () => {
   const dataExists = await AppDataSource.getRepository(RestaurantCategory)
-    .createQueryBuilder("category")
-    .where("category.name = :name", { name: "Bakery" })
+    .createQueryBuilder('category')
+    .where('category.name = :name', { name: 'Bakery' })
     .getOne();
 
-  if (dataExists?.name === "Bakery") {
+  if (dataExists?.name === 'Bakery') {
     return true;
   } else {
     await AppDataSource.createQueryBuilder()
@@ -25,15 +25,15 @@ const categoriesQueryBuilder = async () => {
       .insert()
       .into(ProductCategory)
       .values([
-        { name: "Drinks" },
-        { name: "Pizzas" },
-        { name: "Hamburgers" },
-        { name: "Sushis" },
-        { name: "Pasta" },
-        { name: "Ice Cream" },
-        { name: "Vegan" },
-        { name: "Vegetarian" },
-        { name: "Fit" },
+        { name: 'Drinks' },
+        { name: 'Pizzas' },
+        { name: 'Hamburgers' },
+        { name: 'Sushis' },
+        { name: 'Pasta' },
+        { name: 'Ice Cream' },
+        { name: 'Vegan' },
+        { name: 'Vegetarian' },
+        { name: 'Fit' },
       ])
       .execute();
 
@@ -41,16 +41,16 @@ const categoriesQueryBuilder = async () => {
       .insert()
       .into(RestaurantCategory)
       .values([
-        { name: "Fast Food" },
-        { name: "Bakery" },
-        { name: "Pizzeria" },
-        { name: "Barbecue" },
-        { name: "Japanese" },
-        { name: "Mediterranean" },
-        { name: "Arabian" },
-        { name: "Korean" },
-        { name: "Mexican" },
-        { name: "Thai" },
+        { name: 'Fast Food' },
+        { name: 'Bakery' },
+        { name: 'Pizzeria' },
+        { name: 'Barbecue' },
+        { name: 'Japanese' },
+        { name: 'Mediterranean' },
+        { name: 'Arabian' },
+        { name: 'Korean' },
+        { name: 'Mexican' },
+        { name: 'Thai' },
       ])
       .execute();
   }

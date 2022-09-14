@@ -168,6 +168,8 @@ describe('/users', () => {
     expect(response.status).toBe(403);
   });
 
+  
+
   test('POST /users - Should not be able to create a user with missing information 3 - User payment info', async () => {
     const newUser = { ...mockedUser200 };
     const value = randomNumberGenerator();
