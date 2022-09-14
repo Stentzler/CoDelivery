@@ -32,7 +32,7 @@ const updateUserAddressService = async (
   );
 
   if (!addressBelongsToUser) {
-    throw new AppError('Address does not belong to this user', 401);
+    throw new AppError('Address does not belong to this user', 409);
   }
 
   const newAddress: IUserAddressUpdateRequest = {

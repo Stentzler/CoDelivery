@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { userEditService } from "../../services/users/userEdit.service";
+import { Request, Response } from 'express';
+import { userEditService } from '../../services/users/userEdit.service';
 
 const userEditController = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -7,7 +7,7 @@ const userEditController = async (req: Request, res: Response) => {
 
   const update = await userEditService(id, data);
 
-  return res.status(200).json({ message: "Updated succcessfully" });
+  return res.status(204).json({ message: 'Updated succcessfully' });
 };
 
 export { userEditController };

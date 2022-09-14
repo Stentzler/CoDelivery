@@ -23,10 +23,9 @@ userAddressesRoutes.post(
 );
 
 userAddressesRoutes.get(
-  '/:id',
+  '',
   authenticationMiddleware,
   isUserMiddleware,
-  idVerifierMiddleware,
   listAddressesController
 );
 
@@ -34,7 +33,6 @@ userAddressesRoutes.patch(
   '/:id',
   authenticationMiddleware,
   isUserMiddleware,
-  idVerifierMiddleware,
   schemaValidatedMiddleware(updateUseraddressesSchema),
   updateAddressesController
 );
@@ -43,7 +41,6 @@ userAddressesRoutes.delete(
   '/:id',
   authenticationMiddleware,
   isUserMiddleware,
-  idVerifierMiddleware,
   deleteAddressController
 );
 

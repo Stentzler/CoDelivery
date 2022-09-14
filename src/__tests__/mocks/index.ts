@@ -96,6 +96,29 @@ export const userAddressDummy = {
   complement: '',
 };
 
+export const userAddressDummy2 = {
+  street: 'Rua Lobato Monteiro da Silva',
+  number: '381',
+  zipCode: '52360-912',
+  city: 'Rio de Janeiro',
+  state: 'RJ',
+  complement: '',
+};
+
+export const userAddressDummy3 = {
+  street: 'Rua Baptista Monteiro da Silva',
+  number: '497',
+  zipCode: '52360-912',
+  city: 'Rio de Janeiro',
+  state: 'RJ',
+  complement: '',
+};
+
+export const userAddressEditData = {
+  street: 'Rua Eugênio Monteiro da Silva',
+  number: '885',
+};
+
 export const userPaymentInfo200 = {
   name: 'Joana',
   cardNo: '2452374993562234',
@@ -110,6 +133,30 @@ export const userPaymentInfoDummy = {
   cvvNo: '950',
   expireDate: '12/31',
   cpf: '16203204290',
+};
+
+export const userPaymentInfoDummy2 = {
+  name: 'Joana',
+  cardNo: '2452374993562234',
+  cvvNo: '950',
+  expireDate: '12/31',
+  cpf: '16203208273',
+};
+
+export const userPaymentInfoDummy3 = {
+  name: 'Joana',
+  cardNo: '2452374993562234',
+  cvvNo: '950',
+  expireDate: '12/31',
+  cpf: '18207859530',
+};
+
+export const userPaymentInfoEditData = {
+  name: 'Joana',
+  cardNo: '2562374203562434',
+  cvvNo: '457',
+  expireDate: '12/31',
+  cpf: '73815462813',
 };
 
 export const fakeToken =
@@ -168,6 +215,8 @@ export const loginWrongPassword = {
   email: 'joana@kenzie.com',
   password: '654321',
 };
+
+export const fakeAddressId = '6798cc49-ff0b-43cf-90a8-7be3f3ecab42';
 
 export const mockedRestaurant200: IRestaurantCreate = {
   name: 'KenzieBurger',

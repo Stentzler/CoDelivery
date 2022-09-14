@@ -14,6 +14,10 @@ const userSoftDeleteService = async (id: string) => {
     throw new AppError('User not found', 404);
   }
 
+  if (!user.isActive) {
+    throw new AppError('User is already inactive', 409);
+  }
+
   await userRepository.update(user.id, { isActive: false });
 
   return true;
