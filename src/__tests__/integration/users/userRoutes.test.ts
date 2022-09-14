@@ -20,11 +20,15 @@ import {
   sensibleDataUser,
   userAddress200,
   userAddressDummy,
+  userPaymentInfo200,
+  userPaymentInfoDummy,
 } from '../../mocks';
 import { randomNumberGenerator } from '../../../utils/randomRemover';
+import { categoriesQueryBuilder } from '../../../utils/categoriesQueryBuilder';
 
 describe('/users', () => {
   let connection: DataSource;
+  let createdUser200Id = '';
   let createdUser201Id = '';
   let createdUserSecondId = '';
 
@@ -32,6 +36,9 @@ describe('/users', () => {
     await AppDataSource.initialize()
       .then((res) => {
         connection = res;
+      })
+      .then((res) => {
+        categoriesQueryBuilder();
       })
       .catch((err) => {
         console.error('Error during Data Source initialization', err);
@@ -44,6 +51,8 @@ describe('/users', () => {
 
   test('POST /users - Should be able to create a user', async () => {
     const response = await request(app).post('/users').send(mockedUser200);
+
+    createdUser200Id = response.body.id;
 
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('fullName');
@@ -109,13 +118,13 @@ describe('/users', () => {
 
     expect(response.body).toHaveProperty('userName');
     expect(response.body).toHaveProperty('email');
-    expect(response.body.address).toHaveProperty('id');
-    expect(response.body.address).toHaveProperty('street');
-    expect(response.body.address).toHaveProperty('number');
-    expect(response.body.address).toHaveProperty('zipCode');
-    expect(response.body.address).toHaveProperty('city');
-    expect(response.body.address).toHaveProperty('state');
-    expect(response.body.address).toHaveProperty('complement');
+    expect(response.body.address[0]).toHaveProperty('id');
+    expect(response.body.address[0]).toHaveProperty('street');
+    expect(response.body.address[0]).toHaveProperty('number');
+    expect(response.body.address[0]).toHaveProperty('zipCode');
+    expect(response.body.address[0]).toHaveProperty('city');
+    expect(response.body.address[0]).toHaveProperty('state');
+    expect(response.body.address[0]).toHaveProperty('complement');
     expect(response.status).toBe(201);
   });
 
@@ -168,44 +177,88 @@ describe('/users', () => {
     expect(response.status).toBe(403);
   });
 
-  test('POST /users - Should not be able to create a user with missing information 3 - User payment info', async () => {
-    const newUser = { ...mockedUser200 };
-    const value = randomNumberGenerator();
+  test("POST /users/payment_info:id - Should be able to register a user's payment/card information", async () => {
+    const loginUser = await request(app)
+      .post('/login/users')
+      .send(mockedUserLogin);
+
+    const response = await request(app)
+      .post(`/users/payment_info/${createdUser200Id}`)
+      .send(userPaymentInfo200);
+
+    const proofCheck = await request(app)
+      .get('/users/profile')
+      .set('Authorization', `Bearer ${loginUser.body.token}`);
+
+    expect(response.status).toBe(201);
+    expect(proofCheck.body.paymentInfo).toHaveProperty('id');
+    expect(proofCheck.body.paymentInfo).toHaveProperty('name');
+    expect(proofCheck.body.paymentInfo).toHaveProperty('cardNo');
+    expect(proofCheck.body.paymentInfo).toHaveProperty('cvvNo');
+    expect(proofCheck.body.paymentInfo).toHaveProperty('expireDate');
+    expect(proofCheck.body.paymentInfo).toHaveProperty('cpf');
+    expect(proofCheck.body.paymentInfo.cardNo).toEqual(
+      userPaymentInfo200.cardNo
+    );
+  });
+
+  test('POST /users/payment_info/:id - Should not be able to add a second payment/card information', async () => {
+    const response = await request(app)
+      .post(`/users/payment_info/${createdUser200Id}`)
+      .send(userPaymentInfo200);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(409);
+  });
+
+  test('POST /users/payment_info/:id - Should not be able to register a payment/card information with an already registered CPF', async () => {
+    const createdUser = await request(app).post('/users').send(mockedUser201);
+
+    createdUser201Id = createdUser.body.id;
+
+    const response = await request(app)
+      .post(`/users/payment_info/${createdUser201Id}`)
+      .send(userPaymentInfo200);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(409);
+  });
+
+  test('POST /users/payment_info/:id - Should not be able to register a payment/card information with missing information', async () => {
+    const newPaymentInfo = { ...userPaymentInfoDummy };
+    const value = randomNumberGenerator(5);
 
     switch (value) {
       case 0:
         // @ts-expect-error
-        delete newUser.paymentInfo.cardNo;
+        delete newPaymentInfo.cardNo;
         break;
       case 1:
         // @ts-expect-error
-        delete newUser.paymentInfo.cpf;
+        delete newPaymentInfo.cpf;
         break;
       case 2:
         // @ts-expect-error
-        delete newUser.paymentInfo.cvvNo;
+        delete newPaymentInfo.cvvNo;
         break;
-      default:
+      case 3:
         // @ts-expect-error
-        delete newUser.paymentInfo.expireDate;
+        delete newPaymentInfo.expireDate;
+      case 4:
+        // @ts-expect-error
+        delete newPaymentInfo.name;
     }
 
-    const response = await request(app).post('/users').send(newUser);
+    const response = await request(app).post('/users').send(newPaymentInfo);
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(400);
   });
 
   test('GET /users/profile - Should be able to list the user', async () => {
-    const createdUser = await request(app).post('/users').send(mockedUser201);
-
-    createdUser201Id = createdUser.body.id;
-
     const loginResponse = await request(app)
       .post('/login/users')
-      .send(mockedUser201Login);
-
-    console.log(loginResponse.body);
+      .send(mockedUserLogin);
 
     const response = await request(app)
       .get(`/users/profile`)
@@ -220,7 +273,6 @@ describe('/users', () => {
     expect(response.body).toHaveProperty('isRestaurant');
     expect(response.body).toHaveProperty('isActive');
     expect(response.body).toHaveProperty('address');
-    expect(response.body).toHaveProperty('cart');
     expect(response.body).toHaveProperty('paymentInfo');
     expect(response.body).toHaveProperty('createdAt');
     expect(response.body).toHaveProperty('updatedAt');
@@ -231,8 +283,12 @@ describe('/users', () => {
     expect(response.body.address[0]).toHaveProperty('city');
     expect(response.body.address[0]).toHaveProperty('state');
     expect(response.body.address[0]).toHaveProperty('complement');
-    expect(response.body.cart).toHaveProperty('id');
-    expect(response.body.cart).toHaveProperty('subtotal');
+    expect(response.body.paymentInfo).toHaveProperty('id');
+    expect(response.body.paymentInfo).toHaveProperty('name');
+    expect(response.body.paymentInfo).toHaveProperty('cardNo');
+    expect(response.body.paymentInfo).toHaveProperty('cvvNo');
+    expect(response.body.paymentInfo).toHaveProperty('expireDate');
+    expect(response.body.paymentInfo).toHaveProperty('cpf');
     expect(response.body).not.toHaveProperty('password');
     expect(response.body.isRestaurant).toEqual(false);
     expect(response.body.isActive).toEqual(true);
@@ -255,7 +311,7 @@ describe('/users', () => {
     expect(response.status).toBe(401);
   });
 
-  test('PATCH /users/:id - Should be able to successfully edit a user 1 - User data', async () => {
+  test('PATCH /users/:id - Should be able to successfully edit a user', async () => {
     const loginResponse = await request(app)
       .post('/login/users')
       .send(mockedUser201Login);
@@ -264,34 +320,6 @@ describe('/users', () => {
       .patch(`/users/${createdUser201Id}`)
       .set('Authorization', `Bearer ${loginResponse.body.token}`)
       .send(editData1);
-
-    expect(response.body).toHaveProperty('message');
-    expect(response.status).toBe(200);
-  });
-
-  test('PATCH /users/:id - Should be able to successfully edit a user 2 - User address info', async () => {
-    const loginResponse = await request(app)
-      .post('/login/users')
-      .send(mockedUser201Login);
-
-    const response = await request(app)
-      .patch(`/users/${createdUser201Id}`)
-      .set('Authorization', `Bearer ${loginResponse.body.token}`)
-      .send(editData2);
-
-    expect(response.body).toHaveProperty('message');
-    expect(response.status).toBe(200);
-  });
-
-  test('PATCH /users/:id - Should be able to successfully edit a user 3 - User payment info', async () => {
-    const loginResponse = await request(app)
-      .post('/login/users')
-      .send(mockedUser201Login);
-
-    const response = await request(app)
-      .patch(`/users/${createdUser201Id}`)
-      .set('Authorization', `Bearer ${loginResponse.body.token}`)
-      .send(editData3);
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(200);

@@ -8,11 +8,9 @@ const addProductService = async (productId: string, userId: string) => {
   const userRepository = AppDataSource.getRepository(Users);
 
   const user = await userRepository.findOne({
+    relations: { cart: true },
     where: {
       id: userId,
-    },
-    relations: {
-      cart: true,
     },
   });
 
@@ -25,9 +23,6 @@ const addProductService = async (productId: string, userId: string) => {
   const cart = await cartRepository.findOne({
     where: {
       id: user.cart.id,
-    },
-    relations: {
-      products: true,
     },
   });
 
