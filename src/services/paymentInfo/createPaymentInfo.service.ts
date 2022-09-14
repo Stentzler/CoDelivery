@@ -17,24 +17,15 @@ const createPaymentInfoService = async ({
 
   try {
     const cpfExists = await paymentRepository.findOne({ where: { cpf } });
-    const userIdValid = await userRepository.findOne({ where: { id: userId } });
+    const userIdValid = await userRepository.findOne({ where: { id: userId } ,relations:{paymentInfo:true}});
 
     if (!userIdValid) {
       throw new AppError('User not found', 400);
     }
 
     if (userIdValid.paymentInfo != null) {
-      if (
-        userIdValid.paymentInfo?.cpf != '' ||
-        userIdValid.paymentInfo?.expireDate != '' ||
-        userIdValid.paymentInfo?.cvvNo != '' ||
-        userIdValid.paymentInfo?.cardNo != '' ||
-        userIdValid.paymentInfo?.name != ''
-      ) {
-        throw new AppError(
-          'you already have a payment method, you can edit or delete it and create a new one',
-          404
-        );
+      if (userIdValid.paymentInfo?.cpf != '' ||userIdValid.paymentInfo?.expireDate != '' ||userIdValid.paymentInfo?.cvvNo != '' ||userIdValid.paymentInfo?.cardNo != '' ||userIdValid.paymentInfo?.name != '') {
+        throw new AppError('you already have a payment method, you can edit or delete it and create a new one', 404);
       }
     }
 

@@ -4,7 +4,9 @@ import { AppError } from "../../errors/AppError";
 
 const listPaymentInfoService = async (id:string) => {
     const userRepository = AppDataSource.getRepository(Users);
-    const user = await userRepository.findOne({where: {id}})
+    const user = await userRepository.findOne({where: {id}, relations:{paymentInfo:true} })
+
+    console.log(user)
     if (!user) {
 		throw new AppError('User not found', 404);
 	}

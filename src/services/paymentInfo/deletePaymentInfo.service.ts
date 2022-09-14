@@ -6,7 +6,7 @@ import { AppError } from "../../errors/AppError";
 const deletePaymentInfoService = async (id: string) => {
   const userRepository = AppDataSource.getRepository(Users);
   const paymentRepository = AppDataSource.getRepository(PaymentInfo);
-  const user = await userRepository.findOne({where:{id}});
+  const user = await userRepository.findOne({where:{id}, relations:{paymentInfo:true}});
  
   if(!user?.paymentInfo){
       throw new AppError("Payment Info not found",404)
