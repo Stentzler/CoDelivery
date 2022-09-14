@@ -2,6 +2,7 @@ import AppDataSource from '../../data-source';
 import {Order} from '../../entities/order.entity';
 
 const listOrdersService = async (id: string, isRestaurant: boolean) => {
+
 	const orderRepository = AppDataSource.getRepository(Order);
 
 	if (isRestaurant) {
