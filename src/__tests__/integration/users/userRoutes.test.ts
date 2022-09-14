@@ -20,11 +20,15 @@ import {
   sensibleDataUser,
   userAddress200,
   userAddressDummy,
+  userPaymentInfo200,
+  userPaymentInfoDummy,
 } from '../../mocks';
 import { randomNumberGenerator } from '../../../utils/randomRemover';
+import { categoriesQueryBuilder } from '../../../utils/categoriesQueryBuilder';
 
 describe('/users', () => {
   let connection: DataSource;
+  let createdUser200Id = '';
   let createdUser201Id = '';
   let createdUserSecondId = '';
 
@@ -32,6 +36,9 @@ describe('/users', () => {
     await AppDataSource.initialize()
       .then((res) => {
         connection = res;
+      })
+      .then((res) => {
+        categoriesQueryBuilder();
       })
       .catch((err) => {
         console.error('Error during Data Source initialization', err);
@@ -44,6 +51,8 @@ describe('/users', () => {
 
   test('POST /users - Should be able to create a user', async () => {
     const response = await request(app).post('/users').send(mockedUser200);
+
+    createdUser200Id = response.body.id;
 
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('fullName');
@@ -109,13 +118,13 @@ describe('/users', () => {
 
     expect(response.body).toHaveProperty('userName');
     expect(response.body).toHaveProperty('email');
-    expect(response.body.address).toHaveProperty('id');
-    expect(response.body.address).toHaveProperty('street');
-    expect(response.body.address).toHaveProperty('number');
-    expect(response.body.address).toHaveProperty('zipCode');
-    expect(response.body.address).toHaveProperty('city');
-    expect(response.body.address).toHaveProperty('state');
-    expect(response.body.address).toHaveProperty('complement');
+    expect(response.body.address[0]).toHaveProperty('id');
+    expect(response.body.address[0]).toHaveProperty('street');
+    expect(response.body.address[0]).toHaveProperty('number');
+    expect(response.body.address[0]).toHaveProperty('zipCode');
+    expect(response.body.address[0]).toHaveProperty('city');
+    expect(response.body.address[0]).toHaveProperty('state');
+    expect(response.body.address[0]).toHaveProperty('complement');
     expect(response.status).toBe(201);
   });
 
@@ -168,31 +177,66 @@ describe('/users', () => {
     expect(response.status).toBe(403);
   });
 
-  
+  test("POST /users/payment_info:id - Should be able to register a user's payment/card information", async () => {
+    const loginUser = await request(app)
+      .post('/login/users')
+      .send(mockedUserLogin);
 
-  test('POST /users - Should not be able to create a user with missing information 3 - User payment info', async () => {
-    const newUser = { ...mockedUser200 };
-    const value = randomNumberGenerator();
+    const response = await request(app)
+      .post(`/users/payment_info/${createdUser200Id}`)
+      .send(userPaymentInfo200);
+
+    const proofCheck = await request(app)
+      .get('/users/profile')
+      .set('Authorization', `Bearer ${loginUser.body.token}`);
+
+    expect(response.status).toBe(201);
+    expect(proofCheck.body.paymentInfo).toHaveProperty('id');
+    expect(proofCheck.body.paymentInfo).toHaveProperty('name');
+    expect(proofCheck.body.paymentInfo).toHaveProperty('cardNo');
+    expect(proofCheck.body.paymentInfo).toHaveProperty('cvvNo');
+    expect(proofCheck.body.paymentInfo).toHaveProperty('expireDate');
+    expect(proofCheck.body.paymentInfo).toHaveProperty('cpf');
+    expect(proofCheck.body.paymentInfo.cardNo).toEqual(
+      userPaymentInfo200.cardNo
+    );
+  });
+
+  test('POST /users/payment_info/:id - Should not be able to add a second payment/card information', async () => {
+    const response = await request(app)
+      .post(`/users/payment_info/${createdUser200Id}`)
+      .send(userPaymentInfo200);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(409);
+  });
+
+  test('POST /users - Should not be able to register a payment/card information with missing information', async () => {
+    const newPaymentInfo = { ...userPaymentInfoDummy };
+    const value = randomNumberGenerator(5);
 
     switch (value) {
       case 0:
         // @ts-expect-error
-        delete newUser.paymentInfo.cardNo;
+        delete newPaymentInfo.cardNo;
         break;
       case 1:
         // @ts-expect-error
-        delete newUser.paymentInfo.cpf;
+        delete newPaymentInfo.cpf;
         break;
       case 2:
         // @ts-expect-error
-        delete newUser.paymentInfo.cvvNo;
+        delete newPaymentInfo.cvvNo;
         break;
-      default:
+      case 3:
         // @ts-expect-error
-        delete newUser.paymentInfo.expireDate;
+        delete newPaymentInfo.expireDate;
+      case 4:
+        // @ts-expect-error
+        delete newPaymentInfo.name;
     }
 
-    const response = await request(app).post('/users').send(newUser);
+    const response = await request(app).post('/users').send(newPaymentInfo);
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(400);

@@ -96,6 +96,22 @@ export const userAddressDummy = {
   complement: '',
 };
 
+export const userPaymentInfo200 = {
+  name: 'Joana',
+  cardNo: '2452374993562234',
+  cvvNo: '950',
+  expireDate: '12/31',
+  cpf: '16203204290',
+};
+
+export const userPaymentInfoDummy = {
+  name: 'Joana',
+  cardNo: '2452374993562234',
+  cvvNo: '950',
+  expireDate: '12/31',
+  cpf: '16203204290',
+};
+
 export const fakeToken =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyYzQxODhlLTZlMGEtNGFiNi1hZWFjLTQyNDZjNDVkOWMyOCIsImlzUmVzdGF1cmFudCI6ZmFsc2UsImlhdCI6MTY2MjU3MzIzMiwiZXhwIjoxNjYyNjU5NjMyfQ.Q_a9iKQ0QCM6UhMekUYjOAzi647qGEqgylxLaMNlVns';
 
