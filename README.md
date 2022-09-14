@@ -126,7 +126,6 @@
 ### 1.2.1 - Create User Paymento_Info
 
 - POST /users/payment_info
-- User token expected
 - Expected body request example:
 
 ```json
@@ -346,14 +345,14 @@ fetch('http://codelivery.com/restaurants/uploadImage/${restaurant_id}', options)
 - Product id must be provided as parameter
 - Restaurant token expected.
 - To proceed you must own the {product_id} you are trying to update.
-- Category property does not support update
 - Expected body request example:
 
 ```json
 {
-	"name": "cocada",
+	"name": "coca",
 	"description": "lata coca-cola 350ml",
-	"price": 20
+	"price": 3.29,
+	"category": "Fast Food"
 }
 ```
 
