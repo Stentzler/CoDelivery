@@ -10,7 +10,7 @@ import { paymentInfoSchema } from '../schemas/paymentInfo/paymentInfoSchema';
 
 const paymentInfoRoutes= Router();
 
-paymentInfoRoutes.post('',schemaValidatedMiddleware(paymentInfoSchema),createPaymentInfoController)
+paymentInfoRoutes.post('/:id',schemaValidatedMiddleware(paymentInfoSchema),createPaymentInfoController)
 paymentInfoRoutes.get('/:id', authenticationMiddleware, idVerifierMiddleware,listPaymentInfoController)
 paymentInfoRoutes.patch('/:id',updatePaymentInfoController)
 paymentInfoRoutes.delete('/:id', authenticationMiddleware, idVerifierMiddleware,deletePaymentInfoController)

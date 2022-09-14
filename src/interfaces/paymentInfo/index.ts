@@ -1,5 +1,5 @@
 export interface IPaymentInfoRequest {
-   userId:string;
+    id:string;
     name: string;
     cardNo: string;
     cvvNo: string;
