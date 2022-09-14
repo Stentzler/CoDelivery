@@ -3,14 +3,9 @@ import {
 	Column,
 	PrimaryGeneratedColumn,
 	CreateDateColumn,
-	VersionColumn,
 	ManyToMany,
 	JoinTable,
 	ManyToOne,
-	OneToOne,
-	JoinColumn,
-	OneToMany,
-	PrimaryColumn,
 	Generated,
 } from 'typeorm';
 import {Products} from './products.entity';
@@ -22,7 +17,7 @@ export class Order {
 	@PrimaryGeneratedColumn('uuid')
 	readonly id: string;
 
-	@Column({nullable: false, length: 60, default: 'Preparando'})
+	@Column({nullable: false, length: 60, default: 'Order sent to the restaurant'})
 	status: string;
 
 	@Generated('increment')
@@ -41,6 +36,6 @@ export class Order {
 	@ManyToOne(() => Users, user => user.orders)
 	user: Users;
 
-	@ManyToOne(() => Restaurant,  restaurant => restaurant.orders, { eager: true})
+	@ManyToOne(() => Restaurant, restaurant => restaurant.orders, {eager: true})
 	restaurant: Restaurant;
 }

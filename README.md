@@ -121,9 +121,9 @@
 
 ---
 
-## 1.2 - User Paymento_Info Routes (Pronto)
+## 1.2 - User Payment \_Info Routes (Pronto)
 
-### 1.2.1 - Create User Paymento_Info
+### 1.2.1 - Create User Payment_Info
 
 - POST /users/payment_info/:user_id
 - Expected body request example:
@@ -138,13 +138,13 @@
 }
 ```
 
-### 1.2.2 - List User Paymento_Info
+### 1.2.2 - List User Payment_Info
 
 - GET /users/payment_info/:user_id
 - User id must be provided as parameter
 - User token expected
 
-### 1.2.3 - Update User Paymento_Info
+### 1.2.3 - Update User Payment_Info
 
 - PATCH /users/payment_info/:user_id
 - User id must be provided as parameter
@@ -163,7 +163,7 @@
 }
 ```
 
-### 1.2.4 - Delete User Paymento_Info
+### 1.2.4 - Delete User Payment_Info
 
 - DELETE /users/payment_info/:user_id
 - User id must be provided as parameter
