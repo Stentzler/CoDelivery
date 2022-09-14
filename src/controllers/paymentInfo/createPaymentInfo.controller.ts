@@ -2,9 +2,12 @@ import { Request, Response } from "express";
 import { createPaymentInfoService } from "../../services/paymentInfo/createPaymentInfo.service";
 
 const createPaymentInfoController = async (req: Request, res: Response) => {
-  const { userId, name, cardNo, cvvNo, expireDate, cpf } = req.body;
+  const { id } = req.params;
+  const { name, cardNo, cvvNo, expireDate, cpf } = req.body;
+ 
+
   const newPayment =await  createPaymentInfoService({
-    userId,
+    id,
     name,
     cardNo,
     cvvNo,

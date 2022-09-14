@@ -5,7 +5,7 @@ import { AppError } from '../../errors/AppError';
 import { IPaymentInfoRequest } from '../../interfaces/paymentInfo';
 
 const createPaymentInfoService = async ({
-  userId,
+  id,
   name,
   cardNo,
   cvvNo,
@@ -17,29 +17,20 @@ const createPaymentInfoService = async ({
 
   try {
     const cpfExists = await paymentRepository.findOne({ where: { cpf } });
-    const userIdValid = await userRepository.findOne({ where: { id: userId } });
+    const idValid = await userRepository.findOne({ where: { id: id } ,relations:{paymentInfo:true}});
 
-    if (!userIdValid) {
+    if (!idValid) {
       throw new AppError('User not found', 400);
     }
 
-    if (userIdValid.paymentInfo != null) {
-      if (
-        userIdValid.paymentInfo?.cpf != '' ||
-        userIdValid.paymentInfo?.expireDate != '' ||
-        userIdValid.paymentInfo?.cvvNo != '' ||
-        userIdValid.paymentInfo?.cardNo != '' ||
-        userIdValid.paymentInfo?.name != ''
-      ) {
-        throw new AppError(
-          'you already have a payment method, you can edit or delete it and create a new one',
-          404
-        );
+    if (idValid.paymentInfo !== null) {
+      if (idValid.paymentInfo?.cpf !== '' ||idValid.paymentInfo?.expireDate !== '' ||idValid.paymentInfo?.cvvNo !== '' ||idValid.paymentInfo?.cardNo !== '' ||idValid.paymentInfo?.name !== '') {
+        throw new AppError('You already have a payment method, you can edit or delete it and create a new one', 404);
       }
     }
 
     if (cpfExists) {
-      throw new AppError('cpf is already being used', 400);
+      throw new AppError('Cpf is already being used', 400);
     }
 
     const newPayment = new PaymentInfo();
@@ -52,7 +43,7 @@ const createPaymentInfoService = async ({
     paymentRepository.create(newPayment);
     await paymentRepository.save(newPayment);
 
-    await userRepository.update(userId, { paymentInfo: newPayment });
+    await userRepository.update(id, { paymentInfo: newPayment });
     return true;
   } catch (error) {
     if (error instanceof Error) {
