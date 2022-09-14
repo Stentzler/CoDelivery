@@ -4,16 +4,18 @@ import {Cart} from '../../entities/cart.entity';
 import {Order} from '../../entities/order.entity';
 import {AppError} from '../../errors/AppError';
 import {Products} from '../../entities/products.entity';
+import { UserAddress } from '../../entities/userAddresses.entity';
 
 const createOrderService = async (id: string) => {
 	const userRepository = AppDataSource.getRepository(Users);
 	const cartRepository = AppDataSource.getRepository(Cart);
 	const orderRepository = AppDataSource.getRepository(Order);
 	const productRepository = AppDataSource.getRepository(Products);
+	const userAddressRepository = AppDataSource.getRepository(UserAddress)
 
 	const user = await userRepository.findOne({
 		where: {id},
-		relations: {paymentInfo: true, cart: true},
+		relations: {paymentInfo: true, cart: true, address: true},
 		select: {
 			id: true,
 			fullName: true,
@@ -35,9 +37,18 @@ const createOrderService = async (id: string) => {
 		},
 	});
 
+	
+
+	
 	if (!user) {
 		throw new AppError('User not found', 404);
 	}
+
+	if(user.address.length === 0){
+		throw new AppError("You need to register an address first", 404)
+	}
+
+
 
 	if (!user.isActive) {
 		throw new AppError('This user is not active', 403);
