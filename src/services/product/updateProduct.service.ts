@@ -13,9 +13,12 @@ const updateProductService = async (
 ) => {
   const findProduct = await productRepository.findOne({
     where: { id },
-    relations: { restaurant: true },
+    relations: { restaurant: true, category: true },
   });
-  const findCategory = await categoryRepository.findOneBy({ name: category });
+
+  const findCategory = await categoryRepository.findOneBy({
+    name: category,
+  });
   const findRestaurant = await restaurantRepository.findOneBy({
     id: restaurantId,
   });
@@ -48,6 +51,7 @@ const updateProductService = async (
     price: price ? price : findProduct.price,
     img_url: img_url ? img_url : findProduct.img_url,
     isAvailable: isAvailable ? isAvailable : findProduct.isAvailable,
+    category: findCategory ? findCategory : findProduct.category,
   });
   const product = await productRepository.findOneBy({ id });
   return product;

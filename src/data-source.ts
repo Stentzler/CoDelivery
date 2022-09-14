@@ -12,7 +12,7 @@ const AppDataSource = new DataSource(
     : {
         type: 'postgres',
         host: process.env.DB_HOST,
-        port: 5431,
+        port: 5432,
         username: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_PWD,
         database: process.env.POSTGRES_DB,
