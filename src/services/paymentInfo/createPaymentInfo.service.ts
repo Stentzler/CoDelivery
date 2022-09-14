@@ -23,14 +23,14 @@ const createPaymentInfoService = async ({
       throw new AppError('User not found', 400);
     }
 
-    if (userIdValid.paymentInfo != null) {
-      if (userIdValid.paymentInfo?.cpf != '' ||userIdValid.paymentInfo?.expireDate != '' ||userIdValid.paymentInfo?.cvvNo != '' ||userIdValid.paymentInfo?.cardNo != '' ||userIdValid.paymentInfo?.name != '') {
-        throw new AppError('you already have a payment method, you can edit or delete it and create a new one', 404);
+    if (userIdValid.paymentInfo !== null) {
+      if (userIdValid.paymentInfo?.cpf !== '' ||userIdValid.paymentInfo?.expireDate !== '' ||userIdValid.paymentInfo?.cvvNo !== '' ||userIdValid.paymentInfo?.cardNo !== '' ||userIdValid.paymentInfo?.name !== '') {
+        throw new AppError('You already have a payment method, you can edit or delete it and create a new one', 404);
       }
     }
 
     if (cpfExists) {
-      throw new AppError('cpf is already being used', 400);
+      throw new AppError('Cpf is already being used', 400);
     }
 
     const newPayment = new PaymentInfo();
