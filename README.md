@@ -462,3 +462,34 @@ fetch('http://codelivery.com/products/uploadImage/${product_id}', options)
 ---
 
 ## 8 - Order Products Routes
+
+### 8.1 - Create Order
+
+- POST /order
+- No body request expected.
+- User must have itens in cart.
+
+### 8.2 - List Orders
+
+- GET /order
+- No body request expected.
+- This request will list all orders from an user.
+- This request will list all orders sent to a restaurant.
+
+### 8.3 - Upodate Order Status (Restaurant Only)
+
+- PATCH /order/:{order_id}
+- Order ID must be provided
+- "updateOrderStatus" must be "Order Received", "Out for delivery" or "Delivered"
+- Expected body request:
+
+```json
+{
+	"updateOrderStatus": "Delivered"
+}
+```
+
+### 8.4 - Delete Order
+
+- DELETE /order/:{order_id}
+- Order ID must be provided
