@@ -15,9 +15,13 @@ const updateProductService = async (
     where: { id },
     relations: { restaurant: true, category: true },
   });
-  const findCategory = await categoryRepository.findOneBy({
-    name: category,
-  });
+
+  const findCategory = category
+    ? await categoryRepository.findOne({
+        where: { name: category },
+      })
+    : null;
+  console.log(findCategory);
   const findRestaurant = await restaurantRepository.findOneBy({
     id: restaurantId,
   });
@@ -25,9 +29,10 @@ const updateProductService = async (
   if (!findProduct) {
     throw new AppError('Product not found', 404);
   }
-
-  if (!findCategory) {
-    throw new AppError('Category not found', 404);
+  if (category) {
+    if (!findCategory) {
+      throw new AppError('Category not found', 404);
+    }
   }
 
   if (!findRestaurant) {

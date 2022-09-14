@@ -1,5 +1,5 @@
-import { listRestaurantFromCategoryService } from "../../services/restaurantCategory/listRestaurantFromCategory.service";
-import { Request, Response } from "express";
+import { listRestaurantFromCategoryService } from '../../services/restaurantCategory/listRestaurantFromCategory.service';
+import { Request, Response } from 'express';
 
 const listRestaurantFromCategoryController = async (
   req: Request,
