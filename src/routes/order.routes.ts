@@ -1,11 +1,11 @@
-import { Router } from "express";
-import { createOrderController } from "../controllers/orders/createOrder.controller";
-import { authenticationMiddleware } from "../middlewares/authentication.middleware";
+import {Router} from 'express';
+import {createOrderController} from '../controllers/orders/createOrder.controller';
+import {listOrdersController} from '../controllers/orders/listOrder.controller';
+import {authenticationMiddleware} from '../middlewares/authentication.middleware';
 
+const orderRoutes = Router();
 
-const orderRoutes = Router()
-
-orderRoutes.post('', authenticationMiddleware, createOrderController)
-
+orderRoutes.get('', authenticationMiddleware, listOrdersController);
+orderRoutes.post('', authenticationMiddleware, createOrderController);
 
 export default orderRoutes;
