@@ -11,9 +11,6 @@ const addProductService = async (productId: string, userId: string) => {
     where: {
       id: userId,
     },
-    relations: {
-      cart: true,
-    },
   });
 
   if (!user) {
@@ -25,9 +22,6 @@ const addProductService = async (productId: string, userId: string) => {
   const cart = await cartRepository.findOne({
     where: {
       id: user.cart.id,
-    },
-    relations: {
-      products: true,
     },
   });
 
@@ -51,25 +45,6 @@ const addProductService = async (productId: string, userId: string) => {
     cart.products.filter((product) => product.id === productToAdd.id).length > 0
   ) {
     throw new AppError('Product already in cart', 409);
-  }
-
-  if (cart.products.length > 0) {
-    const existentProduct = await productRepository.findOne({
-      where: { id: cart.products[0].id },
-      relations: { restaurant: true },
-    });
-
-    const newProduct = await productRepository.findOne({
-      where: { id: productId },
-      relations: { restaurant: true },
-    });
-
-    if (existentProduct?.restaurant.id !== newProduct?.restaurant.id) {
-      throw new AppError(
-        'Product is not from the same restaurant as the first product',
-        409
-      );
-    }
   }
 
   cart.products = [...cart.products, productToAdd];
