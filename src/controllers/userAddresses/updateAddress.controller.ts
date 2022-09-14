@@ -13,7 +13,7 @@ const updateAddressesController = async (req: Request, res: Response) => {
     newAddressInfo
   );
 
-  return res.status(201).json(updatedUserAddress);
+  return res.status(204).json(updatedUserAddress);
 };
 
 export { updateAddressesController };

@@ -1,27 +1,40 @@
 import AppDataSource from '../../data-source';
-import {Users} from '../../entities/user.entity';
-import {UserAddress} from '../../entities/userAddresses.entity';
-import {AppError} from '../../errors/AppError';
+import { Users } from '../../entities/user.entity';
+import { UserAddress } from '../../entities/userAddresses.entity';
+import { AppError } from '../../errors/AppError';
 
 const deleteUserAddressService = async (userId: string, addressId: string) => {
-	const usersRepository = AppDataSource.getRepository(Users);
-	const addressRepository = AppDataSource.getRepository(UserAddress);
+  const usersRepository = AppDataSource.getRepository(Users);
+  const addressRepository = AppDataSource.getRepository(UserAddress);
 
-	const user = await usersRepository.findOne({where: {id: userId}, relations: {address: true}});
+  const user = await usersRepository.findOne({
+    where: { id: userId },
+    relations: { address: true },
+  });
 
-	if (!user) {
-		throw new AppError('User not found', 404);
-	}
+  const addressExists = await addressRepository.findOne({
+    where: { id: addressId },
+  });
 
-	const addressToDelete = user.address.find(address => address.id === addressId);
+  if (!addressExists) {
+    throw new AppError('Address does not exist', 404);
+  }
 
-	if (!addressToDelete) {
-		throw new AppError('This address does not belong to this user', 404);
-	}
+  if (!user) {
+    throw new AppError('User not found', 404);
+  }
 
-	await addressRepository.delete({id: addressId});
+  const addressToDelete = user.address.find(
+    (address) => address.id === addressId
+  );
 
-	return;
+  if (!addressToDelete) {
+    throw new AppError('This address does not belong to this user', 409);
+  }
+
+  await addressRepository.delete({ id: addressId });
+
+  return;
 };
 
-export {deleteUserAddressService};
+export { deleteUserAddressService };
