@@ -1,11 +1,11 @@
-import { listRestaurantFromCategoryService } from "../../services/restaurantCategory/listRestaurantFromCategory.service";
-import { Request, Response } from "express";
+import { listRestaurantFromCategoryService } from '../../services/restaurantCategory/listRestaurantFromCategory.service';
+import { Request, Response } from 'express';
 
 const listRestaurantFromCategoryController = async (
   req: Request,
   res: Response
 ) => {
-  const restaurantId: string = req.params.id;
+  const restaurantId: string = req.params.id_category;
 
   const listRes = await listRestaurantFromCategoryService(restaurantId);
 

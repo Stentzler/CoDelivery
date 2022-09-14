@@ -5,7 +5,7 @@ const deleteProductService = async (id: string, restaurantId: string) => {
   const productVerifyExist = await productRepository.findOneBy({ id: id });
 
   if (!productVerifyExist) {
-    throw new AppError('Product not find', 404);
+    throw new AppError('Product not found', 404);
   }
 
   const [findProduct] = await productRepository.find({

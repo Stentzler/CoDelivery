@@ -1,19 +1,17 @@
-import { Url } from 'url';
-
 interface IProductRequest {
   name: string;
   description: string;
   price: number;
   img_url?: string;
   isAvailable?: boolean;
-  category: string;
+  category: any;
 }
 
 interface IProductResponse {
   name: string;
   description: string;
   price: number;
-  img_url: Url;
+  img_url: string;
   is_available: boolean;
   created_at: Date;
   updated_at: Date | null;

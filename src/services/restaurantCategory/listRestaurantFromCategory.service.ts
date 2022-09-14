@@ -1,7 +1,7 @@
-import AppDataSource from "../../data-source";
-import { Restaurant } from "../../entities/restaurant.entity";
-import { RestaurantCategory } from "../../entities/restaurantCategory.entity";
-import { AppError } from "../../errors/AppError";
+import AppDataSource from '../../data-source';
+import { Restaurant } from '../../entities/restaurant.entity';
+import { RestaurantCategory } from '../../entities/restaurantCategory.entity';
+import { AppError } from '../../errors/AppError';
 
 const listRestaurantFromCategoryService = async (categoryId: string) => {
   const restaurantCategoryRepo =
@@ -13,10 +13,21 @@ const listRestaurantFromCategoryService = async (categoryId: string) => {
   });
 
   if (!restaurantCatList) {
-    throw new AppError("Restaurant category not found!", 404);
+    throw new AppError('Restaurant category not found!', 404);
   }
 
-  const allRestaurants = await restaurantRepo.find();
+  const allRestaurants = await restaurantRepo.find({
+    relations: { category: true },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      email: true,
+      img_url: true,
+      cnpj: true,
+      phoneNumber: true,
+    },
+  });
   const allRestaurantsCat = allRestaurants.filter(
     (restaurant) => restaurant.category.id === categoryId
   );

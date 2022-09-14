@@ -1,12 +1,12 @@
-import AppDataSource from "../../data-source";
-import { ProductCategory } from "../../entities/categories.entity";
+import AppDataSource from '../../data-source';
+import { ProductCategory } from '../../entities/categories.entity';
 
 const listProductCategoryService = async () => {
-    const productCategoryRepo = AppDataSource.getRepository(ProductCategory)
+  const productCategoryRepo = AppDataSource.getRepository(ProductCategory);
 
-    const productCatList = await productCategoryRepo.find()
-    
-    return productCatList
-}
+  const productCatList = await productCategoryRepo.find();
 
-export {listProductCategoryService}
+  return productCatList;
+};
+
+export { listProductCategoryService };
