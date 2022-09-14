@@ -5,7 +5,7 @@ const listOrdersController = async (req: Request, res: Response) => {
 	const {id} = req.user;
 	const {isRestaurant} = req.user;
 	const orders = await listOrdersService(id, isRestaurant);
-	return orders;
+	return res.status(201).json(orders);
 };
 
 export {listOrdersController};
