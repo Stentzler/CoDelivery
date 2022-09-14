@@ -48,6 +48,7 @@ const updateProductService = async (
     price: price ? price : findProduct.price,
     img_url: img_url ? img_url : findProduct.img_url,
     isAvailable: isAvailable ? isAvailable : findProduct.isAvailable,
+    category: findCategory,
   });
   const product = await productRepository.findOneBy({ id });
   return product;
