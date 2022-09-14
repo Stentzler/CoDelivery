@@ -341,5 +341,8 @@ export const productEditData = {
   name: 'X-Kenzie',
   description: "Kenzie's Special!",
 };
+export const mockedCategoryRestarauntId = {
+  id: 'e95fcc7b-a399-449a-9290-a90475965b29',
+};
 
 export const fakeProductId = '01e2a76d-8b44-48f6-8760-c95c7ed6bbd4';

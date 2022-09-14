@@ -18,6 +18,15 @@ const listRestaurantFromCategoryService = async (categoryId: string) => {
 
   const allRestaurants = await restaurantRepo.find({
     relations: { category: true },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      email: true,
+      img_url: true,
+      cnpj: true,
+      phoneNumber: true,
+    },
   });
   const allRestaurantsCat = allRestaurants.filter(
     (restaurant) => restaurant.category.id === categoryId
