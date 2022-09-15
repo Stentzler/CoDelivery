@@ -13,7 +13,7 @@
 - [7 - Product Categories Routes](https://github.com/Stentzler/CoDelivery#7---product-categories-routes-pronto)
 - [8 - Order Products Routes](https://github.com/Stentzler/CoDelivery#8---order-products-routes)
 
-## 1.0 - User Routes (Pronto)
+## 1.0 - User Routes
 
 ### 1.0.1 - Create User
 
@@ -66,7 +66,7 @@
 
 ---
 
-## 1.1 - User Address Routes (Pronto)
+## 1.1 - User Address Routes
 
 ### 1.1.1 - Create User Address
 
@@ -121,7 +121,7 @@
 
 ---
 
-## 1.2 - User Payment \_Info Routes (Pronto)
+## 1.2 - User Payment_Info Routes 
 
 ### 1.2.1 - Create User Payment_Info
 
@@ -176,7 +176,7 @@
 
 ---
 
-## 2 - Restaurant Routes (Pronto)
+## 2 - Restaurant Routes
 
 ### 2.1 - Create Restaurant
 
@@ -280,7 +280,7 @@ fetch('http://codelivery.com/restaurants/uploadImage/${restaurant_id}', options)
 
 ---
 
-## 3 - Session Routes (Pronto)
+## 3 - Session Routes
 
 ### 3.1 - User Login
 
@@ -395,7 +395,7 @@ fetch('http://codelivery.com/products/uploadImage/${product_id}', options)
 
 ---
 
-## 5 - Cart Routes (Pronto)
+## 5 - Cart Routes
 
 ### 5.1 - List Products From Cart
 
@@ -427,7 +427,7 @@ fetch('http://codelivery.com/products/uploadImage/${product_id}', options)
 
 ---
 
-## 6 - Restaurant Categories Routes (Pronto)
+## 6 - Restaurant Categories Routes
 
 ### 6.1 - List all restaurant categories
 
@@ -444,7 +444,7 @@ fetch('http://codelivery.com/products/uploadImage/${product_id}', options)
 
 ---
 
-## 7 - Product Categories Routes (Pronto)
+## 7 - Product Categories Routes
 
 ### 7.1 - List all product categories
 
@@ -491,5 +491,6 @@ fetch('http://codelivery.com/products/uploadImage/${product_id}', options)
 
 ### 8.4 - Delete Order
 
-- DELETE /order/:{order_id}
+- PATCH /order/:{order_id}
 - Order ID must be provided
+- Token expected
