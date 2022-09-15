@@ -32,9 +32,11 @@ describe('/restaurant_categories', () => {
     await connection.destroy();
   });
 
-  test('GET /restaurant_categories - Get all resto categories', async () => {
+  test('GET /restaurant_categories - Should be able to get all restaurant categories', async () => {
     const response = await request(app).get('/restaurant_categories');
+
     categoryId = response.body[0].id;
+
     expect(response.body).toHaveLength(10);
     expect(response.body[0].name).toEqual('Fast Food');
     expect(response.body[1].name).toEqual('Bakery');
@@ -48,11 +50,12 @@ describe('/restaurant_categories', () => {
     expect(response.body[9].name).toEqual('Thai');
     expect(response.status).toBe(200);
   });
-  test('GET /restaurant_categories/:idCategory/restaurants -Get resto from category', async () => {
+  test('GET /restaurant_categories/:idCategory/restaurants - Should be able to get all restaurants from a category', async () => {
     const response = await request(app).get(
       `/restaurant_categories/${categoryId}/restaurants`
     );
 
+    expect(response.body).toHaveLength(1);
     expect(response.body[0]).toHaveProperty('id');
     expect(response.body[0]).toHaveProperty('name');
     expect(response.body[0]).toHaveProperty('description');

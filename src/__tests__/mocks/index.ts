@@ -395,3 +395,5 @@ export const mockedCategoryRestarauntId = {
 };
 
 export const fakeProductId = '01e2a76d-8b44-48f6-8760-c95c7ed6bbd4';
+
+export const fakeOrderId = '74ce58e5-5635-4d5a-8907-a6ca6cb10c1e';
