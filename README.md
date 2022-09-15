@@ -476,7 +476,7 @@ fetch('http://codelivery.com/products/uploadImage/${product_id}', options)
 - This request will list all orders from an user.
 - This request will list all orders sent to a restaurant.
 
-### 8.3 - Upodate Order Status (Restaurant Only)
+### 8.3 - Update Order Status (Restaurant Only)
 
 - PATCH /order/:{order_id}
 - Order ID must be provided
