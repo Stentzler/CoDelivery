@@ -7,7 +7,7 @@ import { categoriesQueryBuilder } from './utils/categoriesQueryBuilder';
   await AppDataSource.initialize().catch((err) => {
     console.error('Error during Data Source initialization', err);
   });
-  // await categoriesQueryBuilder();
+  await categoriesQueryBuilder();
 
   const port = process.env.PORT || 3000;
 
