@@ -55,5 +55,4 @@ const categoriesQueryBuilder = async () => {
       .execute();
   }
 };
-
 export { categoriesQueryBuilder };
